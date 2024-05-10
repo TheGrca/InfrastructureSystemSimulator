@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkService"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="POWER WATCH" Height="852" Width="393">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu
+            Grid.Row="0"
+            Height="81"
+            Background="#D9D9D9">
+            <MenuItem/>
+            <MenuItem/>
+            <MenuItem/>
+            <MenuItem/>
+            <MenuItem/>
+        </Menu>
+        <ContentControl Grid.Row="1"/>
     </Grid>
 </Window>
