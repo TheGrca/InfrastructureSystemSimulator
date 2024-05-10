@@ -1,0 +1,15 @@
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\bin\Debug\NetworkService.exe.config
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\bin\Debug\NetworkService.exe
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\bin\Debug\NetworkService.pdb
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.AssemblyReference.cache
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\MainWindow.g.cs
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\App.g.cs
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService_MarkupCompile.cache
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService_MarkupCompile.lref
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\MainWindow.baml
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.g.resources
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.Properties.Resources.resources
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.GenerateResource.cache
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.exe
+C:\Users\Korisnik\Desktop\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.pdb
