@@ -60,7 +60,7 @@
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\AddEntityViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\MeasurementGraphView.cs" />
+    <Compile Include="ViewModel\MeasurementGraphViewModel.cs" />
     <Compile Include="ViewModel\NetworkDisplayViewModel.cs" />
     <Compile Include="ViewModel\NetworkEntitiesViewModel.cs" />
     <Compile Include="Views\AddEntityView.xaml.cs">

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetworkService.Model
 {
-    public enum Type
+    public enum EntityType
     {
         IntervalMeter,
         SmartMeter
@@ -16,8 +16,8 @@ namespace NetworkService.Model
     {
         private int id;
         private string name;
-        private string image;
-        private Type type;
+        private string imagePath;
+        private EntityType type;
 
         public int Id
         {
@@ -51,23 +51,23 @@ namespace NetworkService.Model
             }
         }
 
-        public string Image
+        public string ImagePath
         {
             get
             {
-                return image;
+                return imagePath;
             }
             set
             {
-                if(image != value)
+                if(imagePath != value)
                 {
-                    image = value;
+                    imagePath = value;
                     OnPropertyChanged("Image");
                 }
             }
         }
 
-        public Type Type
+        public EntityType EntityType
         {
             get
             {
@@ -75,9 +75,9 @@ namespace NetworkService.Model
             }
             set
             {
-                if(Type != value)
+                if(type != value)
                 {
-                    Type = value;
+                    type = value;
                     OnPropertyChanged("Type");
                 }
             }

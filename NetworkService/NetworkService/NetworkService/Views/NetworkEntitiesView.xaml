@@ -4,9 +4,117 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:model="clr-namespace:NetworkService.Model"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
+    <UserControl.DataContext>
+        <viewModel:NetworkEntitiesViewModel/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type model:Entity}">
+            <Border BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="5">
+                <Grid Height="100">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image
+                    Grid.Column="0"
+                    Height="80"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    />
+                    <TextBlock Grid.Column="1" Text="{Binding Id}"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Name}"/>
+                    <TextBlock Grid.Column="3" Text="{Binding EntityType}"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0 20 0 20" FontWeight="Bold" Content="ENTITIES VIEW"/>
+        <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="30 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15 0 0 20" VerticalAlignment="Center">
+            <RadioButton Content="NAME" IsChecked="True"/>
+            <RadioButton Content="TYPE" Margin="15 0 0 0"/>
+        </StackPanel>
+        <TextBox Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 20"/>
+        <ListView x:Name="EntityListView"
+                  Margin="10 0 10 20"
+                  Background="Transparent"
+                  ItemsSource="{Binding Entities}"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  SelectedItem="{Binding SelectedEntity}"
+                  SelectionMode="Single"
+                  Height="80"
+                  Grid.Row="3"
+                  VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                    <GridViewColumn Header="Entity Type" DisplayMemberBinding="{Binding EntityType}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="white"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+        <Button Grid.Row="3" Height="25" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Remove" Margin="0 0 10 0" Command="{Binding DeleteCommand}" Cursor="Hand"/>
+        <Label Grid.Row="4" FontSize="15" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 5 0 0"/>
+
+        <Border Grid.Row="4" Background="White" Height="170">
+            <Grid Margin="0 5 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
+                    <TextBlock Text="ID:"></TextBlock>
+                    <TextBox Height="25" Width="215" Text="{Binding IdNumber}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
+                    <TextBlock Text="NAME:"></TextBlock>
+                    <TextBox Height="25" Width="215" Text="{Binding NameText}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
+                    <TextBlock Text="TYPE:"></TextBlock>
+                    <ComboBox Height="25" Width="215" HorizontalAlignment="Left" IsTextSearchCaseSensitive="False" IsTextSearchEnabled="True" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.RowSpan="3" Margin="0 30 0 0">
+                    <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" />
+                    <Button x:Name="SelectImageButton" Width="80" Height="25" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click"/>
+
+                </StackPanel>
+                <Button Grid.Row="2" Height="25" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0,0,10,-30" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
