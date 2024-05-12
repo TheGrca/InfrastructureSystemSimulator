@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:NetworkService"
         xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
         xmlns:views="clr-namespace:NetworkService.Views"
@@ -33,23 +34,40 @@
 
         <Menu
             Grid.Row="0"
-            Height="81"
-            Background="#D9D9D9">
+            Height="80"
+            Background="#D9D9D9"
+            >
+            <MenuItem HorizontalAlignment="Left">
+                <MenuItem.Header>
+                    <fa5:SvgAwesome Height="46" Icon="Solid_ArrowLeft"  Foreground="Black" Margin="0 0 5 0"/>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Network Entities"
-                Header="_Network Entities"
-                />
+                Margin="120 0 0 0"
+                >
+                <MenuItem.Header>
+                    <fa5:SvgAwesome Height="46" Icon="Solid_Home"  Foreground="Black" Margin="0 0 5 0"/>
+                </MenuItem.Header>
+            </MenuItem>
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Network Display"
-                Header="_Network Display"
-                />
+                >
+                <MenuItem.Header>
+                    <fa5:SvgAwesome Height="46" Icon="Solid_Database"  Foreground="Black" Margin="0 0 5 0"/>
+                </MenuItem.Header>
+            </MenuItem>
+
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Measurment Graph"
-                Header="_Measurment Graph"
-                />
+                >
+                <MenuItem.Header>
+                    <fa5:SvgAwesome Height="46" Icon="Solid_ChartBar"  Foreground="Black" Margin="0 0 5 0"/>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
     </Grid>

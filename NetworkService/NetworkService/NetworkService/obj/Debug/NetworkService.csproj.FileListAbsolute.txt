@@ -37,3 +37,8 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkSe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.exe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.pdb
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.dll
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.Net.dll
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.xml
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.Net.xml
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.CopyComplete
