@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\App.xaml
-1219584333
+5737342748
 
-8648616114
+15878137853
 13-1310406943
-MainWindow.xaml;
+MainWindow.xaml;Views\AddEntityView.xaml;Views\MeasurementGraphView.xaml;Views\NetworkDisplayView.xaml;Views\NetworkEntitiesView.xaml;
 
-True
+False
 
