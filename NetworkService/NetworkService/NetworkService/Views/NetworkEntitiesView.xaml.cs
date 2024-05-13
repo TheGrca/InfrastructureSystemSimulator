@@ -42,6 +42,7 @@ namespace NetworkService.Views
             {
                 string selectedImageFilePath = openFileDialog.FileName;
                 (this.DataContext as NetworkEntitiesViewModel)?.SetImage(selectedImageFilePath);
+                PictureDisplay.Source = new BitmapImage(new Uri(selectedImageFilePath));
             }
         }
     }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace NetworkService.Model
 {
@@ -18,6 +19,7 @@ namespace NetworkService.Model
         private string name;
         private string imagePath;
         private EntityType type;
+        private double value;
 
         public int Id
         {
@@ -82,6 +84,23 @@ namespace NetworkService.Model
                 }
             }
         }
+
+        public double Value
+        {
+            get
+            {
+                return value;
+            }
+            set
+            {
+                if (this.value != value)
+                {
+                    this.value = value;
+                    OnPropertyChanged("Value");
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

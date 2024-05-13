@@ -172,7 +172,83 @@ namespace NetworkService.ViewModel
             });
         }
 
+        private string _idError;
+        public string IdError
+        {
+            get 
+            { 
+                return _idError; 
+            }
+            set 
+            { 
+                _idError = value;
+                OnPropertyChanged(nameof(IdError));
+            }
+        }
+
+        private string _nameError;
+        public string NameError
+        {
+            get
+            {
+                return _nameError;
+            }
+            set
+            {
+                _nameError = value;
+                OnPropertyChanged(nameof(NameError));
+            }
+        }
+
+        private string _imageError;
+        public string ImageError
+        {
+            get
+            {
+                return _imageError;
+            }
+            set
+            {
+                _imageError = value;
+                OnPropertyChanged(nameof(ImageError));
+            }
+        }
+
         private void OnAdd() {
+            if (string.IsNullOrEmpty(IdNumber))
+            {
+                IdError = "ID is required.";
+                return;
+            }
+            else if (!int.TryParse(IdNumber, out int id))
+            {
+                IdError = "ID must be a number.";
+                return;
+            }
+            else
+            {
+                IdError = null;
+            }
+
+            if (string.IsNullOrEmpty(NameText))
+            {
+                NameError = "Name is required.";
+                return;
+            }
+            else
+            {
+                NameError = null;
+            }
+
+            if (string.IsNullOrEmpty(ImagePath))
+            {
+                ImageError = "Image is required.";
+                return;
+            }
+            else
+            {
+                ImageError = null;
+            }
             Entities.Add(new Entity
             {
                 Id = int.Parse(IdNumber),
@@ -180,7 +256,7 @@ namespace NetworkService.ViewModel
                 ImagePath = ImagePath,
                 EntityType = TypeText
             });
-            ResetFormFields();
+            ResetFormFields();         
         }
 
         private void ResetFormFields()
@@ -189,6 +265,7 @@ namespace NetworkService.ViewModel
             NameText = string.Empty;
             ImagePath = null;
             TypeText = EntityType.IntervalMeter;
+            ImagePath = null;
         }
 
         private void OnDelete()

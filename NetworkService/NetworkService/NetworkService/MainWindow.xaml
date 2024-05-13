@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type viewModel:MeasurementGraphViewModel}">
             <views:MeasurementGraphView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AddEntityViewModel}">
+            <views:MeasurementGraphView/>
+        </DataTemplate>
     </Window.Resources>
     
     <Grid>
@@ -37,7 +40,7 @@
             Height="80"
             Background="#D9D9D9"
             >
-            <MenuItem HorizontalAlignment="Left">
+            <MenuItem HorizontalAlignment="Left" Margin="0 15 0 0">
                 <MenuItem.Header>
                     <fa5:SvgAwesome Height="46" Icon="Solid_ArrowLeft"  Foreground="Black" Margin="0 0 5 0"/>
                 </MenuItem.Header>
@@ -45,7 +48,7 @@
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Network Entities"
-                Margin="120 0 0 0"
+                Margin="120 15 0 0"
                 >
                 <MenuItem.Header>
                     <fa5:SvgAwesome Height="46" Icon="Solid_Home"  Foreground="Black" Margin="0 0 5 0"/>
@@ -54,6 +57,7 @@
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Network Display"
+                Margin="0 15 0 0"
                 >
                 <MenuItem.Header>
                     <fa5:SvgAwesome Height="46" Icon="Solid_Database"  Foreground="Black" Margin="0 0 5 0"/>
@@ -63,6 +67,7 @@
             <MenuItem
                 Command="{Binding NavCommand}"
                 CommandParameter="Measurment Graph"
+                Margin="0 15 0 0"
                 >
                 <MenuItem.Header>
                     <fa5:SvgAwesome Height="46" Icon="Solid_ChartBar"  Foreground="Black" Margin="0 0 5 0"/>

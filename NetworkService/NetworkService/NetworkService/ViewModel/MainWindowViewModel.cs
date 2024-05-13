@@ -108,6 +108,9 @@ namespace NetworkService.ViewModel
                 case "Measurment Graph":
                     CurrentViewModel = measurementsGraphViewModel;
                     break;
+                case "Add Entity":
+                    currentViewModel = addEntityViewModel;
+                    break;
             }
         }
         

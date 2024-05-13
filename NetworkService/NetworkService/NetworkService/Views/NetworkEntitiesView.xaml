@@ -12,6 +12,7 @@
         <viewModel:NetworkEntitiesViewModel/>
     </UserControl.DataContext>
 
+
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type model:Entity}">
             <Border BorderBrush="Gray"
@@ -50,13 +51,13 @@
             <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0,20,0,20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
-        <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="30 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15,5,0,0" VerticalAlignment="Top">
+        <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0,5,0,20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
+        <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="10 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,5,0,0" VerticalAlignment="Top">
             <RadioButton Content="NAME" IsChecked="True"/>
             <RadioButton Content="TYPE" Margin="15 0 0 0"/>
         </StackPanel>
-        <TextBox Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0"/>
+        <TextBox Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10"/>
         <ListView x:Name="EntityListView"
                   Margin="10,0,10,0"
                   Background="Transparent"
@@ -69,16 +70,17 @@
                   VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="auto"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
                     <GridViewColumn Header="Entity Type" DisplayMemberBinding="{Binding EntityType}" Width="Auto"/>
-                    <GridViewColumn Header="Image" Width="Auto">
+                    <GridViewColumn Header="Image" Width="101">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding ImagePath}" Width="50" Height="50" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="Auto"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -106,19 +108,21 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
                     <TextBlock Text="ID:"></TextBlock>
                     <TextBox Height="25" Width="215" Text="{Binding IdNumber}"/>
+                    <Label Name="IDErrorLabel" Foreground="Red" Content="{Binding IdError}" FontSize="3" Width="200"/>
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
+                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 20 0 0">
                     <TextBlock Text="NAME:"></TextBlock>
-                    <TextBox Height="25" Width="215" Text="{Binding NameText}"/>
+                    <TextBox Height="25" Width="215" Text="{Binding NameText}" />
+                    <Label Name="NameErrorLabel" Foreground="Red" Content="{Binding NameError}" Width="200" Margin="0 10 0 0"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 5 0 0">
                     <TextBlock Text="TYPE:"></TextBlock>
                     <ComboBox Height="25" Width="215" HorizontalAlignment="Left" IsTextSearchCaseSensitive="False" IsTextSearchEnabled="True" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.RowSpan="3" Margin="0 30 0 0">
-                    <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" />
+                    <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" x:Name="PictureDisplay"/>
                     <Button x:Name="SelectImageButton" Width="80" Height="25" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click"/>
-
+                    <Label Name="ImageErrorLabel" Foreground="Red" Content="{Binding ImageError}" Width="100"/>
                 </StackPanel>
                 <Button Grid.Row="2" Height="25" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0,0,10,-30" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1"/>
             </Grid>
