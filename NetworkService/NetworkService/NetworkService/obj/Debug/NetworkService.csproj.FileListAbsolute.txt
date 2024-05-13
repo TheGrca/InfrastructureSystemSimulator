@@ -42,3 +42,5 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkSe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.xml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.Net.xml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.CopyComplete
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\KeyboardView.g.cs
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\KeyboardView.baml

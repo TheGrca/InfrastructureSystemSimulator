@@ -50,15 +50,15 @@
             <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0 20 0 20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
+        <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0,20,0,20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
         <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="30 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15 0 0 20" VerticalAlignment="Center">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="15,5,0,0" VerticalAlignment="Top">
             <RadioButton Content="NAME" IsChecked="True"/>
             <RadioButton Content="TYPE" Margin="15 0 0 0"/>
         </StackPanel>
-        <TextBox Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 20"/>
+        <TextBox Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,0"/>
         <ListView x:Name="EntityListView"
-                  Margin="10 0 10 20"
+                  Margin="10,0,10,0"
                   Background="Transparent"
                   ItemsSource="{Binding Entities}"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -72,6 +72,13 @@
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
                     <GridViewColumn Header="Entity Type" DisplayMemberBinding="{Binding EntityType}" Width="Auto"/>
+                    <GridViewColumn Header="Image" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>
@@ -85,7 +92,7 @@
         <Button Grid.Row="3" Height="25" Width="80" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Remove" Margin="0 0 10 0" Command="{Binding DeleteCommand}" Cursor="Hand"/>
         <Label Grid.Row="4" FontSize="15" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 5 0 0" FontFamily="Inter"/>
 
-        <Border Grid.Row="4" Background="White" Height="170">
+        <Border Grid.Row="4" Background="White" Height="170" Margin="0,40,0,40">
             <Grid Margin="0 5 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>

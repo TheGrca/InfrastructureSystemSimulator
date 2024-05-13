@@ -72,6 +72,9 @@
     <Compile Include="Views\AddEntityView.xaml.cs">
       <DependentUpon>AddEntityView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\KeyboardView.xaml.cs">
+      <DependentUpon>KeyboardView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MeasurementGraphView.xaml.cs">
       <DependentUpon>MeasurementGraphView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddEntityView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KeyboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +146,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Logos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pictures\1.jpg" />
+    <Resource Include="Resources\Pictures\2.jpg" />
+    <Resource Include="Resources\Pictures\3.jpg" />
+    <Resource Include="Resources\Pictures\4.png" />
+    <Resource Include="Resources\Pictures\5.jpg" />
+    <Resource Include="Resources\Pictures\6.jpg" />
+    <Resource Include="Resources\Pictures\7.jpg" />
+    <Resource Include="Resources\Pictures\8.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

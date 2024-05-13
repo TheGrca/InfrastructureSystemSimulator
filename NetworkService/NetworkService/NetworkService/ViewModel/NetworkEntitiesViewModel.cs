@@ -146,28 +146,28 @@ namespace NetworkService.ViewModel
             {
                 Id = 1,
                 Name = "Naziv",
-                ImagePath = "/",
+                ImagePath = @"\Resources\Pictures\1.jpg",
                 EntityType = EntityType.IntervalMeter
             });
             Entities.Add(new Entity
             {
                 Id = 2,
                 Name = "Naziv2",
-                ImagePath = "/",
+                ImagePath = @"\Resources\Pictures\2.jpg",
                 EntityType = EntityType.IntervalMeter
             });
             Entities.Add(new Entity
             {
                 Id = 3,
                 Name = "Naziv3",
-                ImagePath = "/",
+                ImagePath = @"\Resources\Pictures\3.jpg",
                 EntityType = EntityType.IntervalMeter
             });
             Entities.Add(new Entity
             {
                 Id = 4,
                 Name = "Nazi4",
-                ImagePath = "/",
+                ImagePath = @"\Resources\Pictures\4.png",
                 EntityType = EntityType.SmartMeter
             });
         }
