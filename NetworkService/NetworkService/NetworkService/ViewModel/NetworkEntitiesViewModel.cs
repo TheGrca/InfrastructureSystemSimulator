@@ -132,11 +132,22 @@ namespace NetworkService.ViewModel
         public MyICommand AddCommand { get; set; }
         public MyICommand DeleteCommand { get; set; }
 
+        public MyICommand AddEntityCommand { get; private set; }
+
         public NetworkEntitiesViewModel()
         {
             LoadData();
             AddCommand = new MyICommand(OnAdd);
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
+            AddEntityCommand = new MyICommand(AddEntity);
+            AddEntityViewModel addEntityViewModel = new AddEntityViewModel();
+            addEntityViewModel.NetworkEntitiesViewModel = this;
+        }
+
+        private void AddEntity()
+        {
+            AddEntityViewModel addEntityViewModel = new AddEntityViewModel();
+            addEntityViewModel.NetworkEntitiesViewModel = this;
         }
 
         private void LoadData()

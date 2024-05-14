@@ -45,5 +45,57 @@ namespace NetworkService.Views
                 PictureDisplay.Source = new BitmapImage(new Uri(selectedImageFilePath));
             }
         }
+
+        TextBox focusedTextBox;
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // KeyboardGrid.Visibility = Visibility.Visible;
+            focusedTextBox = GetFocusedTextBox();
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+           // if (!preventFocusLoss && !IdTextBox.IsFocused && !NameTextBox.IsFocused && !SearchTextBox.IsFocused)
+           // {
+           //     KeyboardGrid.Visibility = Visibility.Collapsed;
+           // }
+        }
+
+        private bool preventFocusLoss = false;
+        private void KeyboardButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Add the content of the clicked button to the focused text box
+            if (sender is Button button)
+            {
+                if (focusedTextBox != null)
+                {
+                    if (button.Content.ToString().Equals("SPACE"))
+                        button.Content = " ";
+                    else if(button.Content.ToString().Equals("DELETE"))
+                        Console.WriteLine("");
+                    else if(button.Content.ToString().Equals("ENTER"))
+                        KeyboardGrid.Visibility = Visibility.Collapsed;
+
+                    // Append content to the text box
+                    focusedTextBox.Text += button.Content.ToString();
+
+                    // Set focus back to the text box
+                    focusedTextBox.Focus();
+                }
+            }
+        }
+
+        private TextBox GetFocusedTextBox()
+        {
+            // Helper method to get the currently focused text box
+            if (IdTextBox.IsFocused)
+                return IdTextBox;
+            else if (NameTextBox.IsFocused)
+                return NameTextBox;
+            else if (SearchTextBox.IsFocused)
+                return SearchTextBox; // Assuming you don't want to add letters to a combo box
+            else
+                return null;
+        }
     }
 }

@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using NetworkService.Model;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace NetworkService.ViewModel
 {
     public class AddEntityViewModel : BindableBase
     {
+        public NetworkEntitiesViewModel NetworkEntitiesViewModel { get; set; }
         private string _idNumber;
         private string _nameText;
         private EntityType _typeText;
@@ -39,10 +41,6 @@ namespace NetworkService.ViewModel
             set { SetProperty(ref _imagePath, value); }
         }
 
-        public IEnumerable<EntityType> Types { get; } = Enum.GetValues(typeof(EntityType)) as IEnumerable<EntityType>;
-
-        public ICommand SelectImageCommand { get; }
-        public ICommand AddCommand { get; }
 
     }
 }

@@ -14,6 +14,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -62,18 +63,22 @@
             <Button Content="J" Grid.Row="2" Grid.Column="6" />
             <Button Content="K" Grid.Row="2" Grid.Column="7" />
             <Button Content="L" Grid.Row="2" Grid.Column="8" />
-            <Button Content="Del" Grid.Row="2" Grid.Column="9" />
+            
 
             <!-- Fourth row -->
-            <Button Content="Caps" Grid.Row="3" Grid.Column="0" />
-            <Button Content="Z" Grid.Row="3" Grid.Column="1" />
-            <Button Content="X" Grid.Row="3" Grid.Column="2" />
-            <Button Content="C" Grid.Row="3" Grid.Column="3" />
-            <Button Content="V" Grid.Row="3" Grid.Column="4" />
-            <Button Content="B" Grid.Row="3" Grid.Column="5" />
-            <Button Content="N" Grid.Row="3" Grid.Column="6" />
-            <Button Content="M" Grid.Row="3" Grid.Column="7" />
-            <Button Content="Hide" Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2" Click="Button_Click" />
+            <Button Content="Z" Grid.Row="3" Grid.Column="0" />
+            <Button Content="X" Grid.Row="3" Grid.Column="1" />
+            <Button Content="C" Grid.Row="3" Grid.Column="2" />
+            <Button Content="V" Grid.Row="3" Grid.Column="3" />
+            <Button Content="B" Grid.Row="3" Grid.Column="4" />
+            <Button Content="N" Grid.Row="3" Grid.Column="5" />
+            <Button Content="M" Grid.Row="3" Grid.Column="6" />
+            <Button Content="ENTER" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="3"/>
+
+            <Button Content="." Grid.Row="4" Grid.Column="0"/>
+            <Button Content="," Grid.Row="4" Grid.Column="1"/>
+            <Button Content="SPACE" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="6"/>
+            <Button Content="DELETE" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2" Click="Button_Click" />
         </Grid>
 
         <!-- Hide Keyboard button -->
