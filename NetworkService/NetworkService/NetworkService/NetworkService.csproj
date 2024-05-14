@@ -63,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
     <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\EntityValue.cs" />
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\AddEntityViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

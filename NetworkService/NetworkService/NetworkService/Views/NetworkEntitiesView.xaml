@@ -54,10 +54,10 @@
         <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0,5,0,20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
         <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="10 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,5,0,0" VerticalAlignment="Top">
-            <RadioButton Content="NAME" IsChecked="True"/>
-            <RadioButton Content="TYPE" Margin="15 0 0 0"/>
+            <RadioButton Content="NAME" IsChecked="{Binding SearchByName}"/>
+            <RadioButton Content="TYPE" Margin="15 0 0 0" IsChecked="True"/>
         </StackPanel>
-        <TextBox x:Name="SearchTextBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+        <TextBox x:Name="SearchTextBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}"/>
         <ListView x:Name="EntityListView"
                   Margin="10,0,10,0"
                   Background="Transparent"
@@ -80,7 +80,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="Auto"/>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}" Width="60"/>
                 </GridView>
             </ListView.View>
             <ListView.ItemContainerStyle>

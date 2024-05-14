@@ -100,7 +100,7 @@ namespace NetworkService.ViewModel
                             //U suprotnom, server je poslao promenu stanja nekog objekta u sistemu
                             Console.WriteLine(incomming); //Na primer: "Entitet_1:272"
                             string[] parts = incomming.Split(':');
-                            string fileWrite = $"{DateTime.Now}\t{incomming}";
+                            string fileWrite = $"{DateTime.Now}|{incomming}";
                             WriteFile(fileWrite);
                             UpdateEntityCollection(parts);
                             //################ IMPLEMENTACIJA ####################

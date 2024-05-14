@@ -20,8 +20,9 @@ namespace NetworkService.ViewModel
         private string _imagePath;
         private EntityType _typeText;
         private double _value;
-        private bool _isNameSelected = true;
         private Entity _selectedEntity;
+        private bool _searchByName = true;
+        private string _searchTextBoxText;
 
         public string IdNumber
         {
@@ -103,19 +104,41 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public bool IsNameSelected
+        public Entity SelectedEntity
         {
-            get
-            {
-                return _isNameSelected;
-            }
+            get { return _selectedEntity; }
             set
             {
-                if(_isNameSelected != value)
+                if (_selectedEntity != value)
                 {
-                    _isNameSelected = value;
-                    OnPropertyChanged(nameof(IsNameSelected));
-                   //Za pretragu
+                    _selectedEntity = value;
+                    OnPropertyChanged(nameof(SelectedEntity));
+                }
+            }
+        }
+
+        public bool SearchByName
+        {
+            get { return _searchByName; }
+            set
+            {
+                if (_searchByName != value)
+                {
+                    _searchByName = value;
+                    OnPropertyChanged(nameof(SearchByName));
+                }
+            }
+        }
+
+        public string SearchTextBoxText
+        {
+            get { return _searchTextBoxText; }
+            set
+            {
+                if (_searchTextBoxText != value)
+                {
+                    _searchTextBoxText = value;
+                    OnPropertyChanged(nameof(SearchTextBoxText));
                 }
             }
         }
@@ -129,35 +152,41 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public Entity SelectedEntity
-        {
-            get
-            {
-                return _selectedEntity;
-            }
-            set
-            {
-                if(_selectedEntity != value)
-                {
-                    _selectedEntity = value;
-                    OnPropertyChanged(nameof(SelectedEntity));
-                    DeleteCommand.RaiseCanExecuteChanged();
-
-                }
-            }
-        }
-
         public ObservableCollection<Entity> Entities { get; set; }
 
         public MyICommand AddCommand { get; set; }
         public MyICommand DeleteCommand { get; set; }
 
         public MyICommand AddEntityCommand { get; private set; }
+        public MyICommand<string> SearchCommand { get; private set; }
 
         public NetworkEntitiesViewModel()
         {
             AddCommand = new MyICommand(OnAdd);
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
+            SearchCommand = new MyICommand<string>(PerformSearch);
+        }
+
+        private void PerformSearch(object parameter)
+        {
+            var searchText = parameter as string;
+            if (string.IsNullOrEmpty(searchText))
+            {
+                Entities = MainWindowViewModel.Entities;
+            }
+            else
+            {
+                if (SearchByName)
+                {
+                    Entities = new ObservableCollection<Entity>(
+                        MainWindowViewModel.Entities.Where(e => e.Name.ToLower().Contains(searchText.ToLower())));
+                }
+                else
+                {
+                    Entities = new ObservableCollection<Entity>(
+                        MainWindowViewModel.Entities.Where(e => e.EntityType.ToString().ToLower().Contains(searchText.ToLower())));
+                }
+            }
         }
 
         private string _idError;
