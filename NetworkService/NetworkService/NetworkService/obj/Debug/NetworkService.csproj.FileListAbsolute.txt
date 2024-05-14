@@ -18,7 +18,6 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkSe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\NetworkService.pdb
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.AssemblyReference.cache
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\MainWindow.g.cs
-C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\AddEntityView.g.cs
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\MeasurementGraphView.g.cs
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\NetworkDisplayView.g.cs
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\NetworkEntitiesView.g.cs
@@ -26,7 +25,6 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkSe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService_MarkupCompile.cache
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService_MarkupCompile.lref
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\MainWindow.baml
-C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\AddEntityView.baml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\MeasurementGraphView.baml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\NetworkDisplayView.baml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\NetworkEntitiesView.baml
@@ -42,5 +40,3 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkSe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.xml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\bin\Debug\FontAwesome5.Net.xml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\NetworkService.csproj.CopyComplete
-C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\KeyboardView.g.cs
-C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\NetworkService\NetworkService\NetworkService\obj\Debug\Views\KeyboardView.baml

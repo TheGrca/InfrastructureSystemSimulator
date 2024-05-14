@@ -1,18 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NetworkService.Model;
 
 namespace NetworkService.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
-        private int count = 15; // Inicijalna vrednost broja objekata u sistemu
+        public static ObservableCollection<Entity> Entities { get; set; }
+        private void LoadData()
+        {
+            Entities = new ObservableCollection<Entity>();
+            Entities.Add(new Entity
+            {
+                Id = 4,
+                Name = "Naziv",
+                ImagePath = @"\Resources\Pictures\1.jpg",
+                EntityType = EntityType.IntervalMeter,
+                Value = 0
+            });
+            Entities.Add(new Entity
+            {
+                Id = 156,
+                Name = "Naziv2",
+                ImagePath = @"\Resources\Pictures\2.jpg",
+                EntityType = EntityType.IntervalMeter,
+                Value = 0
+            });
+            Entities.Add(new Entity
+            {
+                Id = 8,
+                Name = "Naziv3",
+                ImagePath = @"\Resources\Pictures\3.jpg",
+                EntityType = EntityType.IntervalMeter,
+                Value = 0
+            });
+            Entities.Add(new Entity
+            {
+                Id = 3,
+                Name = "Nazi4",
+                ImagePath = @"\Resources\Pictures\4.png",
+                EntityType = EntityType.SmartMeter,
+                Value = 0
+            });
+        }
+        private int count = 4; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
                                 //           zavisno od broja entiteta u listi
 
@@ -21,11 +62,11 @@ namespace NetworkService.ViewModel
             createListener(); //Povezivanje sa serverskom aplikacijom
             NavCommand = new MyICommand<string>(OnNav);
             CurrentViewModel = networkEntitiesViewModel;
+            LoadData();
         }
-
         private void createListener()
         {
-            var tcp = new TcpListener(IPAddress.Any, 25565);
+            var tcp = new TcpListener(IPAddress.Any, 25675);
             tcp.Start();
 
             var listeningThread = new Thread(() =>
@@ -51,14 +92,17 @@ namespace NetworkService.ViewModel
                              * duzinu liste koja sadrzi sve objekte pod monitoringom, odnosno
                              * njihov ukupan broj (NE BROJATI OD NULE, VEC POSLATI UKUPAN BROJ)
                              * */
-                            Byte[] data = System.Text.Encoding.ASCII.GetBytes(count.ToString());
+                            Byte[] data = System.Text.Encoding.ASCII.GetBytes(Entities.Count.ToString());
                             stream.Write(data, 0, data.Length);
                         }
                         else
                         {
                             //U suprotnom, server je poslao promenu stanja nekog objekta u sistemu
                             Console.WriteLine(incomming); //Na primer: "Entitet_1:272"
-
+                            string[] parts = incomming.Split(':');
+                            string fileWrite = $"{DateTime.Now}\t{incomming}";
+                            WriteFile(fileWrite);
+                            UpdateEntityCollection(parts);
                             //################ IMPLEMENTACIJA ####################
                             // Obraditi poruku kako bi se dobile informacije o izmeni
                             // Azuriranje potrebnih stvari u aplikaciji
@@ -71,6 +115,35 @@ namespace NetworkService.ViewModel
             listeningThread.IsBackground = true;
             listeningThread.Start();
         }
+
+        private void UpdateEntityCollection(string[] parts)
+        {
+            int Index = Int32.Parse(parts[0].Split('_')[1]);
+            double Value = double.Parse(parts[1]);
+            Entities[Index].Value = Value;
+            CheckValue(Entities[Index]);
+        }
+
+        private void CheckValue(Entity entity)
+        {
+            if (entity.Value < 0.34 || entity.Value > 2.73)
+            {
+                entity.IsValid = false;
+            }
+            else
+            {
+                entity.IsValid = true;
+            }
+        }
+
+        private void WriteFile(string fileWrite)
+        {
+            string filepath = "log.txt";
+            using (StreamWriter writer = new StreamWriter(filepath, true)) {
+                writer.WriteLine(fileWrite);
+            }
+        }
+
 
 
         /////////////////////////////////////////

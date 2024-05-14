@@ -46,40 +46,51 @@ namespace NetworkService.Views
             }
         }
 
+        //Keyboard functionality
         TextBox focusedTextBox;
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            // KeyboardGrid.Visibility = Visibility.Visible;
+            KeyboardGrid.Visibility = Visibility.Visible;
             focusedTextBox = GetFocusedTextBox();
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-           // if (!preventFocusLoss && !IdTextBox.IsFocused && !NameTextBox.IsFocused && !SearchTextBox.IsFocused)
-           // {
-           //     KeyboardGrid.Visibility = Visibility.Collapsed;
-           // }
+           if (!preventFocusLoss && !IdTextBox.IsFocused && !NameTextBox.IsFocused && !SearchTextBox.IsFocused)
+           {
+                KeyboardGrid.Visibility = Visibility.Collapsed;
+           }
         }
 
         private bool preventFocusLoss = false;
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
-            // Add the content of the clicked button to the focused text box
             if (sender is Button button)
             {
                 if (focusedTextBox != null)
                 {
                     if (button.Content.ToString().Equals("SPACE"))
                         button.Content = " ";
-                    else if(button.Content.ToString().Equals("DELETE"))
-                        Console.WriteLine("");
-                    else if(button.Content.ToString().Equals("ENTER"))
+                    else if (button.Content.ToString().Equals("DELETE"))
+                    {
+                        if (focusedTextBox.Text.Length > 0)
+                        {
+                            focusedTextBox.Text = focusedTextBox.Text.Substring(0, focusedTextBox.Text.Length - 1);
+                            return;
+                        }
+                        return;
+                    }
+                    else if (button.Content.ToString().Equals("ENTER"))
+                    {
                         KeyboardGrid.Visibility = Visibility.Collapsed;
+                        focusedTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        return;
+                    }
 
-                    // Append content to the text box
-                    focusedTextBox.Text += button.Content.ToString();
 
-                    // Set focus back to the text box
+                    int caretIndex = focusedTextBox.CaretIndex;
+                    focusedTextBox.Text = focusedTextBox.Text.Insert(caretIndex, button.Content.ToString());
+                    focusedTextBox.CaretIndex = caretIndex + 1;
                     focusedTextBox.Focus();
                 }
             }
@@ -93,7 +104,7 @@ namespace NetworkService.Views
             else if (NameTextBox.IsFocused)
                 return NameTextBox;
             else if (SearchTextBox.IsFocused)
-                return SearchTextBox; // Assuming you don't want to add letters to a combo box
+                return SearchTextBox; 
             else
                 return null;
         }

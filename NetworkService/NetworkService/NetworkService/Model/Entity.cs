@@ -20,6 +20,7 @@ namespace NetworkService.Model
         private string imagePath;
         private EntityType type;
         private double value;
+        private bool isValid;
 
         public int Id
         {
@@ -96,6 +97,22 @@ namespace NetworkService.Model
                 if (this.value != value)
                 {
                     this.value = value;
+                    OnPropertyChanged("Value");
+                }
+            }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                return isValid;
+            }
+            set
+            {
+                if(isValid != value)
+                {
+                    isValid = value;
                     OnPropertyChanged("Value");
                 }
             }

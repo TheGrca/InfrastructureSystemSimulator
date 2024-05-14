@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using NetworkService.Model;
 
 namespace NetworkService.ViewModel
@@ -15,8 +19,8 @@ namespace NetworkService.ViewModel
         private string _nameText;
         private string _imagePath;
         private EntityType _typeText;
+        private double _value;
         private bool _isNameSelected = true;
-
         private Entity _selectedEntity;
 
         public string IdNumber
@@ -83,6 +87,22 @@ namespace NetworkService.ViewModel
             }
         }
 
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if(_value != value)
+                {
+                    _value = value;
+                    OnPropertyChanged(nameof(Value));
+                }
+            }
+        }
+
         public bool IsNameSelected
         {
             get
@@ -136,51 +156,8 @@ namespace NetworkService.ViewModel
 
         public NetworkEntitiesViewModel()
         {
-            LoadData();
             AddCommand = new MyICommand(OnAdd);
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
-            AddEntityCommand = new MyICommand(AddEntity);
-            AddEntityViewModel addEntityViewModel = new AddEntityViewModel();
-            addEntityViewModel.NetworkEntitiesViewModel = this;
-        }
-
-        private void AddEntity()
-        {
-            AddEntityViewModel addEntityViewModel = new AddEntityViewModel();
-            addEntityViewModel.NetworkEntitiesViewModel = this;
-        }
-
-        private void LoadData()
-        {
-            Entities = new ObservableCollection<Entity>();
-            Entities.Add(new Entity
-            {
-                Id = 1,
-                Name = "Naziv",
-                ImagePath = @"\Resources\Pictures\1.jpg",
-                EntityType = EntityType.IntervalMeter
-            });
-            Entities.Add(new Entity
-            {
-                Id = 2,
-                Name = "Naziv2",
-                ImagePath = @"\Resources\Pictures\2.jpg",
-                EntityType = EntityType.IntervalMeter
-            });
-            Entities.Add(new Entity
-            {
-                Id = 3,
-                Name = "Naziv3",
-                ImagePath = @"\Resources\Pictures\3.jpg",
-                EntityType = EntityType.IntervalMeter
-            });
-            Entities.Add(new Entity
-            {
-                Id = 4,
-                Name = "Nazi4",
-                ImagePath = @"\Resources\Pictures\4.png",
-                EntityType = EntityType.SmartMeter
-            });
         }
 
         private string _idError;
@@ -226,46 +203,47 @@ namespace NetworkService.ViewModel
         }
 
         private void OnAdd() {
+            List<string> errors = new List<string>();
+
             if (string.IsNullOrEmpty(IdNumber))
             {
-                IdError = "ID is required.";
-                return;
+                errors.Add("ID is required.");
             }
             else if (!int.TryParse(IdNumber, out int id))
             {
-                IdError = "ID must be a number.";
-                return;
-            }
-            else
-            {
-                IdError = null;
+                errors.Add("ID must be a number.");
             }
 
             if (string.IsNullOrEmpty(NameText))
             {
-                NameError = "Name is required.";
-                return;
-            }
-            else
-            {
-                NameError = null;
+                errors.Add("Name is required.");
             }
 
             if (string.IsNullOrEmpty(ImagePath))
             {
-                ImageError = "Image is required.";
+                errors.Add("Image is required.");
+            }
+
+            // Update error properties
+            IdError = errors.FirstOrDefault(e => e.Contains("ID")) ?? null;
+            NameError = errors.FirstOrDefault(e => e.Contains("Name")) ?? null;
+            ImageError = errors.FirstOrDefault(e => e.Contains("Image")) ?? null;
+
+            // Add any additional error handling logic here
+
+            // If there are any errors, return without adding the entity
+            if (errors.Any())
+            {
                 return;
             }
-            else
-            {
-                ImageError = null;
-            }
-            Entities.Add(new Entity
+
+            MainWindowViewModel.Entities.Add(new Entity
             {
                 Id = int.Parse(IdNumber),
                 Name = NameText,
                 ImagePath = ImagePath,
-                EntityType = TypeText
+                EntityType = TypeText,
+                Value = 0
             });
             ResetFormFields();         
         }
@@ -281,7 +259,7 @@ namespace NetworkService.ViewModel
 
         private void OnDelete()
         {
-            Entities.Remove(SelectedEntity);
+            MainWindowViewModel.Entities.Remove(SelectedEntity);
         }
 
         private bool CanDelete() { 
@@ -292,6 +270,8 @@ namespace NetworkService.ViewModel
         {
             ImagePath = imagePath;
         }
+
+   
 
     }
 }
