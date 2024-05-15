@@ -24,5 +24,15 @@ namespace NetworkService.Views
         {
             InitializeComponent();
         }
+
+        private void TreeView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+        }
     }
 }

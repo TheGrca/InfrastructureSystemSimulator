@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using NetworkService.Model;
 
 namespace NetworkService.ViewModel
@@ -13,9 +14,13 @@ namespace NetworkService.ViewModel
         public ObservableCollection<Entity> Entities { get; set; }
         public NetworkDisplayViewModel()
         {
-            var networkEntitiesViewModel = new NetworkEntitiesViewModel();
-
-            Entities = networkEntitiesViewModel.Entities;
+            Entities = MainWindowViewModel.Entities;
         }
+
+        private bool isDragging = false;
+        private Image draggedItem = null;
+        private int draggedItemIndex = -1;
+
+        
     }
 }

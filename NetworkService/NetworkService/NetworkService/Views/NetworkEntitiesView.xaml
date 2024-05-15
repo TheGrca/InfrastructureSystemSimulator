@@ -8,6 +8,7 @@
              xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
+
     <UserControl.DataContext>
         <viewModel:NetworkEntitiesViewModel/>
     </UserControl.DataContext>
@@ -110,7 +111,7 @@
                     <ComboBox Height="25" Width="215" HorizontalAlignment="Left" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}" Margin="0 5 0 0"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
-                    <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" x:Name="PictureDisplay"/>
+            <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" x:Name="PictureDisplay" Source="{Binding ImagePath}" Visibility="{Binding IsImageVisible}"/>
                     <Button x:Name="SelectImageButton" Width="80" Height="25" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click"/>
                     <Label Name="ImageErrorLabel" Foreground="Red" Content="{Binding ImageError}" Width="130" Height="30" Margin="25 0 0 0"/>
                 </StackPanel>
@@ -118,7 +119,7 @@
 
         
             <!-- Keyboard layout -->
-            <Grid x:Name="KeyboardGrid" Grid.Row="5" Visibility="Visible">
+            <Grid x:Name="KeyboardGrid" Grid.Row="5" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -68,6 +69,19 @@ namespace NetworkService.ViewModel
                 {
                     _imagePath = value;
                     OnPropertyChanged(nameof(ImagePath));
+                }
+            }
+        }
+        private Visibility _isImageVisible = Visibility.Visible; // Default value to true if the image is initially visible
+        public Visibility IsImageVisible
+        {
+            get { return _isImageVisible; }
+            set
+            {
+                if (_isImageVisible != value)
+                {
+                    _isImageVisible = value;
+                    OnPropertyChanged(nameof(IsImageVisible));
                 }
             }
         }
@@ -282,8 +296,8 @@ namespace NetworkService.ViewModel
             IdNumber = string.Empty;
             NameText = string.Empty;
             ImagePath = null;
+            IsImageVisible = Visibility.Hidden;
             TypeText = EntityType.IntervalMeter;
-            ImagePath = null;
         }
 
         private void OnDelete()

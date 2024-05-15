@@ -26,6 +26,7 @@ namespace NetworkService.Views
         public NetworkEntitiesView()
         {
             InitializeComponent();
+            PreviewMouseDown += NetworkEntitiesView_PreviewMouseDown;
         }
 
         private void SelectImageButton_Click(object sender, RoutedEventArgs e)
@@ -56,10 +57,10 @@ namespace NetworkService.Views
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-           if (!preventFocusLoss && !IdTextBox.IsFocused && !NameTextBox.IsFocused && !SearchTextBox.IsFocused)
-           {
+            if (preventFocusLoss && focusedTextBox == null)
+            {
                 KeyboardGrid.Visibility = Visibility.Collapsed;
-           }
+            }
         }
 
         private bool preventFocusLoss = false;
@@ -75,15 +76,16 @@ namespace NetworkService.Views
                     {
                         if (focusedTextBox.Text.Length > 0)
                         {
-                            focusedTextBox.Text = focusedTextBox.Text.Substring(0, focusedTextBox.Text.Length - 1);
-                            return;
+                            int caretIdx = focusedTextBox.CaretIndex;
+                            focusedTextBox.Text = focusedTextBox.Text.Remove(caretIdx - 1, 1);
+                            focusedTextBox.CaretIndex = caretIdx - 1;
                         }
                         return;
                     }
                     else if (button.Content.ToString().Equals("ENTER"))
                     {
                         KeyboardGrid.Visibility = Visibility.Collapsed;
-                        focusedTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        focusedTextBox = null;
                         return;
                     }
 
@@ -107,6 +109,34 @@ namespace NetworkService.Views
                 return SearchTextBox; 
             else
                 return null;
+        }
+
+        private void NetworkEntitiesView_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsKeyboardOrTextBoxClicked(e.OriginalSource as DependencyObject))
+            {
+                KeyboardGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+        private bool IsKeyboardOrTextBoxClicked(DependencyObject source)
+        {
+            // Check if the clicked element is part of the keyboard grid or any of the textboxes
+            if (source == KeyboardGrid || (source as FrameworkElement)?.Parent == KeyboardGrid)
+            {
+                return true;
+            }
+
+            if (source == IdTextBox || source == NameTextBox || source == SearchTextBox)
+            {
+                return true;
+            }
+
+            if (VisualTreeHelper.GetParent(source) != null)
+            {
+                return IsKeyboardOrTextBoxClicked(VisualTreeHelper.GetParent(source));
+            }
+
+            return false;
         }
     }
 }
