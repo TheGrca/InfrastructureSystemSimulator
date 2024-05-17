@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NetworkService.ViewModel;
 
 namespace NetworkService.Views
 {
@@ -25,14 +26,19 @@ namespace NetworkService.Views
             InitializeComponent();
         }
 
-        private void TreeView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void Canvas_PreviewDrop(object sender, DragEventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void Canvas_PreviewDragOver(object sender, DragEventArgs e)
         {
+            throw new NotImplementedException();
+        }
 
+        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

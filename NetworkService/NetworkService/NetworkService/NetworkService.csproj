@@ -65,7 +65,6 @@
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\EntityValue.cs" />
     <Compile Include="MyICommand.cs" />
-    <Compile Include="ViewModel\AddEntityViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MeasurementGraphViewModel.cs" />
     <Compile Include="ViewModel\NetworkDisplayViewModel.cs" />

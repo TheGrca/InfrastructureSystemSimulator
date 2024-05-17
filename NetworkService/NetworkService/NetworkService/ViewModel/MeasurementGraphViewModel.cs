@@ -31,7 +31,22 @@ namespace NetworkService.ViewModel
         private Dictionary<int, Brush> _ellipseStrokeColors = new Dictionary<int, Brush>();
         private Dictionary<int, string> _latestValuesTime = new Dictionary<int, string>();
         private List<EntityValue> _selectedEntityValues = new List<EntityValue>();
-        private Polyline _ellipseConnectionLine = new Polyline();
+        private PointCollection _ellipseConnectionPoints = new PointCollection();
+        public PointCollection EllipseConnectionPoints
+        {
+            get
+            {
+                return _ellipseConnectionPoints;
+            }
+            set
+            {
+                if(_ellipseConnectionPoints != value)
+                {
+                    _ellipseConnectionPoints = value;
+                    OnPropertyChanged(nameof(EllipseConnectionPoints));
+                }
+            }
+        }
         public List<EntityValue> SelectedEntityValues
         {
             get 
@@ -65,18 +80,6 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public Polyline EllipseConnectionLine
-        {
-            get { return _ellipseConnectionLine; }
-            set
-            {
-                if (_ellipseConnectionLine != value)
-                {
-                    _ellipseConnectionLine = value;
-                    OnPropertyChanged(nameof(EllipseConnectionLine));
-                }
-            }
-        }
 
         public void StartReadingLogFile()
         {
@@ -146,11 +149,11 @@ namespace NetworkService.ViewModel
             // Update ellipse margins for the selected entity
             if (entityValue.Index == SelectedIndex)
             {
-                UpdateEllipsePropertiesForSelectedEntity();
+                Application.Current.Dispatcher.Invoke(() => UpdateEllipsePropertiesForSelectedEntity());
             }
 
             // Notify UI that the latest values for this entity index have changed
-            OnPropertyChanged($"LatestValues_{entityValue.Index}");
+            Application.Current.Dispatcher.Invoke(() => OnPropertyChanged($"LatestValues_{entityValue.Index}"));
         }
 
         // Method to get the latest 5 values for a given entity index
@@ -176,44 +179,47 @@ namespace NetworkService.ViewModel
 
         private void UpdateEllipsePropertiesForSelectedEntity()
         {
-            // Clear existing margins
-            _ellipseMargins.Clear();
-            _ellipseStrokeColors.Clear();
-            _latestValuesTime.Clear();
-
-            // Get the latest values for the selected entity
-            var selectedEntityIndex = SelectedIndex;
-            var latestValuesForSelectedEntity = GetLatestValues(selectedEntityIndex);
-
-            // If the number of values is less than 5, fill the remaining ellipses with a value of 0
-            while (latestValuesForSelectedEntity.Count < 5)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                latestValuesForSelectedEntity.Add(new EntityValue { Value = 0 }); // Insert 0 at the beginning
-            }
+                // Clear existing margins
+                _ellipseMargins.Clear();
+                _ellipseStrokeColors.Clear();
+                _latestValuesTime.Clear();
 
-            // Calculate proportional margins for the latest values of the selected entity
-            for (int i = 0; i < latestValuesForSelectedEntity.Count; i++)
-            {
-                double latestValue = Math.Round(latestValuesForSelectedEntity[i].Value, 2);
-                latestValuesForSelectedEntity[i].Value = latestValue;
-                _ellipseMargins[i] = CalculateProportionalMargin(latestValue);
-                if (latestValue < 0.34 || latestValue > 2.73)
-                {
-                    _ellipseStrokeColors[i] = Brushes.Red;
-                }
-                else
-                {
-                    _ellipseStrokeColors[i] = Brushes.Green;
-                }
-                string time = latestValuesForSelectedEntity[i].TimeStamp.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
-                _latestValuesTime[i] = time;
-            }
-            SelectedEntityValues = latestValuesForSelectedEntity;
-            UpdateEllipseConnectionLine();
+                // Get the latest values for the selected entity
+                var selectedEntityIndex = SelectedIndex;
+                var latestValuesForSelectedEntity = GetLatestValues(selectedEntityIndex);
 
-            OnPropertyChanged(nameof(EllipseMargins));
-            OnPropertyChanged(nameof(EllipseStrokeColors));
-            OnPropertyChanged(nameof(LatestValuesTime));
+                // If the number of values is less than 5, fill the remaining ellipses with a value of 0
+                while (latestValuesForSelectedEntity.Count < 5)
+                {
+                    latestValuesForSelectedEntity.Add(new EntityValue { Value = 0 }); // Insert 0 at the beginning
+                }
+
+                // Calculate proportional margins for the latest values of the selected entity
+                for (int i = 0; i < latestValuesForSelectedEntity.Count; i++)
+                {
+                    double latestValue = Math.Round(latestValuesForSelectedEntity[i].Value, 2);
+                    latestValuesForSelectedEntity[i].Value = latestValue;
+                    _ellipseMargins[i] = CalculateProportionalMargin(latestValue);
+                    if (latestValue < 0.34 || latestValue > 2.73)
+                    {
+                        _ellipseStrokeColors[i] = Brushes.Red;
+                    }
+                    else
+                    {
+                        _ellipseStrokeColors[i] = Brushes.Green;
+                    }
+                    string time = latestValuesForSelectedEntity[i].TimeStamp.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+                    _latestValuesTime[i] = time;
+                }
+                SelectedEntityValues = latestValuesForSelectedEntity;
+                UpdateEllipseConnectionPoints();
+
+                OnPropertyChanged(nameof(EllipseMargins));
+                OnPropertyChanged(nameof(EllipseStrokeColors));
+                OnPropertyChanged(nameof(LatestValuesTime));
+            });
         }
 
         // Property to bind ellipse margins to in XAML
@@ -241,24 +247,21 @@ namespace NetworkService.ViewModel
             }
         }
 
-        private PointCollection CalculateEllipseConnectionPoints()
-        {
-            PointCollection points = new PointCollection();
-            foreach (var margin in _ellipseMargins.Values)
-            {
-                double x = margin.Left; // X-coordinate of ellipse center (assuming ellipses are centered horizontally)
-                double y = margin.Bottom; // Y-coordinate of ellipse center
-                points.Add(new Point(x, y));
-            }
-            return points;
-        }
 
-        private void UpdateEllipseConnectionLine()
+        //Ellipse lines
+        private void UpdateEllipseConnectionPoints()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var points = CalculateEllipseConnectionPoints();
-                EllipseConnectionLine.Points = points;
+                var points = new PointCollection();
+                for (int i = 0; i < 5; i++)
+                {
+                    var margin = EllipseMargins[i];
+                    double x = i * 70 + 25; // Calculate x based on column index and half of ellipse width
+                    double y = 150 - margin.Bottom; // Calculate y based on margin bottom
+                    points.Add(new Point(x, y));
+                }
+                EllipseConnectionPoints = points;
             });
         }
 

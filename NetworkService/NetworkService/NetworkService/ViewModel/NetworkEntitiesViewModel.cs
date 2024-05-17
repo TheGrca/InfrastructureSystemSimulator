@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using NetworkService.Model;
@@ -22,8 +23,9 @@ namespace NetworkService.ViewModel
         private EntityType _typeText;
         private double _value;
         private Entity _selectedEntity;
-        private bool _searchByName = true;
-        private string _searchTextBoxText;
+        private string _searchText;
+        private ICollectionView _entitiesView;
+
 
         public string IdNumber
         {
@@ -127,35 +129,28 @@ namespace NetworkService.ViewModel
                 {
                     _selectedEntity = value;
                     OnPropertyChanged(nameof(SelectedEntity));
+                    DeleteCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public bool SearchByName
+        public string SearchText
         {
-            get { return _searchByName; }
+            get
+            {
+                return _searchText;
+            }
             set
             {
-                if (_searchByName != value)
+                if(value != _searchText)
                 {
-                    _searchByName = value;
-                    OnPropertyChanged(nameof(SearchByName));
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    _entitiesView.Refresh();
                 }
             }
         }
 
-        public string SearchTextBoxText
-        {
-            get { return _searchTextBoxText; }
-            set
-            {
-                if (_searchTextBoxText != value)
-                {
-                    _searchTextBoxText = value;
-                    OnPropertyChanged(nameof(SearchTextBoxText));
-                }
-            }
-        }
 
 
         public IEnumerable<EntityType> Types
@@ -178,30 +173,9 @@ namespace NetworkService.ViewModel
         {
             AddCommand = new MyICommand(OnAdd);
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
-            SearchCommand = new MyICommand<string>(PerformSearch);
+            _entitiesView = CollectionViewSource.GetDefaultView(this);
         }
 
-        private void PerformSearch(object parameter)
-        {
-            var searchText = parameter as string;
-            if (string.IsNullOrEmpty(searchText))
-            {
-                Entities = MainWindowViewModel.Entities;
-            }
-            else
-            {
-                if (SearchByName)
-                {
-                    Entities = new ObservableCollection<Entity>(
-                        MainWindowViewModel.Entities.Where(e => e.Name.ToLower().Contains(searchText.ToLower())));
-                }
-                else
-                {
-                    Entities = new ObservableCollection<Entity>(
-                        MainWindowViewModel.Entities.Where(e => e.EntityType.ToString().ToLower().Contains(searchText.ToLower())));
-                }
-            }
-        }
 
         private string _idError;
         public string IdError
@@ -296,7 +270,6 @@ namespace NetworkService.ViewModel
             IdNumber = string.Empty;
             NameText = string.Empty;
             ImagePath = null;
-            IsImageVisible = Visibility.Hidden;
             TypeText = EntityType.IntervalMeter;
         }
 

@@ -63,6 +63,7 @@ namespace NetworkService.ViewModel
             NavCommand = new MyICommand<string>(OnNav);
             CurrentViewModel = networkEntitiesViewModel;
             LoadData();
+            history = new Stack<object>();
         }
         private void createListener()
         {
@@ -150,8 +151,11 @@ namespace NetworkService.ViewModel
         private NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
         private NetworkEntitiesViewModel networkEntitiesViewModel = new NetworkEntitiesViewModel();
         private MeasurementGraphViewModel measurementsGraphViewModel = new MeasurementGraphViewModel();
-        private AddEntityViewModel addEntityViewModel = new AddEntityViewModel();
         private BindableBase currentViewModel;
+        private Stack<object> history;
+
+        public MyICommand<string> NavCommand { get; private set; }
+        public MyICommand BackCommand { get; set; }
 
         public BindableBase CurrentViewModel
         {
@@ -165,8 +169,6 @@ namespace NetworkService.ViewModel
                 SetProperty(ref currentViewModel, value);
             }
         }
-
-        public MyICommand<string> NavCommand { get; private set; }
         private void OnNav(string destination)
         {
             switch (destination)
@@ -181,11 +183,7 @@ namespace NetworkService.ViewModel
                 case "Measurment Graph":
                     CurrentViewModel = measurementsGraphViewModel;
                     break;
-                case "Add Entity":
-                    currentViewModel = addEntityViewModel;
-                    break;
             }
         }
-        
     }
 }

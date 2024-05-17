@@ -9,39 +9,7 @@
              xmlns:local="clr-namespace:NetworkService.Views"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
-
-    <UserControl.Resources>
-        <!-- HierarchicalDataTemplate for IntervalMeter -->
-        <HierarchicalDataTemplate DataType="{x:Type model:Entity}" ItemsSource="{Binding}">
-        <TextBlock Text="{Binding Name}" />
-    </HierarchicalDataTemplate>
-
-    <!-- Style for TreeViewItem to display different icons based on EntityType -->
-    <Style TargetType="TreeViewItem">
-        <Setter Property="HeaderTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="16" Height="16" Margin="0,0,5,0">
-                            <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Style.Triggers>
-                                        <DataTrigger Binding="{Binding EntityType}" Value="{x:Static model:EntityType.SmartMeter}">
-                                            <Setter Property="Source" Value="smart_meter_icon.png" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <TextBlock Text="{Binding Name}" />
-                    </StackPanel>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-        </UserControl.Resources>
-
-            <UserControl.DataContext>
+    <UserControl.DataContext>
         <viewModel:NetworkDisplayViewModel/>
     </UserControl.DataContext>
 
@@ -56,9 +24,7 @@
         <TreeView
             Grid.Row="1"
             Height="300" Width="320"
-            ItemsSource="{Binding Entities}"
-            MouseLeftButtonUp="TreeView_MouseLeftButtonUp"
-            SelectedItemChanged="TreeView_SelectedItemChanged">
+            ItemsSource="{Binding Entities}">
         </TreeView>
 
         <Grid Grid.Row="2" Height="254">
@@ -86,7 +52,10 @@
                     Name="Canvas1"
                     AllowDrop="True"
                     Background="White"
-                    Height="60">
+                    Height="60"
+                    PreviewDragOver="Canvas_PreviewDragOver"
+                    PreviewDrop="Canvas_PreviewDrop"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown">
                     <TextBlock
                         Margin="5"
                         FontSize="12"
