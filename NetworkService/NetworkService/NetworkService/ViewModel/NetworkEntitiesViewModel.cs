@@ -25,7 +25,82 @@ namespace NetworkService.ViewModel
         private Entity _selectedEntity;
         private string _searchText;
         private ICollectionView _entitiesView;
+        private Visibility _textBoxVisibility;
+        private Visibility _comboBoxVisibility;
+        private bool _searchByName;
+        private bool _searchByType;
+        private ObservableCollection<Entity> _filteredEntities;
+        public ObservableCollection<Entity> FilteredEntities
+        {
+            get => _filteredEntities;
+            set
+            {
+                if (_filteredEntities != value)
+                {
+                    _filteredEntities = value;
+                    OnPropertyChanged(nameof(FilteredEntities));
+                }
+            }
+        }
+        public Visibility TextBoxVisibility
+        {
+            get => _textBoxVisibility;
+            set
+            {
+                if (_textBoxVisibility != value)
+                {
+                    _textBoxVisibility = value;
+                    OnPropertyChanged(nameof(TextBoxVisibility));
+                }
+            }
+        }
 
+        public Visibility ComboBoxVisibility
+        {
+            get => _comboBoxVisibility;
+            set
+            {
+                if (_comboBoxVisibility != value)
+                {
+                    _comboBoxVisibility = value;
+                    OnPropertyChanged(nameof(ComboBoxVisibility));
+                }
+            }
+        }
+
+        public bool SearchByName
+        {
+            get => _searchByName;
+            set
+            {
+                if (_searchByName != value)
+                {
+                    _searchByName = value;
+                    OnPropertyChanged(nameof(SearchByName));
+                    UpdateVisibility();
+                }
+            }
+        }
+
+        public bool SearchByType
+        {
+            get => _searchByType;
+            set
+            {
+                if (_searchByType != value)
+                {
+                    _searchByType = value;
+                    OnPropertyChanged(nameof(SearchByType));
+                    UpdateVisibility();
+                }
+            }
+        }
+
+        private void UpdateVisibility()
+        {
+            TextBoxVisibility = SearchByName ? Visibility.Visible : Visibility.Collapsed;
+            ComboBoxVisibility = SearchByType ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         public string IdNumber
         {
@@ -169,13 +244,41 @@ namespace NetworkService.ViewModel
         public MyICommand AddEntityCommand { get; private set; }
         public MyICommand<string> SearchCommand { get; private set; }
 
+        private string selectedType;
+        public string SelectedType
+        {
+            get => selectedType;
+            set => SetProperty(ref selectedType, value);
+        }
         public NetworkEntitiesViewModel()
         {
             AddCommand = new MyICommand(OnAdd);
             DeleteCommand = new MyICommand(OnDelete, CanDelete);
             _entitiesView = CollectionViewSource.GetDefaultView(this);
+            SearchByName = true;
+            SearchByType = false;
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(SelectedType))
+                {
+                    FilterEntitiesByType(SelectedType);
+                }
+            };
+            if (MainWindowViewModel.Entities != null)
+            {
+                FilteredEntities = new ObservableCollection<Entity>(MainWindowViewModel.Entities);
+            }
+            else
+            {
+                FilteredEntities = new ObservableCollection<Entity>();
+            }
         }
 
+        private void FilterEntitiesByType(string type)
+        {
+            if (type == null) return;
+            FilteredEntities = new ObservableCollection<Entity>(MainWindowViewModel.Entities.Where(entity => entity.EntityType.Equals(type)));
+        }
 
         private string _idError;
         public string IdError

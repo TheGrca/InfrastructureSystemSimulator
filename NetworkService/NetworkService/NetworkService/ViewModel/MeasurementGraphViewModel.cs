@@ -153,7 +153,11 @@ namespace NetworkService.ViewModel
             }
 
             // Notify UI that the latest values for this entity index have changed
-            Application.Current.Dispatcher.Invoke(() => OnPropertyChanged($"LatestValues_{entityValue.Index}"));
+            Application.Current.Dispatcher.Invoke(() => {
+                OnPropertyChanged($"LatestValues_{entityValue.Index}");
+            OnPropertyChanged(nameof(LastValues));
+            OnPropertyChanged(nameof(SelectedEntityValues));
+        });
         }
 
         // Method to get the latest 5 values for a given entity index
@@ -214,7 +218,7 @@ namespace NetworkService.ViewModel
                     _latestValuesTime[i] = time;
                 }
                 SelectedEntityValues = latestValuesForSelectedEntity;
-                UpdateEllipseConnectionPoints();
+                UpdateLinePoints();
 
                 OnPropertyChanged(nameof(EllipseMargins));
                 OnPropertyChanged(nameof(EllipseStrokeColors));
@@ -249,20 +253,33 @@ namespace NetworkService.ViewModel
 
 
         //Ellipse lines
-        private void UpdateEllipseConnectionPoints()
+        private void UpdateLinePoints()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            var points = new List<Model.Line>();
+            for (int i = 0; i < 4; i++)
             {
-                var points = new PointCollection();
-                for (int i = 0; i < 5; i++)
+                var margin1 = EllipseMargins[i];
+                var margin2 = EllipseMargins[i + 1];
+                double x1 = i * 70 + 25; // Center X of the ellipse
+                double y1 = 150 - margin1.Bottom + 25; // Center Y of the ellipse
+                double x2 = (i + 1) * 70 + 25; // Center X of the next ellipse
+                double y2 = 150 - margin2.Bottom + 25; // Center Y of the next ellipse// Adjust for the center of the ellipse
+                points.Add(new Model.Line { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2 });
+            }
+            LinePoints = points;
+        }
+        private List<Model.Line> _linePoints = new List<Model.Line>();
+        public List<Model.Line> LinePoints
+        {
+            get { return _linePoints; }
+            set
+            {
+                if (_linePoints != value)
                 {
-                    var margin = EllipseMargins[i];
-                    double x = i * 70 + 25; // Calculate x based on column index and half of ellipse width
-                    double y = 150 - margin.Bottom; // Calculate y based on margin bottom
-                    points.Add(new Point(x, y));
+                    _linePoints = value;
+                    OnPropertyChanged(nameof(LinePoints));
                 }
-                EllipseConnectionPoints = points;
-            });
+            }
         }
 
     }

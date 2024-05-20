@@ -31,12 +31,15 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            
+            
+
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[0]}" Margin="{Binding EllipseMargins[0]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[1]}" Grid.Column="1" Margin="{Binding EllipseMargins[1]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[2]}" Grid.Column="2" Margin="{Binding EllipseMargins[2]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[3]}" Grid.Column="3" Margin="{Binding EllipseMargins[3]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[4]}" Grid.Column="4" Margin="{Binding EllipseMargins[4]}"/>
-            <Polyline Points="{Binding EllipseConnectionPoints}" Stroke="Black"/>
+            
 
             <TextBlock Grid.Column="0" Text="{Binding SelectedEntityValues[0].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[0]}"/>
             <TextBlock Grid.Column="1" Text="{Binding SelectedEntityValues[1].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[1]}"/>

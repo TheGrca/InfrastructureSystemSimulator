@@ -33,6 +33,13 @@ C:\Users\Korisnik\Desktop\MeteringSimulator\MeteringSimulator\obj\Debug\Metering
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\MeteringSimulator.exe.config
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\MeteringSimulator.exe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\MeteringSimulator.pdb
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\FontAwesome5.dll
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\FontAwesome5.Net.dll
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\FontAwesome5.xml
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\FontAwesome5.Net.xml
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\bin\Debug\Microsoft.Xaml.Behaviors.xml
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\MeteringSimulator.csproj.AssemblyReference.cache
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\MainWindow.g.cs
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\App.g.cs
@@ -46,3 +53,4 @@ C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\Meteri
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\MeteringSimulator.csproj.CoreCompileInputs.cache
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\MeteringSimulator.exe
 C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\MeteringSimulator.pdb
+C:\Users\Korisnik\Desktop\InfrastructureSystemSimulator\MeteringSimulator\MeteringSimulator\obj\Debug\Metering.BC1A64BD.Up2Date

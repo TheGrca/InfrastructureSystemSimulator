@@ -4,11 +4,51 @@
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:model ="clr-namespace:NetworkService.Model"
              xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              xmlns:local="clr-namespace:NetworkService.Views"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
+    <UserControl.Resources>
+        <ControlTemplate 
+            x:Key="RoundedListViewTemplate" 
+            TargetType="ListView">
+            <Border 
+                CornerRadius="5"
+                Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ScrollViewer>
+                    <ItemsPresenter />
+                </ScrollViewer>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate 
+            x:Key="RoundedButtonTemplate" 
+            TargetType="Button">
+            <Border 
+                x:Name="buttonBorder" 
+                CornerRadius="5" 
+                Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter 
+                        TargetName="buttonBorder" 
+                        Property="BorderBrush" 
+                        Value="LightBlue" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
     <UserControl.DataContext>
         <viewModel:NetworkDisplayViewModel/>
     </UserControl.DataContext>
@@ -24,7 +64,33 @@
         <TreeView
             Grid.Row="1"
             Height="300" Width="320"
-            ItemsSource="{Binding Entities}">
+            x:Name="treeViewEntityList"
+            ItemsSource="{Binding Entities}"
+            SelectedItemChanged="treeViewEntityList_SelectedItemChanged"
+            >
+            <TreeView.Resources>
+                <HierarchicalDataTemplate x:Key="HierarchicalTemplate" ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Cursor="Hand">
+                        <TextBlock Text="{Binding Name}" Foreground="#fff"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Type.Type}" Foreground="#fff"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Value}" Foreground="#fff"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <i:InvokeCommandAction 
+                Command="{Binding SelectionChanged}"
+                CommandParameter="{Binding ElementName=treeViewEntityList}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <i:InvokeCommandAction 
+                Command="{Binding MouseLeftButtonUp}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TreeView>
 
         <Grid Grid.Row="2" Height="254">

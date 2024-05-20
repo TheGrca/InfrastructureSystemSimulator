@@ -40,5 +40,10 @@ namespace NetworkService.Views
         {
             throw new NotImplementedException();
         }
+
+        private void treeViewEntityList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+        }
     }
 }
