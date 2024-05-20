@@ -59,10 +59,10 @@
             <RadioButton Content="TYPE" Margin="15 0 0 0" IsChecked="{Binding SearchByType}"/>
         </StackPanel>
         <TextBox x:Name="SearchTextBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding TextBoxVisibility}"/>
-        <ComboBox x:Name="SearchComboBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" Visibility="{Binding ComboBoxVisibility}" SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBoxItem Content="SmartMeter"/>
-        <ComboBoxItem Content="IntervalMeter"/>
-
+        <ComboBox x:Name="SearchComboBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" Visibility="{Binding ComboBoxVisibility}" SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="SmartMeter"/>
+            <ComboBoxItem Content="IntervalMeter"/>
+        </ComboBox>
         <ListView x:Name="EntityListView"
                   Margin="10,0,10,0"
                   Background="Transparent"

@@ -65,32 +65,21 @@
             Grid.Row="1"
             Height="300" Width="320"
             x:Name="treeViewEntityList"
-            ItemsSource="{Binding Entities}"
+            ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities}"
             SelectedItemChanged="treeViewEntityList_SelectedItemChanged"
             >
             <TreeView.Resources>
-                <HierarchicalDataTemplate x:Key="HierarchicalTemplate" ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal" Cursor="Hand">
-                        <TextBlock Text="{Binding Name}" Foreground="#fff"/>
-                        <TextBlock Text=" "/>
-                        <TextBlock Text="{Binding Type.Type}" Foreground="#fff"/>
-                        <TextBlock Text=" "/>
-                        <TextBlock Text="{Binding Value}" Foreground="#fff"/>
-                    </StackPanel>
+                <HierarchicalDataTemplate DataType="{x:Type model:EntityType}" ItemsSource="{Binding}">
+                    <TextBlock Text="{Binding}" />
                 </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type model:Entity}">
+                    <!-- Define your DataTemplate here -->
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding ImagePath}" Width="50" Height="50" />
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0"/>
+                    </StackPanel>
+                </DataTemplate>
             </TreeView.Resources>
-
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction 
-                Command="{Binding SelectionChanged}"
-                CommandParameter="{Binding ElementName=treeViewEntityList}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction 
-                Command="{Binding MouseLeftButtonUp}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
         </TreeView>
 
         <Grid Grid.Row="2" Height="254">

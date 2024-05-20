@@ -17,7 +17,7 @@ namespace NetworkService.ViewModel
     public class MainWindowViewModel : BindableBase
     {
         public static ObservableCollection<Entity> Entities { get; set; }
-        private void LoadData()
+        public void LoadData()
         {
             Entities = new ObservableCollection<Entity>();
             Entities.Add(new Entity
@@ -60,9 +60,9 @@ namespace NetworkService.ViewModel
         public MainWindowViewModel()
         {
             createListener(); //Povezivanje sa serverskom aplikacijom
+            LoadData();
             NavCommand = new MyICommand<string>(OnNav);
             CurrentViewModel = networkEntitiesViewModel;
-            LoadData();
             history = new Stack<object>();
         }
         private void createListener()
@@ -148,8 +148,8 @@ namespace NetworkService.ViewModel
 
 
         /////////////////////////////////////////
-        private NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
         private NetworkEntitiesViewModel networkEntitiesViewModel = new NetworkEntitiesViewModel();
+        private NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
         private MeasurementGraphViewModel measurementsGraphViewModel = new MeasurementGraphViewModel();
         private BindableBase currentViewModel;
         private Stack<object> history;
