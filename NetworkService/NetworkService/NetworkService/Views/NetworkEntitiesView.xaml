@@ -41,9 +41,43 @@
                 </Grid>
             </Border>
         </DataTemplate>
+
+        <Style x:Key="MyButton" TargetType="Button">
+            <Setter Property="Background" Value="#EADBC8"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#DCC0B6"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#C3A69D"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="#FEFAF6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -53,19 +87,20 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label FontSize="24" FontFamily="Inter" HorizontalAlignment="Center" Margin="0,5,0,20" FontWeight="SemiBold" Content="ENTITIES VIEW" />
-        <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="10 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,5,0,0" VerticalAlignment="Top">
-            <RadioButton Content="NAME" IsChecked="{Binding SearchByName}"/>
-            <RadioButton Content="TYPE" Margin="15 0 0 0" IsChecked="{Binding SearchByType}"/>
+            <TextBlock FontSize="16" FontFamily="Inter" HorizontalAlignment="Left" Grid.Row="1" Margin="10 0 0 10" Text="SEARCH BY:" FontWeight="SemiBold"/>
+            <RadioButton Margin="20 2 0 0" Background="#EADBC8" Content="NAME" IsChecked="{Binding SearchByName}"/>
+            <RadioButton   Background="#EADBC8" Content="TYPE" Margin="15 2 0 0" IsChecked="{Binding SearchByType}"/>
         </StackPanel>
-        <TextBox x:Name="SearchTextBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding TextBoxVisibility}"/>
-        <ComboBox x:Name="SearchComboBox" Height="25" Width="215" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,10,10" Visibility="{Binding ComboBoxVisibility}" SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox Background="#EADBC8" x:Name="SearchTextBox" Height="25" Width="190" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,10,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="{Binding IsTextBoxAvailable}" Text="{Binding SearchTextBoxText}" TextChanged=""/>
+        <ComboBox Background="#EADBC8" x:Name="SearchComboBox" Height="25" Width="150" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,35,10,10" IsEnabled="{Binding IsComboBoxAvailable}" SelectedItem="{Binding SelectedType}">
+            <ComboBoxItem Content=""/>
             <ComboBoxItem Content="SmartMeter"/>
             <ComboBoxItem Content="IntervalMeter"/>
         </ComboBox>
         <ListView x:Name="EntityListView"
-                  Margin="10,0,10,0"
-                  Background="Transparent"
+                  Margin="10,-5,10,0"
+                  Background="#DAC0A3"
                   ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities}"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   SelectedItem="{Binding SelectedEntity}"
@@ -96,30 +131,30 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button Grid.Row="3" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Remove" Margin="0 0 10 0" Command="{Binding DeleteCommand}" Cursor="Hand"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 0" Command="{Binding DeleteCommand}" Cursor="Hand"/>
         <Label Grid.Row="4" FontSize="15" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 5 0 0" FontFamily="Inter"/>
 
 
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 30 0 0" Grid.Row="4">
                     <TextBlock Text="ID:"></TextBlock>
-                    <TextBox x:Name="IdTextBox"  Height="25" Width="215" Text="{Binding IdNumber}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
+            <TextBox x:Name="IdTextBox" Background="#EADBC8"  Height="25" Width="215" Text="{Binding IdNumber}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
                     <Label Name="IDErrorLabel" Foreground="Red" Content="{Binding IdError}" Width="215" Height="25" VerticalAlignment="Top"/>
                 </StackPanel>
                  <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Margin="10 120 0 0" Grid.Row="4">
                     <TextBlock Text="NAME:"></TextBlock>
-            <TextBox x:Name="NameTextBox" Height="25" Width="215" Text="{Binding NameText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
+            <TextBox x:Name="NameTextBox" Background="#EADBC8" Height="25" Width="215" Text="{Binding NameText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
             <Label Name="NameErrorLabel" Foreground="Red" Content="{Binding NameError}"  Width="215" Height="25"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 210 0 0">
                     <TextBlock Text="TYPE:"></TextBlock>
-                    <ComboBox Height="25" Width="215" HorizontalAlignment="Left" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}" Margin="0 5 0 0"/>
+            <ComboBox Background="#EADBC8" Height="25" Width="215" HorizontalAlignment="Left" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}" Margin="0 5 0 0"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
-            <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 20" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button x:Name="SelectImageButton" Width="80" Height="25" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click"/>
+            <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 10" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click"/>
                     <Label Name="ImageErrorLabel" Foreground="Red" Content="{Binding ImageError}" Width="130" Height="30" Margin="25 0 0 0"/>
                 </StackPanel>
-                <Button Grid.Row="4" Height="25" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1"/>
 
         
             <!-- Keyboard layout -->

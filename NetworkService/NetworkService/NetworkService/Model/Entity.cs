@@ -65,7 +65,7 @@ namespace NetworkService.Model
                 if(imagePath != value)
                 {
                     imagePath = value;
-                    OnPropertyChanged("Image");
+                    OnPropertyChanged("ImagePath");
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace NetworkService.Model
                 if(type != value)
                 {
                     type = value;
-                    OnPropertyChanged("Type");
+                    OnPropertyChanged("EntityType");
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace NetworkService.Model
                 if(isValid != value)
                 {
                     isValid = value;
-                    OnPropertyChanged("Value");
+                    OnPropertyChanged("IsValid");
                 }
             }
         }

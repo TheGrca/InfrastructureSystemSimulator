@@ -12,7 +12,7 @@
     </UserControl.DataContext>
 
 
-    <Grid>
+    <Grid Background="#FEFAF6">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="200"/>
@@ -23,7 +23,7 @@
             <Label Content="ENTITY:" HorizontalAlignment="Center" FontSize="15"/>
             <ComboBox ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name" Height="40" Width="200" SelectedIndex="{Binding SelectedIndex}"/>
         </StackPanel>
-        <Grid Grid.Row="2" Height="300" Width="350">
+        <Grid Background="#EADBC8" Grid.Row="2" Height="300" Width="350">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -47,7 +47,7 @@
             <TextBlock Grid.Column="3" Text="{Binding SelectedEntityValues[3].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[3]}"/>
             <TextBlock Grid.Column="4" Text="{Binding SelectedEntityValues[4].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[4]}"/>
 
-            <Label VerticalAlignment="Bottom" Grid.ColumnSpan="5" Content="-----------------------------------------------------------------------------------------------" Margin="0 0 0 50"/>
+            <Label VerticalAlignment="Bottom" Grid.ColumnSpan="5" Content="---------------------------------------------------------------------------------------------------------" Margin="0 0 0 50"/>
             <Label VerticalAlignment="Bottom" Grid.Column="0" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[0]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[1]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[2]}"/>

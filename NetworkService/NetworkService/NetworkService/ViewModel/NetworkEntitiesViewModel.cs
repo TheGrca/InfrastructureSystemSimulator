@@ -19,87 +19,125 @@ namespace NetworkService.ViewModel
     {
         private string _idNumber;
         private string _nameText;
+        private string _searchTextBoxText;
         private string _imagePath;
         private EntityType _typeText;
         private double _value;
         private Entity _selectedEntity;
         private string _searchText;
         private ICollectionView _entitiesView;
-        private Visibility _textBoxVisibility;
-        private Visibility _comboBoxVisibility;
+        private bool _isComboBoxAvailable;
+        private bool _isTextBoxAvailable;
         private bool _searchByName;
+        private bool _nameTextChanged;
         private bool _searchByType;
-        private ObservableCollection<Entity> _filteredEntities;
-        public ObservableCollection<Entity> FilteredEntities
+
+
+        public bool NameTextChanged
         {
-            get => _filteredEntities;
+            get
+            {
+                return _nameTextChanged;
+            }
             set
             {
-                if (_filteredEntities != value)
+                if(_nameTextChanged != value)
                 {
-                    _filteredEntities = value;
-                    OnPropertyChanged(nameof(FilteredEntities));
+                    _nameTextChanged = value;
+                    OnPropertyChanged(nameof(NameTextChanged));
+                    FilterByName();
                 }
             }
         }
-        public Visibility TextBoxVisibility
+        public void FilterByName()
         {
-            get => _textBoxVisibility;
+            ObservableCollection<Entity> Entities = MainWindowViewModel.Entities;
+            MainWindowViewModel.Entities.Clear();
+            foreach(Entity e in Entities)
+            {
+                MainWindowViewModel.Entities.Add(e);
+            }
+        }
+        public bool IsTextBoxAvailable
+        {
+            get
+            {
+                return _isTextBoxAvailable;
+            }
             set
             {
-                if (_textBoxVisibility != value)
+                if (_isTextBoxAvailable != value)
                 {
-                    _textBoxVisibility = value;
-                    OnPropertyChanged(nameof(TextBoxVisibility));
+                    _isTextBoxAvailable = value;
+                    OnPropertyChanged(nameof(IsTextBoxAvailable));
                 }
             }
         }
 
-        public Visibility ComboBoxVisibility
+        public bool IsComboBoxAvailable
         {
-            get => _comboBoxVisibility;
+            get
+            {
+                return _isComboBoxAvailable;
+            }
             set
             {
-                if (_comboBoxVisibility != value)
+                if (_isComboBoxAvailable != value)
                 {
-                    _comboBoxVisibility = value;
-                    OnPropertyChanged(nameof(ComboBoxVisibility));
+                    _isComboBoxAvailable = value;
+                    OnPropertyChanged(nameof(IsComboBoxAvailable));
                 }
             }
         }
 
         public bool SearchByName
         {
-            get => _searchByName;
+            get
+            {
+              return _searchByName;
+            }
             set
             {
                 if (_searchByName != value)
                 {
                     _searchByName = value;
                     OnPropertyChanged(nameof(SearchByName));
-                    UpdateVisibility();
+                    UpdateAvailability(); ;
                 }
             }
         }
 
         public bool SearchByType
         {
-            get => _searchByType;
+            get 
+            { 
+                return _searchByType;
+            }
             set
             {
                 if (_searchByType != value)
                 {
                     _searchByType = value;
                     OnPropertyChanged(nameof(SearchByType));
-                    UpdateVisibility();
+                    UpdateAvailability();
                 }
             }
         }
 
-        private void UpdateVisibility()
+        private void UpdateAvailability()
         {
-            TextBoxVisibility = SearchByName ? Visibility.Visible : Visibility.Collapsed;
-            ComboBoxVisibility = SearchByType ? Visibility.Visible : Visibility.Collapsed;
+            IsComboBoxAvailable = SearchByType;
+            IsTextBoxAvailable = SearchByName;
+            if (!IsTextBoxAvailable)
+            {
+                SearchTextBoxText = "";
+            }
+
+            // Reset ComboBox selected item when it becomes unavailable
+            if (!IsComboBoxAvailable)
+            {
+                SelectedType = null; // Set to null or default value
+            }
         }
 
         public string IdNumber
@@ -114,6 +152,22 @@ namespace NetworkService.ViewModel
                 {
                     _idNumber = value;
                     OnPropertyChanged(nameof(IdNumber));
+                }
+            }
+        }
+
+        public string SearchTextBoxText
+        {
+            get
+            {
+                return _searchTextBoxText;
+            }
+            set
+            {
+                if (_searchTextBoxText != value)
+                {
+                    _searchTextBoxText = value;
+                    OnPropertyChanged(nameof(SearchTextBoxText));
                 }
             }
         }
@@ -257,28 +311,9 @@ namespace NetworkService.ViewModel
             _entitiesView = CollectionViewSource.GetDefaultView(this);
             SearchByName = true;
             SearchByType = false;
-            PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == nameof(SelectedType))
-                {
-                    FilterEntitiesByType(SelectedType);
-                }
-            };
-            if (MainWindowViewModel.Entities != null)
-            {
-                FilteredEntities = new ObservableCollection<Entity>(MainWindowViewModel.Entities);
-            }
-            else
-            {
-                FilteredEntities = new ObservableCollection<Entity>();
-            }
         }
 
-        private void FilterEntitiesByType(string type)
-        {
-            if (type == null) return;
-            FilteredEntities = new ObservableCollection<Entity>(MainWindowViewModel.Entities.Where(entity => entity.EntityType.Equals(type)));
-        }
+
 
         private string _idError;
         public string IdError
@@ -376,9 +411,18 @@ namespace NetworkService.ViewModel
             TypeText = EntityType.IntervalMeter;
         }
 
+        private bool DeleteConfirmation()
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this entity?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result == MessageBoxResult.Yes;
+        }
+
         private void OnDelete()
         {
-            MainWindowViewModel.Entities.Remove(SelectedEntity);
+            if (DeleteConfirmation())
+            {
+                MainWindowViewModel.Entities.Remove(SelectedEntity);
+            }
         }
 
         private bool CanDelete() { 
