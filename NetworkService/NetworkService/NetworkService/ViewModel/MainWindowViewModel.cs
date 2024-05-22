@@ -19,39 +19,41 @@ namespace NetworkService.ViewModel
         public static ObservableCollection<Entity> Entities { get; set; }
         public void LoadData()
         {
-            Entities = new ObservableCollection<Entity>();
-            Entities.Add(new Entity
+            Entities = new ObservableCollection<Entity>
             {
-                Id = 4,
-                Name = "Naziv",
-                ImagePath = @"\Resources\Pictures\1.jpg",
-                EntityType = EntityType.IntervalMeter,
-                Value = 0
-            });
-            Entities.Add(new Entity
-            {
-                Id = 156,
-                Name = "Naziv2",
-                ImagePath = @"\Resources\Pictures\2.jpg",
-                EntityType = EntityType.IntervalMeter,
-                Value = 0
-            });
-            Entities.Add(new Entity
-            {
-                Id = 8,
-                Name = "Naziv3",
-                ImagePath = @"\Resources\Pictures\3.jpg",
-                EntityType = EntityType.IntervalMeter,
-                Value = 0
-            });
-            Entities.Add(new Entity
-            {
-                Id = 3,
-                Name = "Nazi4",
-                ImagePath = @"\Resources\Pictures\4.png",
-                EntityType = EntityType.SmartMeter,
-                Value = 0
-            });
+                new Entity
+                {
+                    Id = 4,
+                    Name = "Naziv",
+                    ImagePath = @"\Resources\Pictures\1.jpg",
+                    EntityType = EntityType.IntervalMeter,
+                    Value = 0
+                },
+                new Entity
+                {
+                    Id = 156,
+                    Name = "Naziv2",
+                    ImagePath = @"\Resources\Pictures\2.jpg",
+                    EntityType = EntityType.IntervalMeter,
+                    Value = 0
+                },
+                new Entity
+                {
+                    Id = 8,
+                    Name = "Naziv3",
+                    ImagePath = @"\Resources\Pictures\3.jpg",
+                    EntityType = EntityType.IntervalMeter,
+                    Value = 0
+                },
+                new Entity
+                {
+                    Id = 3,
+                    Name = "Nazi4",
+                    ImagePath = @"\Resources\Pictures\4.png",
+                    EntityType = EntityType.SmartMeter,
+                    Value = 0
+                }
+            };
         }
         private int count = 4; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
@@ -59,8 +61,8 @@ namespace NetworkService.ViewModel
 
         public MainWindowViewModel()
         {
-            createListener(); //Povezivanje sa serverskom aplikacijom
             LoadData();
+            createListener(); //Povezivanje sa serverskom aplikacijom   
             NavCommand = new MyICommand<string>(OnNav);
             CurrentViewModel = networkEntitiesViewModel;
             history = new Stack<object>();

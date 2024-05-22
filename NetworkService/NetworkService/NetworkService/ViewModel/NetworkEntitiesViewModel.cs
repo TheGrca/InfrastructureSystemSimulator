@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -102,7 +103,7 @@ namespace NetworkService.ViewModel
                 {
                     _searchByName = value;
                     OnPropertyChanged(nameof(SearchByName));
-                    UpdateAvailability(); ;
+                    UpdateAvailability();
                 }
             }
         }
@@ -133,10 +134,9 @@ namespace NetworkService.ViewModel
                 SearchTextBoxText = "";
             }
 
-            // Reset ComboBox selected item when it becomes unavailable
             if (!IsComboBoxAvailable)
             {
-                SelectedType = null; // Set to null or default value
+                SelectedType = null;
             }
         }
 
@@ -168,6 +168,7 @@ namespace NetworkService.ViewModel
                 {
                     _searchTextBoxText = value;
                     OnPropertyChanged(nameof(SearchTextBoxText));
+                    Search();
                 }
             }
         }
@@ -301,8 +302,20 @@ namespace NetworkService.ViewModel
         private string selectedType;
         public string SelectedType
         {
-            get => selectedType;
-            set => SetProperty(ref selectedType, value);
+            get
+            {
+                return selectedType;
+            }
+            set
+            {
+                if(selectedType != value)
+                {
+                    selectedType = value;
+                    OnPropertyChanged(nameof(SelectedType));
+                    Search();
+                }
+            }
+
         }
         public NetworkEntitiesViewModel()
         {
@@ -311,6 +324,7 @@ namespace NetworkService.ViewModel
             _entitiesView = CollectionViewSource.GetDefaultView(this);
             SearchByName = true;
             SearchByType = false;
+            EntitiesList = MainWindowViewModel.Entities;
         }
 
 
@@ -434,6 +448,59 @@ namespace NetworkService.ViewModel
             ImagePath = imagePath;
         }
 
+
+        //Filter
+        private ObservableCollection<Entity> _entitiesList;
+        public ObservableCollection<Entity> EntitiesList
+        {
+            get { return _entitiesList; }
+            set
+            {
+                _entitiesList = value;
+                OnPropertyChanged(nameof(EntitiesList));
+            }
+        }
+
+        private void Search()
+        {
+            List<Entity> entities = new List<Entity>();
+            if (SearchByName)
+            {
+                if (SearchTextBoxText != null)
+                {
+
+                    entities = MainWindowViewModel.Entities
+                               .Where(entity => entity.Name.ToLower().Contains(SearchTextBoxText.ToLower()))
+                               .ToList();
+
+                }
+                else { 
+
+                entities = MainWindowViewModel.Entities.ToList();
+                }
+            }
+            else if (SearchByType)
+            {
+                if (SelectedType != null)
+                {
+                    EntityType parsedType;
+                    if (Enum.TryParse(SelectedType, out parsedType)) {
+                        entities = MainWindowViewModel.Entities
+                                  .Where(entity => entity.EntityType == parsedType)
+                                  .ToList();
+                    }
+                }
+                else
+                {
+                    entities = MainWindowViewModel.Entities.ToList();
+                }
+            }
+            else
+            {
+                entities = MainWindowViewModel.Entities.ToList();
+            }
+            EntitiesList = new ObservableCollection<Entity>(entities);
+        }
    
 
     }

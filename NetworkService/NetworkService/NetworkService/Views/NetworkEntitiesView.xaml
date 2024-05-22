@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:local="clr-namespace:NetworkService.Views"
             xmlns:model="clr-namespace:NetworkService.Model"
             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
@@ -92,16 +93,15 @@
             <RadioButton Margin="20 2 0 0" Background="#EADBC8" Content="NAME" IsChecked="{Binding SearchByName}"/>
             <RadioButton   Background="#EADBC8" Content="TYPE" Margin="15 2 0 0" IsChecked="{Binding SearchByType}"/>
         </StackPanel>
-        <TextBox Background="#EADBC8" x:Name="SearchTextBox" Height="25" Width="190" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,10,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="{Binding IsTextBoxAvailable}" Text="{Binding SearchTextBoxText}" TextChanged=""/>
+        <TextBox Background="#EADBC8" x:Name="SearchTextBox" Height="25" Width="190" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,10,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="{Binding IsTextBoxAvailable}" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Background="#EADBC8" x:Name="SearchComboBox" Height="25" Width="150" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,35,10,10" IsEnabled="{Binding IsComboBoxAvailable}" SelectedItem="{Binding SelectedType}">
-            <ComboBoxItem Content=""/>
-            <ComboBoxItem Content="SmartMeter"/>
-            <ComboBoxItem Content="IntervalMeter"/>
+            <sys:String>SmartMeter</sys:String>
+            <sys:String>IntervalMeter</sys:String>
         </ComboBox>
         <ListView x:Name="EntityListView"
                   Margin="10,-5,10,0"
                   Background="#DAC0A3"
-                  ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities}"
+                  ItemsSource="{Binding EntitiesList}"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   SelectedItem="{Binding SelectedEntity}"
                   SelectionMode="Single"
