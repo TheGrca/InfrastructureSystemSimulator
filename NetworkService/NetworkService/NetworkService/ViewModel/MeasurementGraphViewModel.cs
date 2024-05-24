@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -206,19 +207,12 @@ namespace NetworkService.ViewModel
                     double latestValue = Math.Round(latestValuesForSelectedEntity[i].Value, 2);
                     latestValuesForSelectedEntity[i].Value = latestValue;
                     _ellipseMargins[i] = CalculateProportionalMargin(latestValue);
-                    if (latestValue < 0.34 || latestValue > 2.73)
-                    {
-                        _ellipseStrokeColors[i] = Brushes.Red;
-                    }
-                    else
-                    {
-                        _ellipseStrokeColors[i] = Brushes.Green;
-                    }
+                    _ellipseStrokeColors[i] = latestValue < 0.34 || latestValue > 2.73 ? Brushes.Red : Brushes.Green;
                     string time = latestValuesForSelectedEntity[i].TimeStamp.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
                     _latestValuesTime[i] = time;
+
                 }
                 SelectedEntityValues = latestValuesForSelectedEntity;
-                UpdateLinePoints();
 
                 OnPropertyChanged(nameof(EllipseMargins));
                 OnPropertyChanged(nameof(EllipseStrokeColors));
@@ -253,34 +247,6 @@ namespace NetworkService.ViewModel
 
 
         //Ellipse lines
-        private void UpdateLinePoints()
-        {
-            var points = new List<Model.Line>();
-            for (int i = 0; i < 4; i++)
-            {
-                var margin1 = EllipseMargins[i];
-                var margin2 = EllipseMargins[i + 1];
-                double x1 = i * 70 + 25; // Center X of the ellipse
-                double y1 = 150 - margin1.Bottom + 25; // Center Y of the ellipse
-                double x2 = (i + 1) * 70 + 25; // Center X of the next ellipse
-                double y2 = 150 - margin2.Bottom + 25; // Center Y of the next ellipse// Adjust for the center of the ellipse
-                points.Add(new Model.Line { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2 });
-            }
-            LinePoints = points;
-        }
-        private List<Model.Line> _linePoints = new List<Model.Line>();
-        public List<Model.Line> LinePoints
-        {
-            get { return _linePoints; }
-            set
-            {
-                if (_linePoints != value)
-                {
-                    _linePoints = value;
-                    OnPropertyChanged(nameof(LinePoints));
-                }
-            }
-        }
 
     }
 }

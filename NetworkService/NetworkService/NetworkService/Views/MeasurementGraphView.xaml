@@ -12,7 +12,7 @@
     </UserControl.DataContext>
 
 
-    <Grid Background="#FEFAF6">
+    <Grid Background="#fffaf0">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="200"/>
@@ -39,7 +39,6 @@
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[2]}" Grid.Column="2" Margin="{Binding EllipseMargins[2]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[3]}" Grid.Column="3" Margin="{Binding EllipseMargins[3]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[4]}" Grid.Column="4" Margin="{Binding EllipseMargins[4]}"/>
-            
 
             <TextBlock Grid.Column="0" Text="{Binding SelectedEntityValues[0].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[0]}"/>
             <TextBlock Grid.Column="1" Text="{Binding SelectedEntityValues[1].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[1]}"/>
@@ -47,12 +46,15 @@
             <TextBlock Grid.Column="3" Text="{Binding SelectedEntityValues[3].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[3]}"/>
             <TextBlock Grid.Column="4" Text="{Binding SelectedEntityValues[4].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[4]}"/>
 
-            <Label VerticalAlignment="Bottom" Grid.ColumnSpan="5" Content="---------------------------------------------------------------------------------------------------------" Margin="0 0 0 50"/>
+            <Polyline Stroke="Black" StrokeThickness="2" Points="0,400 800,400" VerticalAlignment="Bottom" Margin="0,0,0,60" Grid.ColumnSpan="5"/>
+
             <Label VerticalAlignment="Bottom" Grid.Column="0" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[0]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[1]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="2" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[2]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="3" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[3]}"/>
             <Label VerticalAlignment="Bottom" Grid.Column="4" HorizontalAlignment="Center" Content="{Binding LatestValuesTime[4]}"/>
+
+            
         </Grid>
     </Grid>
 </UserControl>

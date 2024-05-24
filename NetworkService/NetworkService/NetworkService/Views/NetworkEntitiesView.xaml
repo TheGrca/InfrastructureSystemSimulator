@@ -78,11 +78,11 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#FEFAF6">
+    <Grid Background="#fffaf0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="110"/>
             <RowDefinition Height="300"/>
             <RowDefinition Height="*"/>
@@ -99,7 +99,7 @@
             <sys:String>IntervalMeter</sys:String>
         </ComboBox>
         <ListView x:Name="EntityListView"
-                  Margin="10,-5,10,0"
+                  Margin="10,-20,10,0"
                   Background="#DAC0A3"
                   ItemsSource="{Binding EntitiesList}"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -131,8 +131,8 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 0" Command="{Binding DeleteCommand}" Cursor="Hand"/>
-        <Label Grid.Row="4" FontSize="15" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 5 0 0" FontFamily="Inter"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand"/>
+        <Label Grid.Row="4" FontSize="20" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 -2 0 0" FontFamily="Inter"/>
 
 
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 30 0 0" Grid.Row="4">
@@ -147,7 +147,7 @@
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 210 0 0">
                     <TextBlock Text="TYPE:"></TextBlock>
-            <ComboBox Background="#EADBC8" Height="25" Width="215" HorizontalAlignment="Left" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}" Margin="0 5 0 0"/>
+            <ComboBox Background="#EADBC8"  Height="25" Width="215" HorizontalAlignment="Left" ItemsSource="{Binding Types}" SelectedItem="{Binding TypeText}" Margin="0 5 0 0"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
             <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 0 10" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}"/>

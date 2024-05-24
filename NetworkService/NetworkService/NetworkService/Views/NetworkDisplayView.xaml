@@ -53,7 +53,7 @@
         <viewModel:NetworkDisplayViewModel/>
     </UserControl.DataContext>
 
-    <Grid Background="#FEFAF6">
+    <Grid Background="#fffaf0">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition/>
