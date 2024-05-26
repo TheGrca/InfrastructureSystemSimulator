@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -125,6 +126,7 @@ namespace NetworkService.ViewModel
                            // _entityValues.Add(new EntityValue { TimeStamp = DateTime.Parse(timeLog), Index = index, Value = value });
                             var entityValue = new EntityValue { TimeStamp = DateTime.Parse(timeLog), Index = index, Value = value };
                             AddLatestValue(entityValue);
+                           
                         }
                     }
                 }
@@ -212,6 +214,7 @@ namespace NetworkService.ViewModel
                     _latestValuesTime[i] = time;
 
                 }
+                UpdatePolylinePoints(latestValuesForSelectedEntity.Select(ev => ev.Value).ToList());
                 SelectedEntityValues = latestValuesForSelectedEntity;
 
                 OnPropertyChanged(nameof(EllipseMargins));
@@ -247,6 +250,50 @@ namespace NetworkService.ViewModel
 
 
         //Ellipse lines
+        private List<Point> _polylinePoints = new List<Point>();
 
-    }
+        public List<Point> PolylinePoints
+        {
+            get { return _polylinePoints; }
+            set
+            {
+                _polylinePoints = value;
+                OnPropertyChanged(nameof(PolylinePoints));
+            }
+        }
+
+        public void UpdatePolylinePoints(List<double> values)
+        {
+            PolylinePoints.Clear();
+
+            // Calculate Y coordinates based on the values
+            for (int i = 0; i < values.Count; i++)
+            {
+                double value = values[i];
+                // Calculate Y coordinate based on the value and your scaling logic
+                double y = CalculateYCoordinate(value);
+                // Add the point to the Polyline's points
+                PolylinePoints.Add(new Point((i + 1) * 75, y)); // Assuming X coordinates increment by 75
+            }
+
+            OnPropertyChanged(nameof(PolylinePoints));
+        }
+
+        // Method to calculate Y coordinate based on value
+        private double CalculateYCoordinate(double value)
+        {
+            // Your scaling logic to convert value to Y coordinate
+            // Example scaling logic:
+            double yMin = 0; // Minimum Y value
+            double yMax = 240; // Maximum Y value
+            double valueMin = 0.01; // Minimum value from the metering simulator
+            double valueMax = 5.50; // Maximum value from the metering simulator
+            double y = (value - valueMin) / (valueMax - valueMin) * (yMax - yMin) + yMin;
+            return y;
+        }
+
+        // Other ViewModel code...
+    
+
+}
 }

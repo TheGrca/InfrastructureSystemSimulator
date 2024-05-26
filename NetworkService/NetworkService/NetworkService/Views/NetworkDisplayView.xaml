@@ -8,6 +8,7 @@
              xmlns:model ="clr-namespace:NetworkService.Model"
              xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
     <UserControl.Resources>
@@ -65,13 +66,14 @@
             Grid.Row="1"
             Height="300" Width="320"
             x:Name="treeViewEntityList"
-            ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities}"
+            ItemsSource="{x:Static viewModel:MainWindowViewModel.EntitiesTreeView}"
             Background="#EADBC8"
             SelectedItemChanged="treeViewEntityList_SelectedItemChanged"
+            PreviewMouseMove="treeViewEntityList_PreviewMouseMove"
             >
             <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type model:EntityType}" ItemsSource="{Binding}">
-                    <TextBlock Text="{Binding}" />
+                <HierarchicalDataTemplate DataType="{x:Type model:EntityByType}" ItemsSource="{Binding Entities}">
+                    <TextBlock Text="{Binding Type}" />
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type model:Entity}">
                     <!-- Define your DataTemplate here -->

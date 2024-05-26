@@ -17,6 +17,7 @@ namespace NetworkService.ViewModel
     public class MainWindowViewModel : BindableBase
     {
         public static ObservableCollection<Entity> Entities { get; set; }
+        public static ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
         public void LoadData()
         {
             Entities = new ObservableCollection<Entity>
@@ -54,6 +55,25 @@ namespace NetworkService.ViewModel
                     Value = 0
                 }
             };
+
+            EntitiesTreeView = new ObservableCollection<EntityByType>();
+            EntityByType IntervalMeterEntities = new EntityByType() { Type = EntityType.IntervalMeter.ToString()};
+            EntityByType SmartMeterEntities = new EntityByType() { Type = EntityType.SmartMeter.ToString() };
+
+            foreach(Entity e in Entities)
+            {
+                if (e.EntityType.Equals(EntityType.IntervalMeter))
+                {
+                    IntervalMeterEntities.Entities.Add(e);
+                }
+                else
+                {
+                    SmartMeterEntities.Entities.Add(e);
+                }
+            }
+            EntitiesTreeView.Add(IntervalMeterEntities);
+            EntitiesTreeView.Add(SmartMeterEntities);
+
         }
         private int count = 4; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
