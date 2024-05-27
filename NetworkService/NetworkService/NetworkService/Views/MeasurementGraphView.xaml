@@ -39,8 +39,16 @@
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[2]}" Grid.Column="2" Margin="{Binding EllipseMargins[2]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[3]}" Grid.Column="3" Margin="{Binding EllipseMargins[3]}"/>
             <Ellipse Width="50" Height="50" Stroke="{Binding EllipseStrokeColors[4]}" Grid.Column="4" Margin="{Binding EllipseMargins[4]}"/>
-            <Polyline Stroke="Black" StrokeThickness="2"  VerticalAlignment="Bottom" Margin="0,0,0,60" Grid.ColumnSpan="5" Height="240" Width="300" Points="{Binding PolylinePoints}"/>
-
+            <Polyline Stroke="Black" StrokeThickness="2"  VerticalAlignment="Bottom" Margin="0,0,0,60" Grid.ColumnSpan="5" Height="240" Width="290"  Points="{Binding PolyLinePoints}"/>
+            <Polyline Stroke="Black" StrokeThickness="2"  VerticalAlignment="Bottom" Margin="0,0,0,60" Grid.ColumnSpan="5" Height="240" Width="290">
+                <Polyline.Points>
+                    <Point X="0" Y="28" />
+                    <Point X="75" Y="16" />
+                    <Point X="150" Y="138" />
+                    <Point X="225" Y="156" />
+                    <Point X="300" Y="198" />
+                </Polyline.Points>
+            </Polyline>
             <TextBlock Grid.Column="0" Text="{Binding SelectedEntityValues[0].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[0]}"/>
             <TextBlock Grid.Column="1" Text="{Binding SelectedEntityValues[1].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[1]}"/>
             <TextBlock Grid.Column="2" Text="{Binding SelectedEntityValues[2].Value}" Height="25" Width="40" Padding="9 4 0 0" Margin="{Binding EllipseMargins[2]}"/>

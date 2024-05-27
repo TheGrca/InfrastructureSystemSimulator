@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -12,17 +14,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using NetworkService.Model;
 
 namespace NetworkService.ViewModel
 {
     public class NetworkDisplayViewModel : BindableBase
     {
+        private readonly DispatcherTimer _timer;
         public ICommand ClearCanvasCommand { get; }
-        public ICommand StartDragCommand { get; }
-        public ICommand EndDragCommand { get; }
-
-
         public NetworkDisplayViewModel()
         {
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
@@ -34,8 +34,13 @@ namespace NetworkService.ViewModel
                 CanvasEntities.Add($"Canvas{i}", new ObservableCollection<Entity>());
             }
             ClearCanvasCommand = new MyICommand<string>(ClearCanvas);
-            StartDragCommand = new MyICommand<Entity>(StartDrag);
-            EndDragCommand = new MyICommand<Entity>(EndDrag);
+
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _timer.Tick += (sender, args) => UpdateCanvasBorderColors();
+            _timer.Start();
         }
         public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
@@ -61,6 +66,7 @@ namespace NetworkService.ViewModel
 
             OnPropertyChanged(nameof(EntitiesTreeView));
             OnPropertyChanged(nameof(CanvasEntities));
+            UpdateCanvasBorderColors();
         }
 
         private void ClearCanvas(string canvasName)
@@ -87,58 +93,83 @@ namespace NetworkService.ViewModel
 
                 OnPropertyChanged(nameof(CanvasEntities));
                 OnPropertyChanged(nameof(EntitiesTreeView));
+                UpdateCanvasBorderColors();
             }
         }
 
-        public void HandleCanvasDrop(Entity entity, string sourceCanvasName, string targetCanvasName)
+
+        //Lines between canvas
+
+        public ObservableCollection<LineModel> Lines { get; } = new ObservableCollection<LineModel>();
+
+        // Method to add a line between two canvases
+        public void AddLine(string startCanvas, string endCanvas)
         {
-            if (EntitiesTreeView == null) throw new InvalidOperationException("EntitiesTreeView is not initialized.");
-            if (CanvasEntities == null || !CanvasEntities.ContainsKey(sourceCanvasName) || !CanvasEntities.ContainsKey(targetCanvasName))
-                throw new InvalidOperationException($"CanvasEntities does not contain {sourceCanvasName} or {targetCanvasName}.");
-
-            // Remove the entity from the source canvas
-            var sourceEntities = CanvasEntities[sourceCanvasName];
-            sourceEntities.Remove(entity);
-
-            // Add the entity to the target canvas
-            var targetEntities = CanvasEntities[targetCanvasName];
-            targetEntities.Add(entity);
-
-            OnPropertyChanged(nameof(EntitiesTreeView));
-            OnPropertyChanged(nameof(CanvasEntities));
+            // Create a new line with start and end points
+            var line = new LineModel(startCanvas, endCanvas);
+            Lines.Add(line);
         }
 
-        private Entity _draggedEntity;
-
-        private void StartDrag(Entity entity)
+        // Method to remove lines connected to a canvas
+        public void RemoveLinesByCanvas(string canvasName)
         {
-            _draggedEntity = entity;
-        }
+            var linesToRemove = new List<LineModel>();
 
-        private void EndDrag(Entity entity)
-        {
-            if (_draggedEntity != null)
+            // Find lines where either start or end canvas matches the specified canvasName
+            foreach (var line in Lines)
             {
-                // Find the canvas under the mouse pointer
-                var canvasUnderMouse = FindCanvasUnderMouse();
-                if (canvasUnderMouse != null)
+                if (line.StartCanvas == canvasName || line.EndCanvas == canvasName)
                 {
-                    HandleCanvasDrop(_draggedEntity, _draggedEntity.CurrentCanvas, canvasUnderMouse.Name);
-                    _draggedEntity.CurrentCanvas = canvasUnderMouse.Name;
+                    linesToRemove.Add(line);
                 }
-                _draggedEntity = null;
+            }
+
+            // Remove lines from the collection
+            foreach (var lineToRemove in linesToRemove)
+            {
+                Lines.Remove(lineToRemove);
             }
         }
 
-        private Canvas FindCanvasUnderMouse()
+        // Canvas Value Color
+        private Dictionary<string, Brush> _canvasBorderColors = new Dictionary<string, Brush>();
+        public Dictionary<string, Brush> CanvasBorderColors
         {
-            var mousePosition = Mouse.GetPosition((IInputElement)Application.Current.MainWindow.Content);
-            var canvasUnderMouse = VisualTreeHelper.HitTest((Visual)Application.Current.MainWindow.Content, mousePosition)?.VisualHit;
-            while (canvasUnderMouse != null && !(canvasUnderMouse is Canvas))
+            get { return _canvasBorderColors; }
+            set
             {
-                canvasUnderMouse = VisualTreeHelper.GetParent(canvasUnderMouse);
+                _canvasBorderColors = value;
+                OnPropertyChanged(nameof(CanvasBorderColors));
             }
-            return (Canvas)canvasUnderMouse;
         }
+
+        public void UpdateCanvasBorderColors()
+        {
+            foreach (var canvas in CanvasEntities)
+            {
+                string canvasName = canvas.Key;
+                var entities = canvas.Value;
+
+                if (entities.Count == 0)
+                {
+                    _canvasBorderColors[canvasName] = Brushes.Transparent;
+                }
+                else
+                {
+                    var value = entities.First().Value; 
+                    if (value < 0.34 || value > 2.73)
+                    {
+                        _canvasBorderColors[canvasName] = Brushes.Red;
+                    }
+                    else
+                    {
+                        _canvasBorderColors[canvasName] = Brushes.Green;
+                    }
+                }
+            }
+
+            OnPropertyChanged(nameof(CanvasBorderColors));
+        }
+
     }
 }

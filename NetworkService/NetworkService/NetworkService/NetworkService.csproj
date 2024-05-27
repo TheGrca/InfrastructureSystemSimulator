@@ -69,6 +69,7 @@
     <Compile Include="Model\EntityValue.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\EntityByType.cs" />
+    <Compile Include="Model\LineModel.cs" />
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MeasurementGraphViewModel.cs" />

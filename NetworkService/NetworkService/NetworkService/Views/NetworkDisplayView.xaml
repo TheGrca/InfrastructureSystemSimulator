@@ -11,44 +11,6 @@
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
-    <UserControl.Resources>
-        <ControlTemplate 
-            x:Key="RoundedListViewTemplate" 
-            TargetType="ListView">
-            <Border 
-                CornerRadius="5"
-                Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}">
-                <ScrollViewer>
-                    <ItemsPresenter />
-                </ScrollViewer>
-            </Border>
-        </ControlTemplate>
-        <ControlTemplate 
-            x:Key="RoundedButtonTemplate" 
-            TargetType="Button">
-            <Border 
-                x:Name="buttonBorder" 
-                CornerRadius="5" 
-                Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}">
-                <ContentPresenter 
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
-            </Border>
-
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter 
-                        TargetName="buttonBorder" 
-                        Property="BorderBrush" 
-                        Value="LightBlue" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-    </UserControl.Resources>
 
     <UserControl.DataContext>
         <viewModel:NetworkDisplayViewModel/>
@@ -105,27 +67,35 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas1]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas1"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                    MouseRightButtonDown="Canvas_MouseRightButtonDown"
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas1]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="55" Height="65"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas1]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
-            
+
+
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom" Command="{Binding ClearCanvasCommand}"
                         CommandParameter="Canvas2">
@@ -134,25 +104,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas2]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas2"
                     AllowDrop="True"
                     Background="#EADBC8"
                     Height="60"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                    MouseRightButtonDown="Canvas_MouseRightButtonDown"                 
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas2]}">
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas2]}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                    <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                        <TextBlock Text=", "/>
+                                        <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="0">
@@ -164,25 +141,33 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas3]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas3"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+                    
+                  
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas3]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas3]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="0">
@@ -194,25 +179,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas4]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas4"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas4]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas4]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="0">
@@ -224,25 +216,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas5]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas5"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas5]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas5]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="6" Grid.Row="0">
@@ -254,25 +253,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas6]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas6"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas6]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas6]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="0" Grid.Row="1">
@@ -284,25 +290,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas7]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas7"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas7]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas7]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="1">
@@ -314,25 +327,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas8]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas8"
                    Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas8]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas8]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="1">
@@ -344,25 +364,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas9]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas9"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas9]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas9]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="1">
@@ -374,25 +401,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas10]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas10"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas10]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas10]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="1">
@@ -404,6 +438,7 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas11]}" BorderThickness="2" Height="65">
                 <Canvas
                     Name="Canvas11"
                     Background="#EADBC8"
@@ -411,18 +446,24 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas11]}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Canvas>
+                </Border>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="5" Grid.Row="1">
@@ -434,25 +475,32 @@
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
                     </StackPanel>
                 </Button>
-                <Canvas
+                <Border BorderBrush="{Binding CanvasBorderColors[Canvas12]}" BorderThickness="2" Height="65">
+                    <Canvas
                     Name="Canvas12"
                     Background="#EADBC8"
                     Height="60"
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
-                    PreviewMouseMove="Canvas_PreviewMouseMove"
-                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
+
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas12]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas12]}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+                </Border>
             </DockPanel>
         </Grid>
     </Grid>

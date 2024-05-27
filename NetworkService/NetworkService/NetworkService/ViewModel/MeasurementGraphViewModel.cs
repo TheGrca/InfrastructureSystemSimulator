@@ -31,24 +31,10 @@ namespace NetworkService.ViewModel
         private Dictionary<int, List<EntityValue>> _latestValues = new Dictionary<int, List<EntityValue>>();
         private Dictionary<int, Thickness> _ellipseMargins = new Dictionary<int, Thickness>();
         private Dictionary<int, Brush> _ellipseStrokeColors = new Dictionary<int, Brush>();
+        private Dictionary<int, Point> _ellipseConnectionPoints = new Dictionary<int, Point>();
         private Dictionary<int, string> _latestValuesTime = new Dictionary<int, string>();
         private List<EntityValue> _selectedEntityValues = new List<EntityValue>();
-        private PointCollection _ellipseConnectionPoints = new PointCollection();
-        public PointCollection EllipseConnectionPoints
-        {
-            get
-            {
-                return _ellipseConnectionPoints;
-            }
-            set
-            {
-                if(_ellipseConnectionPoints != value)
-                {
-                    _ellipseConnectionPoints = value;
-                    OnPropertyChanged(nameof(EllipseConnectionPoints));
-                }
-            }
-        }
+
         public List<EntityValue> SelectedEntityValues
         {
             get 
@@ -73,6 +59,12 @@ namespace NetworkService.ViewModel
         {
             get { return _latestValuesTime; }
         }
+        public Dictionary<int, Point> ElipseConnectionPoint
+        {
+            get { return _ellipseConnectionPoints; }
+        }
+
+
 
         public Dictionary<int, double> LastValues
         {
@@ -123,7 +115,6 @@ namespace NetworkService.ViewModel
                         double value;
                         if (double.TryParse(entityParts2[1], out value))
                         {
-                           // _entityValues.Add(new EntityValue { TimeStamp = DateTime.Parse(timeLog), Index = index, Value = value });
                             var entityValue = new EntityValue { TimeStamp = DateTime.Parse(timeLog), Index = index, Value = value };
                             AddLatestValue(entityValue);
                            
@@ -192,6 +183,7 @@ namespace NetworkService.ViewModel
                 _ellipseMargins.Clear();
                 _ellipseStrokeColors.Clear();
                 _latestValuesTime.Clear();
+                _polylinePoints.Clear();
 
                 // Get the latest values for the selected entity
                 var selectedEntityIndex = SelectedIndex;
@@ -212,14 +204,18 @@ namespace NetworkService.ViewModel
                     _ellipseStrokeColors[i] = latestValue < 0.34 || latestValue > 2.73 ? Brushes.Red : Brushes.Green;
                     string time = latestValuesForSelectedEntity[i].TimeStamp.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
                     _latestValuesTime[i] = time;
-
+                    _polylinePoints.Add(new Point(i*75, CalculateYValue(latestValue)));
                 }
-                UpdatePolylinePoints(latestValuesForSelectedEntity.Select(ev => ev.Value).ToList());
-                SelectedEntityValues = latestValuesForSelectedEntity;
 
+                SelectedEntityValues = latestValuesForSelectedEntity;
+                OnPropertyChanged(nameof(PolyLinePoints));
                 OnPropertyChanged(nameof(EllipseMargins));
                 OnPropertyChanged(nameof(EllipseStrokeColors));
                 OnPropertyChanged(nameof(LatestValuesTime));
+                foreach(Point p in _polylinePoints)
+                {
+                    Debug.WriteLine(p);
+                }
             });
         }
 
@@ -250,50 +246,32 @@ namespace NetworkService.ViewModel
 
 
         //Ellipse lines
-        private List<Point> _polylinePoints = new List<Point>();
 
-        public List<Point> PolylinePoints
+        private int CalculateYValue(double entityValue)
         {
-            get { return _polylinePoints; }
+            double maxY = 10; 
+            double minY = 225; 
+
+            return (int)Math.Round(((entityValue - 0.01) / (5.50 - 0.01)) * (maxY - minY) + minY);
+        }
+
+        private PointCollection _polylinePoints = new PointCollection();
+        public PointCollection PolyLinePoints
+        {
+            get
+            {
+                return _polylinePoints;
+            }
             set
             {
-                _polylinePoints = value;
-                OnPropertyChanged(nameof(PolylinePoints));
+                    _polylinePoints = value;
+                    OnPropertyChanged(nameof(PolyLinePoints));
             }
         }
+        
 
-        public void UpdatePolylinePoints(List<double> values)
-        {
-            PolylinePoints.Clear();
 
-            // Calculate Y coordinates based on the values
-            for (int i = 0; i < values.Count; i++)
-            {
-                double value = values[i];
-                // Calculate Y coordinate based on the value and your scaling logic
-                double y = CalculateYCoordinate(value);
-                // Add the point to the Polyline's points
-                PolylinePoints.Add(new Point((i + 1) * 75, y)); // Assuming X coordinates increment by 75
-            }
+    }
 
-            OnPropertyChanged(nameof(PolylinePoints));
-        }
-
-        // Method to calculate Y coordinate based on value
-        private double CalculateYCoordinate(double value)
-        {
-            // Your scaling logic to convert value to Y coordinate
-            // Example scaling logic:
-            double yMin = 0; // Minimum Y value
-            double yMax = 240; // Maximum Y value
-            double valueMin = 0.01; // Minimum value from the metering simulator
-            double valueMax = 5.50; // Maximum value from the metering simulator
-            double y = (value - valueMin) / (valueMax - valueMin) * (yMax - yMin) + yMin;
-            return y;
-        }
-
-        // Other ViewModel code...
     
-
-}
 }

@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\korisnik\\desktop\\infrastructuresystemsimulator\\networkservice\\networkservice\\networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkdisplayviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkdisplayviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitiesview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\korisnik\\desktop\\infrastructuresystemsimulator\\networkservice\\networkservice\\networkservice\\viewmodel\\measurementgraphviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\measurementgraphviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\measurementgraphview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -35,31 +27,47 @@
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkdisplayview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkdisplayview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\measurementgraphviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\measurementgraphviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\model\\entityvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\entityvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\model\\entitybytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\entitybytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkdisplayview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkdisplayview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\measurementgraphview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\measurementgraphview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitiesview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\model\\linemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\linemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\model\\line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{134D87AD-F428-469F-A98E-5F007EDD241B}|..\\..\\MeteringSimulator\\MeteringSimulator\\MeteringSimulator.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\meteringsimulator\\meteringsimulator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\model\\entityvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\model\\entityvalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{134D87AD-F428-469F-A98E-5F007EDD241B}|..\\..\\MeteringSimulator\\MeteringSimulator\\MeteringSimulator.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\meteringsimulator\\meteringsimulator\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -83,11 +91,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 14,
               "Title": "NetworkEntitiesView.xaml",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitiesView.xaml",
               "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitiesView.xaml",
@@ -99,90 +107,56 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MeasurementGraphView.xaml",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml",
-              "RelativeDocumentMoniker": "NetworkService\\Views\\MeasurementGraphView.xaml",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml",
-              "RelativeToolTip": "NetworkService\\Views\\MeasurementGraphView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-13T23:04:44.605Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "NetworkService\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\MainWindow.xaml",
-              "RelativeToolTip": "NetworkService\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-10T20:16:51.855Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Entity.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\Entity.cs",
-              "RelativeDocumentMoniker": "NetworkService\\Model\\Entity.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\Entity.cs",
-              "RelativeToolTip": "NetworkService\\Model\\Entity.cs",
-              "ViewState": "AQIAAFgAAAAAAAAAAAAcwIQAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T20:29:26.018Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "NetworkEntitiesViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
-              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
-              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
-              "ViewState": "AQIAAGABAAAAAAAAAAAqwH4BAAANAAAA",
+              "Title": "NetworkDisplayViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAswA4AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T21:19:48.7Z",
+              "WhenOpened": "2024-05-10T21:19:31.684Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "EntityByType.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EntityByType.cs",
-              "RelativeDocumentMoniker": "NetworkService\\Model\\EntityByType.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EntityByType.cs",
-              "RelativeToolTip": "NetworkService\\Model\\EntityByType.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA6AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-26T20:34:13.451Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MainWindowViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MainWindowViewModel.cs",
-              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\MainWindowViewModel.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MainWindowViewModel.cs",
-              "RelativeToolTip": "NetworkService\\ViewModel\\MainWindowViewModel.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAiwBMAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T20:16:51.738Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 2,
               "Title": "MeasurementGraphViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MeasurementGraphViewModel.cs",
               "RelativeDocumentMoniker": "NetworkService\\ViewModel\\MeasurementGraphViewModel.cs",
               "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MeasurementGraphViewModel.cs",
               "RelativeToolTip": "NetworkService\\ViewModel\\MeasurementGraphViewModel.cs",
-              "ViewState": "AQIAAPsAAAAAAAAAAAAIwA8BAAApAAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAgwHQAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T21:19:17.271Z"
+              "WhenOpened": "2024-05-10T21:19:17.271Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 4,
+              "Title": "NetworkDisplayView.xaml",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-10T21:13:14.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Entity.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\Entity.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Model\\Entity.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\Entity.cs",
+              "RelativeToolTip": "NetworkService\\Model\\Entity.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAqwIQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T20:29:26.018Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "EntityValue.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EntityValue.cs",
               "RelativeDocumentMoniker": "NetworkService\\Model\\EntityValue.cs",
@@ -194,7 +168,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
+              "Title": "EntityByType.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EntityByType.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Model\\EntityByType.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\EntityByType.cs",
+              "RelativeToolTip": "NetworkService\\Model\\EntityByType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-26T20:34:13.451Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NetworkDisplayView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml.cs",
+              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAnwDIAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-15T19:35:39.174Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MeasurementGraphView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\MeasurementGraphView.xaml.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml.cs",
+              "RelativeToolTip": "NetworkService\\Views\\MeasurementGraphView.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T14:33:32.44Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "NetworkEntitiesView.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitiesView.xaml.cs",
               "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitiesView.xaml.cs",
@@ -206,66 +216,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "NetworkDisplayViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
-              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
-              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAcwIEAAAANAAAA",
+              "DocumentIndex": 1,
+              "Title": "MainWindowViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MainWindowViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\MainWindowViewModel.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\MainWindowViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\MainWindowViewModel.cs",
+              "ViewState": "AQIAAGEAAAAAAAAAAAAiwIAAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T21:19:31.684Z"
+              "WhenOpened": "2024-05-10T20:16:51.738Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "NetworkDisplayView.xaml",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
-              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml",
-              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml",
+              "DocumentIndex": 3,
+              "Title": "MeasurementGraphView.xaml",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\Views\\MeasurementGraphView.xaml",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\MeasurementGraphView.xaml",
+              "RelativeToolTip": "NetworkService\\Views\\MeasurementGraphView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-05-10T21:13:14.312Z"
+              "WhenOpened": "2024-05-13T23:04:44.605Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "NetworkDisplayView.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml.cs",
-              "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkDisplayView.xaml.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkDisplayView.xaml.cs",
-              "RelativeToolTip": "NetworkService\\Views\\NetworkDisplayView.xaml.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAowFsAAAAJAAAA",
+              "DocumentIndex": 11,
+              "Title": "NetworkEntitiesViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
+              "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
+              "ViewState": "AQIAAGgBAAAAAAAAAAAqwGgBAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-15T19:35:39.174Z"
+              "WhenOpened": "2024-05-10T21:19:48.7Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "..\\..\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
-              "RelativeToolTip": "..\\..\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAwwF4AAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T20:40:28.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "DependencyObject.cs",
-              "DocumentMoniker": "C:\\Users\\Korisnik\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
-              "ToolTip": "C:\\Users\\Korisnik\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
-              "ViewState": "AQIAAP4FAAAAAAAAAAASwAUGAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-17T12:26:22.521Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
               "Title": "Line.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\Line.cs",
               "RelativeDocumentMoniker": "NetworkService\\Model\\Line.cs",
@@ -277,7 +264,54 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LineModel.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\LineModel.cs",
+              "RelativeDocumentMoniker": "NetworkService\\Model\\LineModel.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Model\\LineModel.cs",
+              "RelativeToolTip": "NetworkService\\Model\\LineModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T14:27:28.277Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 15,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "NetworkService\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\MainWindow.xaml",
+              "RelativeToolTip": "NetworkService\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-10T20:16:51.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\..\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
+              "RelativeToolTip": "..\\..\\MeteringSimulator\\MeteringSimulator\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAwwF4AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-10T20:40:28.986Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DependencyObject.cs",
+              "DocumentMoniker": "C:\\Users\\Korisnik\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
+              "ToolTip": "C:\\Users\\Korisnik\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
+              "ViewState": "AQIAAP4FAAAAAAAAAAASwAUGAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-17T12:26:22.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "NetworkService\\MainWindow.xaml.cs",
@@ -289,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "BindableBase.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\BindableBase.cs",
               "RelativeDocumentMoniker": "NetworkService\\BindableBase.cs",
@@ -301,7 +335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "FrameworkTemplate.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\AppData\\Local\\Temp\\.vsdbgsrc\\573b2880de378bcf441369c3a2498b47757341930a70040b33011a78e0c10adf\\FrameworkTemplate.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\573b2880de378bcf441369c3a2498b47757341930a70040b33011a78e0c10adf\\FrameworkTemplate.cs",

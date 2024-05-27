@@ -36,59 +36,25 @@ namespace NetworkService.Views
 
         private void Canvas_DragOver(object sender, DragEventArgs e)
         {
-            var canvas = (Canvas)sender;
-            var viewModel = (NetworkDisplayViewModel)this.DataContext;
-
-            if (e.Data.GetDataPresent(typeof(Entity)) && !viewModel.CanvasEntities[canvas.Name].Any())
-            {
-                e.Effects = DragDropEffects.Move;
-            }
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
+            e.Effects = e.Data.GetDataPresent(typeof(Entity)) ? DragDropEffects.Move : DragDropEffects.None;
             e.Handled = true;
         }
 
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
+            var canvas = (Canvas)sender;
+            var viewModel = (NetworkDisplayViewModel)this.DataContext;
+
             if (e.Data.GetDataPresent(typeof(Entity)))
             {
                 var entity = (Entity)e.Data.GetData(typeof(Entity));
-                var canvas = (Canvas)sender;
-
-                var viewModel = (NetworkDisplayViewModel)this.DataContext;
                 viewModel.HandleDrop(entity, canvas.Name);
-
-                e.Handled = true;
             }
         }
 
-        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var canvas = (Canvas)sender;
-            var entity = canvas.DataContext as Entity;
-            var viewModel = (NetworkDisplayViewModel)this.DataContext;
-            viewModel.StartDragCommand.Execute(entity);
-        }
-
-        private void Canvas_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            var canvas = (Canvas)sender;
-            var entity = canvas.DataContext as Entity;
-            var viewModel = (NetworkDisplayViewModel)this.DataContext;
-            if (e.LeftButton == MouseButtonState.Pressed && entity != null)
-            {
-                viewModel.EndDragCommand.Execute(entity);
-            }
-        }
-
-        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var canvas = (Canvas)sender;
-            var entity = canvas.DataContext as Entity;
-            var viewModel = (NetworkDisplayViewModel)this.DataContext;
-            viewModel.EndDragCommand.Execute(entity);
+           throw new NotImplementedException();
         }
 
     }
