@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NetworkService.Model;
 using NetworkService.ViewModel;
 
 namespace NetworkService.Views
@@ -25,25 +26,43 @@ namespace NetworkService.Views
         {
             InitializeComponent();
         }
-
-        private void Canvas_PreviewDrop(object sender, DragEventArgs e)
+        private void TreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.OriginalSource is FrameworkElement element && element.DataContext is Entity entity)
+            {
+                DragDrop.DoDragDrop(element, entity, DragDropEffects.Move);
+            }
         }
 
-        private void Canvas_PreviewDragOver(object sender, DragEventArgs e)
+        private void Canvas_DragOver(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            var canvas = (Canvas)sender;
+            var viewModel = (NetworkDisplayViewModel)this.DataContext;
+
+            if (e.Data.GetDataPresent(typeof(Entity)) && !viewModel.CanvasEntities[canvas.Name].Any())
+            {
+                e.Effects = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
         }
 
-        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Data.GetDataPresent(typeof(Entity)))
+            {
+                var entity = (Entity)e.Data.GetData(typeof(Entity));
+                var canvas = (Canvas)sender;
+
+                var viewModel = (NetworkDisplayViewModel)this.DataContext;
+                viewModel.HandleDrop(entity, canvas.Name);
+
+                e.Handled = true;
+            }
         }
 
-        private void treeViewEntityList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
-        }
     }
 }

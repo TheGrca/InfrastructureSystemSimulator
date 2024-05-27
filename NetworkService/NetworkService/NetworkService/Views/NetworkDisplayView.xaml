@@ -68,15 +68,12 @@
             x:Name="treeViewEntityList"
             ItemsSource="{x:Static viewModel:MainWindowViewModel.EntitiesTreeView}"
             Background="#EADBC8"
-            SelectedItemChanged="treeViewEntityList_SelectedItemChanged"
-            PreviewMouseMove="treeViewEntityList_PreviewMouseMove"
-            >
+            PreviewMouseLeftButtonDown="TreeView_PreviewMouseLeftButtonDown">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type model:EntityByType}" ItemsSource="{Binding Entities}">
                     <TextBlock Text="{Binding Type}" />
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type model:Entity}">
-                    <!-- Define your DataTemplate here -->
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding ImagePath}" Width="50" Height="50" />
                         <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0"/>
@@ -100,7 +97,9 @@
             </Grid.RowDefinitions>
 
             <DockPanel Margin="5">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas1">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -108,21 +107,25 @@
                 </Button>
                 <Canvas
                     Name="Canvas1"
-                    AllowDrop="True"
                     Background="#EADBC8"
                     Height="60"
-                    PreviewDragOver="Canvas_PreviewDragOver"
-                    PreviewDrop="Canvas_PreviewDrop"
-                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas1]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="55" Height="65"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom" Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas2">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -132,16 +135,24 @@
                     Name="Canvas2"
                     AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas2]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas3">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -149,18 +160,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas3"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas3]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas4">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -168,18 +187,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas4"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas4]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas5">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -187,18 +214,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas5"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas5]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="6" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas6">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -206,18 +241,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas6"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas6]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="0" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas7">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -225,18 +268,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas7"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas7]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas8">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -244,18 +295,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas8"
-                    AllowDrop="True"
                    Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas8]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas9">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -263,18 +322,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas9"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas9]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas10">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -282,18 +349,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas10"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas10]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas11">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -301,18 +376,26 @@
                 </Button>
                 <Canvas
                     Name="Canvas11"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas11]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="5" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom">
+                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}"
+                        CommandParameter="Canvas12">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -320,13 +403,19 @@
                 </Button>
                 <Canvas
                     Name="Canvas12"
-                    AllowDrop="True"
                     Background="#EADBC8"
-                    Height="60">
-                    <TextBlock
-                        Margin="5"
-                        FontSize="12"
-                        Text="" />
+                    Height="60"
+                    AllowDrop="True"
+                    Drop="Canvas_Drop"
+                    DragOver="Canvas_DragOver"
+                    DataContext="{Binding}">
+                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas12]}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImagePath}" Width="50" Height="50"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </DockPanel>
         </Grid>
