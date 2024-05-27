@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\viewmodel\\networkentitiesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|c:\\users\\korisnik\\desktop\\infrastructuresystemsimulator\\networkservice\\networkservice\\networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|solutionrelative:networkservice\\views\\networkentitiesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6AE2C93C-D3CE-4614-9394-158338AD45C1}|NetworkService\\NetworkService.csproj|C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\networkservice\\viewmodel\\networkdisplayviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -83,11 +83,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "NetworkEntitiesView.xaml",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\Views\\NetworkEntitiesView.xaml",
               "RelativeDocumentMoniker": "NetworkService\\Views\\NetworkEntitiesView.xaml",
@@ -134,13 +134,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "NetworkEntitiesViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
               "RelativeDocumentMoniker": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
               "ToolTip": "C:\\Users\\Korisnik\\Desktop\\InfrastructureSystemSimulator\\NetworkService\\NetworkService\\NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
               "RelativeToolTip": "NetworkService\\ViewModel\\NetworkEntitiesViewModel.cs",
-              "ViewState": "AQIAAGMBAAAAAAAAAAAcwIsBAAARAAAA",
+              "ViewState": "AQIAAIYBAAAAAAAAAAAkwJ0BAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T21:19:48.7Z",
               "EditorCaption": ""
@@ -203,8 +203,7 @@
               "RelativeToolTip": "NetworkService\\Views\\NetworkEntitiesView.xaml.cs",
               "ViewState": "AQIAACYAAAAAAAAAAAAEwHIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-12T17:02:24.823Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-12T17:02:24.823Z"
             },
             {
               "$type": "Document",
@@ -216,8 +215,7 @@
               "RelativeToolTip": "NetworkService\\ViewModel\\NetworkDisplayViewModel.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAAcwIEAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T21:19:31.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T21:19:31.684Z"
             },
             {
               "$type": "Document",

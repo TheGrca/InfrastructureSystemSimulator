@@ -411,7 +411,7 @@ namespace NetworkService.ViewModel
         {
             IdNumber = string.Empty;
             NameText = string.Empty;
-            ImagePath = null;
+            IsImageVisible = Visibility.Hidden;
             TypeText = EntityType.IntervalMeter;
         }
 
@@ -435,6 +435,7 @@ namespace NetworkService.ViewModel
 
         public void SetImage(string imagePath)
         {
+            IsImageVisible = Visibility.Visible;
             ImagePath = imagePath;
         }
 
