@@ -183,7 +183,6 @@ namespace NetworkService.ViewModel
                 _ellipseMargins.Clear();
                 _ellipseStrokeColors.Clear();
                 _latestValuesTime.Clear();
-                _polylinePoints.Clear();
 
                 // Get the latest values for the selected entity
                 var selectedEntityIndex = SelectedIndex;
@@ -194,6 +193,7 @@ namespace NetworkService.ViewModel
                 {
                     latestValuesForSelectedEntity.Add(new EntityValue { Value = 0 }); // Insert 0 at the beginning
                 }
+                var newPolylinePoints = new PointCollection();
 
                 // Calculate proportional margins for the latest values of the selected entity
                 for (int i = 0; i < latestValuesForSelectedEntity.Count; i++)
@@ -204,18 +204,16 @@ namespace NetworkService.ViewModel
                     _ellipseStrokeColors[i] = latestValue < 0.34 || latestValue > 2.73 ? Brushes.Red : Brushes.Green;
                     string time = latestValuesForSelectedEntity[i].TimeStamp.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
                     _latestValuesTime[i] = time;
-                    _polylinePoints.Add(new Point(i*75, CalculateYValue(latestValue)));
+                    newPolylinePoints.Add(new Point(i * 75, CalculateYValue(latestValue)));
                 }
+                PolyLinePoints = newPolylinePoints;
 
                 SelectedEntityValues = latestValuesForSelectedEntity;
                 OnPropertyChanged(nameof(PolyLinePoints));
                 OnPropertyChanged(nameof(EllipseMargins));
                 OnPropertyChanged(nameof(EllipseStrokeColors));
                 OnPropertyChanged(nameof(LatestValuesTime));
-                foreach(Point p in _polylinePoints)
-                {
-                    Debug.WriteLine(p);
-                }
+
             });
         }
 
@@ -256,6 +254,7 @@ namespace NetworkService.ViewModel
         }
 
         private PointCollection _polylinePoints = new PointCollection();
+        
         public PointCollection PolyLinePoints
         {
             get
