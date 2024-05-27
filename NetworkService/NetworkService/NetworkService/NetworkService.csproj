@@ -148,5 +148,11 @@
     <Resource Include="Resources\Pictures\7.jpg" />
     <Resource Include="Resources\Pictures\8.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pictures\IntervalMeter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Pictures\SmartMeter.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

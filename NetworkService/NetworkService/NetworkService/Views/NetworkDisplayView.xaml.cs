@@ -64,5 +64,32 @@ namespace NetworkService.Views
             }
         }
 
+        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var canvas = (Canvas)sender;
+            var entity = canvas.DataContext as Entity;
+            var viewModel = (NetworkDisplayViewModel)this.DataContext;
+            viewModel.StartDragCommand.Execute(entity);
+        }
+
+        private void Canvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            var canvas = (Canvas)sender;
+            var entity = canvas.DataContext as Entity;
+            var viewModel = (NetworkDisplayViewModel)this.DataContext;
+            if (e.LeftButton == MouseButtonState.Pressed && entity != null)
+            {
+                viewModel.EndDragCommand.Execute(entity);
+            }
+        }
+
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var canvas = (Canvas)sender;
+            var entity = canvas.DataContext as Entity;
+            var viewModel = (NetworkDisplayViewModel)this.DataContext;
+            viewModel.EndDragCommand.Execute(entity);
+        }
+
     }
 }

@@ -19,6 +19,10 @@ namespace NetworkService.ViewModel
     public class NetworkDisplayViewModel : BindableBase
     {
         public ICommand ClearCanvasCommand { get; }
+        public ICommand StartDragCommand { get; }
+        public ICommand EndDragCommand { get; }
+
+
         public NetworkDisplayViewModel()
         {
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
@@ -30,9 +34,13 @@ namespace NetworkService.ViewModel
                 CanvasEntities.Add($"Canvas{i}", new ObservableCollection<Entity>());
             }
             ClearCanvasCommand = new MyICommand<string>(ClearCanvas);
+            StartDragCommand = new MyICommand<Entity>(StartDrag);
+            EndDragCommand = new MyICommand<Entity>(EndDrag);
         }
         public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
+
+
 
         public void HandleDrop(Entity entity, string canvasName)
         {
@@ -80,6 +88,57 @@ namespace NetworkService.ViewModel
                 OnPropertyChanged(nameof(CanvasEntities));
                 OnPropertyChanged(nameof(EntitiesTreeView));
             }
+        }
+
+        public void HandleCanvasDrop(Entity entity, string sourceCanvasName, string targetCanvasName)
+        {
+            if (EntitiesTreeView == null) throw new InvalidOperationException("EntitiesTreeView is not initialized.");
+            if (CanvasEntities == null || !CanvasEntities.ContainsKey(sourceCanvasName) || !CanvasEntities.ContainsKey(targetCanvasName))
+                throw new InvalidOperationException($"CanvasEntities does not contain {sourceCanvasName} or {targetCanvasName}.");
+
+            // Remove the entity from the source canvas
+            var sourceEntities = CanvasEntities[sourceCanvasName];
+            sourceEntities.Remove(entity);
+
+            // Add the entity to the target canvas
+            var targetEntities = CanvasEntities[targetCanvasName];
+            targetEntities.Add(entity);
+
+            OnPropertyChanged(nameof(EntitiesTreeView));
+            OnPropertyChanged(nameof(CanvasEntities));
+        }
+
+        private Entity _draggedEntity;
+
+        private void StartDrag(Entity entity)
+        {
+            _draggedEntity = entity;
+        }
+
+        private void EndDrag(Entity entity)
+        {
+            if (_draggedEntity != null)
+            {
+                // Find the canvas under the mouse pointer
+                var canvasUnderMouse = FindCanvasUnderMouse();
+                if (canvasUnderMouse != null)
+                {
+                    HandleCanvasDrop(_draggedEntity, _draggedEntity.CurrentCanvas, canvasUnderMouse.Name);
+                    _draggedEntity.CurrentCanvas = canvasUnderMouse.Name;
+                }
+                _draggedEntity = null;
+            }
+        }
+
+        private Canvas FindCanvasUnderMouse()
+        {
+            var mousePosition = Mouse.GetPosition((IInputElement)Application.Current.MainWindow.Content);
+            var canvasUnderMouse = VisualTreeHelper.HitTest((Visual)Application.Current.MainWindow.Content, mousePosition)?.VisualHit;
+            while (canvasUnderMouse != null && !(canvasUnderMouse is Canvas))
+            {
+                canvasUnderMouse = VisualTreeHelper.GetParent(canvasUnderMouse);
+            }
+            return (Canvas)canvasUnderMouse;
         }
     }
 }

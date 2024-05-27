@@ -357,19 +357,6 @@ namespace NetworkService.ViewModel
             }
         }
 
-        private string _imageError;
-        public string ImageError
-        {
-            get
-            {
-                return _imageError;
-            }
-            set
-            {
-                _imageError = value;
-                OnPropertyChanged(nameof(ImageError));
-            }
-        }
 
         private void OnAdd() {
             List<string> errors = new List<string>();
@@ -388,22 +375,25 @@ namespace NetworkService.ViewModel
                 errors.Add("Name is required.");
             }
 
-            if (string.IsNullOrEmpty(ImagePath))
-            {
-                errors.Add("Image is required.");
-            }
 
-            // Update error properties
             IdError = errors.FirstOrDefault(e => e.Contains("ID")) ?? null;
             NameError = errors.FirstOrDefault(e => e.Contains("Name")) ?? null;
-            ImageError = errors.FirstOrDefault(e => e.Contains("Image")) ?? null;
 
-            // Add any additional error handling logic here
-
-            // If there are any errors, return without adding the entity
             if (errors.Any())
             {
                 return;
+            }
+
+            if (string.IsNullOrEmpty(ImagePath))
+            {
+                if (TypeText.ToString() == "SmartMeter")
+                {
+                    ImagePath = "\\Resources\\Pictures\\SmartMeter.png";
+                }
+                else
+                {
+                    ImagePath = "\\Resources\\Pictures\\IntervalMeter.png";
+                }
             }
 
             MainWindowViewModel.Entities.Add(new Entity

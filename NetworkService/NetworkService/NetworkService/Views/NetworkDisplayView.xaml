@@ -112,6 +112,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas1]}">
                         <ItemsControl.ItemTemplate>
@@ -138,6 +141,9 @@
                     Height="60"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas2]}">
                         <ItemsControl.ItemTemplate>
@@ -165,6 +171,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas3]}">
                         <ItemsControl.ItemTemplate>
@@ -192,6 +201,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas4]}">
                         <ItemsControl.ItemTemplate>
@@ -219,6 +231,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas5]}">
                         <ItemsControl.ItemTemplate>
@@ -246,6 +261,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas6]}">
                         <ItemsControl.ItemTemplate>
@@ -273,6 +291,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas7]}">
                         <ItemsControl.ItemTemplate>
@@ -300,6 +321,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas8]}">
                         <ItemsControl.ItemTemplate>
@@ -327,6 +351,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas9]}">
                         <ItemsControl.ItemTemplate>
@@ -354,6 +381,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas10]}">
                         <ItemsControl.ItemTemplate>
@@ -381,6 +411,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas11]}">
                         <ItemsControl.ItemTemplate>
@@ -408,6 +441,9 @@
                     AllowDrop="True"
                     Drop="Canvas_Drop"
                     DragOver="Canvas_DragOver"
+                    PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown"
+                    PreviewMouseMove="Canvas_PreviewMouseMove"
+                    MouseLeftButtonUp="Canvas_MouseLeftButtonUp"
                     DataContext="{Binding}">
                     <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas12]}">
                         <ItemsControl.ItemTemplate>

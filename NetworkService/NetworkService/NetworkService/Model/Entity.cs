@@ -118,6 +118,20 @@ namespace NetworkService.Model
             }
         }
 
+        private string _currentCanvas;
+        public string CurrentCanvas
+        {
+            get { return _currentCanvas; }
+            set
+            {
+                if (_currentCanvas != value)
+                {
+                    _currentCanvas = value;
+                    OnPropertyChanged(nameof(CurrentCanvas));
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
