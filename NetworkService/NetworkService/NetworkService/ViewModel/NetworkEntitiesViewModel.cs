@@ -368,6 +368,15 @@ namespace NetworkService.ViewModel
             else if (!int.TryParse(IdNumber, out int id))
             {
                 errors.Add("ID must be a number.");
+            }else
+            {
+                foreach(Entity e in MainWindowViewModel.Entities)
+                {
+                    if (e.Id.ToString() == IdNumber) {
+                        errors.Add("ID has to be unique.");
+                        break;
+                    }
+                }
             }
 
             if (string.IsNullOrEmpty(NameText))
