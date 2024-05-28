@@ -131,7 +131,7 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand" ToolTip="Remove the selected entity"/>
         <Label Grid.Row="4" FontSize="20" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 -2 0 0" FontFamily="Inter"/>
 
 
@@ -151,9 +151,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
             <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 25 10" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsImageVisible}"/>
-            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0"/>
+            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0" />
         </StackPanel>
-        <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1" ToolTip="Add a entity"/>
 
         
             <!-- Keyboard layout -->

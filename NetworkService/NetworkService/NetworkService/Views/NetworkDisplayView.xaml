@@ -61,7 +61,8 @@
             <DockPanel Margin="5">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas1">
+                        CommandParameter="Canvas1"
+                        Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -98,7 +99,7 @@
 
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom" Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas2">
+                        CommandParameter="Canvas2" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -135,7 +136,7 @@
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas3">
+                        CommandParameter="Canvas3" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -173,7 +174,7 @@
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas4">
+                        CommandParameter="Canvas4" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -210,7 +211,7 @@
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas5">
+                        CommandParameter="Canvas5" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -247,7 +248,7 @@
             <DockPanel Margin="5" Grid.Column="6" Grid.Row="0">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas6">
+                        CommandParameter="Canvas6" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -284,7 +285,7 @@
             <DockPanel Margin="5" Grid.Column="0" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas7">
+                        CommandParameter="Canvas7" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -321,7 +322,7 @@
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas8">
+                        CommandParameter="Canvas8" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -358,7 +359,7 @@
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas9">
+                        CommandParameter="Canvas9" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -395,7 +396,7 @@
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas10">
+                        CommandParameter="Canvas10" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -432,7 +433,7 @@
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas11">
+                        CommandParameter="Canvas11" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
@@ -469,7 +470,7 @@
             <DockPanel Margin="5" Grid.Column="5" Grid.Row="1">
                 <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}"
-                        CommandParameter="Canvas12">
+                        CommandParameter="Canvas12" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
                         <TextBlock Margin="3,1,0,0" Text="CLEAR" FontSize="6"/>
