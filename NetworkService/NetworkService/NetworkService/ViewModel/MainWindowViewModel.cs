@@ -85,8 +85,10 @@ namespace NetworkService.ViewModel
             LoadData();
             createListener(); //Povezivanje sa serverskom aplikacijom   
             NavCommand = new MyICommand<string>(OnNav);
-            CurrentViewModel = networkEntitiesViewModel;
             history = new Stack<object>();
+            _navigationHistory = new Stack<BindableBase>();
+            BackCommand = new MyICommand(OnBack, CanGoBack);
+            CurrentViewModel = networkEntitiesViewModel;
         }
         private void createListener()
         {
@@ -175,6 +177,7 @@ namespace NetworkService.ViewModel
         private NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
         private MeasurementGraphViewModel measurementsGraphViewModel = new MeasurementGraphViewModel();
         private BindableBase currentViewModel;
+        private readonly Stack<BindableBase> _navigationHistory;
         private Stack<object> history;
 
         public MyICommand<string> NavCommand { get; private set; }
@@ -190,10 +193,15 @@ namespace NetworkService.ViewModel
             set
             {
                 SetProperty(ref currentViewModel, value);
+                BackCommand.RaiseCanExecuteChanged();
             }
         }
         private void OnNav(string destination)
         {
+            if (CurrentViewModel != null)
+            {
+                _navigationHistory.Push(CurrentViewModel);
+            }
             switch (destination)
             {
                 //Uraditi i za back funkciju
@@ -207,6 +215,18 @@ namespace NetworkService.ViewModel
                     CurrentViewModel = measurementsGraphViewModel;
                     break;
             }
+        }
+        private void OnBack()
+        {
+            if (_navigationHistory.Count > 0)
+            {
+                CurrentViewModel = _navigationHistory.Pop();
+            }
+        }
+
+        private bool CanGoBack()
+        {
+            return _navigationHistory.Count > 0;
         }
     }
 }

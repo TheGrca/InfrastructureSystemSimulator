@@ -37,7 +37,8 @@
             Height="80"
             Background="#EADBC8"
             >
-            <MenuItem HorizontalAlignment="Left" Margin="0 15 0 0">
+            <MenuItem HorizontalAlignment="Left" Margin="0 15 0 0" Command="{Binding BackCommand}" 
+              IsEnabled="{Binding BackCommand.CanExecute(null), Mode=OneWay}" >
                 <MenuItem.Header>
                     <fa5:SvgAwesome Height="46" Icon="Solid_ArrowLeft"  Foreground="Black" Margin="0 0 5 0"/>
                 </MenuItem.Header>
