@@ -24,6 +24,8 @@ namespace NetworkService.ViewModel
         public MeasurementGraphViewModel()
         {
             StartReadingLogFile();
+            _selectionHistory = new Stack<Entity>();
+            UndoSelectionCommand = new MyICommand(OnUndoSelection, CanUndoSelection);
         }
 
         private string _logFilePath = "log.txt";
@@ -267,10 +269,60 @@ namespace NetworkService.ViewModel
                     OnPropertyChanged(nameof(PolyLinePoints));
             }
         }
-        
 
+        //UNDO
+        private bool _isUndoSelectionButtonEnabled;
+        private Entity _selectedComboBoxEntity;
+        private Stack<Entity> _selectionHistory;
+        public bool IsUndoSelectionButtonEnabled
+        {
+            get { return _isUndoSelectionButtonEnabled; }
+            set
+            {
+                if (_isUndoSelectionButtonEnabled != value)
+                {
+                    _isUndoSelectionButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsUndoSelectionButtonEnabled));
+                }
+            }
+        }
 
+        public Entity SelectedComboBoxEntity
+        {
+            get { return _selectedComboBoxEntity; }
+            set
+            {
+                if (_selectedComboBoxEntity != value)
+                {
+                    if (_selectedComboBoxEntity != null)
+                    {
+                        _selectionHistory.Push(_selectedComboBoxEntity); // Save current selection before changing
+                    }
+                    _selectedComboBoxEntity = value;
+                    IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0; // Enable the undo button if there's history
+                    UndoSelectionCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SelectedComboBoxEntity));
+                }
+            }
+        }
+
+        public MyICommand UndoSelectionCommand { get; private set; }
+
+        private void OnUndoSelection()
+        {
+            if (_selectionHistory.Count > 0)
+            {
+                var previousSelection = _selectionHistory.Pop();
+                _selectedComboBoxEntity = previousSelection;
+                IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
+                OnPropertyChanged(nameof(SelectedComboBoxEntity));
+                UndoSelectionCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool CanUndoSelection()
+        {
+            return _selectionHistory.Count > 0;
+        }
     }
-
-    
 }

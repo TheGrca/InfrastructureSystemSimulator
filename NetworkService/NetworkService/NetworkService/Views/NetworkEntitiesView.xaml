@@ -131,6 +131,7 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
+        <Button Grid.Row="3" Style="{StaticResource MyButton}" Height="30" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="UNDO" Margin=" 10 0 0 10" Cursor="Hand" ToolTip="Undo the most recent change" IsEnabled="{Binding IsUndoButtonEnabled}" Command="{Binding UndoCommand}"/>
         <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand" ToolTip="Remove the selected entity"/>
         <Label Grid.Row="4" FontSize="20" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 -2 0 0" FontFamily="Inter"/>
 

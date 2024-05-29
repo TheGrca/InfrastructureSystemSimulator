@@ -325,6 +325,8 @@ namespace NetworkService.ViewModel
             SearchByName = true;
             SearchByType = false;
             EntitiesList = MainWindowViewModel.Entities;
+            _entityHistory = new Stack<Entity>();
+            UndoCommand = new MyICommand(OnUndo, CanUndo);
         }
 
 
@@ -404,16 +406,20 @@ namespace NetworkService.ViewModel
                     ImagePath = "\\Resources\\Pictures\\IntervalMeter.png";
                 }
             }
-
-            MainWindowViewModel.Entities.Add(new Entity
+            var newEntity = new Entity
             {
                 Id = int.Parse(IdNumber),
                 Name = NameText,
                 ImagePath = ImagePath,
                 EntityType = TypeText,
                 Value = 0
-            });
-            ResetFormFields();         
+            };
+
+            MainWindowViewModel.Entities.Add(newEntity);
+            ResetFormFields();
+            _entityHistory.Push(newEntity); 
+            IsUndoButtonEnabled = _entityHistory.Count > 0; 
+            UndoCommand.RaiseCanExecuteChanged();
         }
 
         private void ResetFormFields()
@@ -501,7 +507,39 @@ namespace NetworkService.ViewModel
             }
             EntitiesList = new ObservableCollection<Entity>(entities);
         }
-   
 
+
+        //UNDO
+        private bool _isUndoButtonEnabled;
+        public bool IsUndoButtonEnabled
+        {
+            get { return _isUndoButtonEnabled;}
+            set
+            {
+                if( _isUndoButtonEnabled != value )
+                {
+                    _isUndoButtonEnabled = value;
+                    OnPropertyChanged(nameof(IsUndoButtonEnabled));
+                }
+            }
+        }
+        private Stack<Entity> _entityHistory;
+        public MyICommand UndoCommand { get; private set; }
+
+        private void OnUndo()
+        {
+            if (_entityHistory.Count > 0)
+            {
+                var entityToUndo = _entityHistory.Pop();
+                MainWindowViewModel.Entities.Remove(entityToUndo);
+                IsUndoButtonEnabled = _entityHistory.Count > 0; 
+                UndoCommand.RaiseCanExecuteChanged(); 
+            }
+        }
+
+        private bool CanUndo()
+        {
+            return _entityHistory.Count > 0;
+        }
     }
 }
