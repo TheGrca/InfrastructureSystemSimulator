@@ -131,6 +131,10 @@ namespace NetworkService.ViewModel
             if (!_latestValues.ContainsKey(entityValue.Index))
             {
                 _latestValues[entityValue.Index] = new List<EntityValue>();
+                for (int i = 0; i < 5; i++)
+                {
+                    _latestValues[entityValue.Index].Add(new EntityValue { Value = 0, TimeStamp = DateTime.MinValue });
+                }
             }
 
             var latestValues = _latestValues[entityValue.Index];
@@ -193,7 +197,7 @@ namespace NetworkService.ViewModel
                 // If the number of values is less than 5, fill the remaining ellipses with a value of 0
                 while (latestValuesForSelectedEntity.Count < 5)
                 {
-                    latestValuesForSelectedEntity.Add(new EntityValue { Value = 0 }); // Insert 0 at the beginning
+                    latestValuesForSelectedEntity.Insert(0, new EntityValue { Value = 0, TimeStamp = DateTime.MinValue }); // Insert 0 at the beginning
                 }
                 var newPolylinePoints = new PointCollection();
 
