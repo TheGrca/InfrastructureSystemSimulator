@@ -416,6 +416,7 @@ namespace NetworkService.ViewModel
             };
 
             MainWindowViewModel.Entities.Add(newEntity);
+            MainWindowViewModel.RefreshEntitiesTreeView();
             ResetFormFields();
             _entityHistory.Push(newEntity); 
             IsUndoButtonEnabled = _entityHistory.Count > 0; 
@@ -441,6 +442,7 @@ namespace NetworkService.ViewModel
             if (DeleteConfirmation())
             {
                 MainWindowViewModel.Entities.Remove(SelectedEntity);
+                MainWindowViewModel.RefreshEntitiesTreeView();
             }
         }
 

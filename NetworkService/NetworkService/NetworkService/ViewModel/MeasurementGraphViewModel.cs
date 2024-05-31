@@ -318,8 +318,8 @@ namespace NetworkService.ViewModel
             {
                 var previousSelection = _selectionHistory.Pop();
                 _selectedComboBoxEntity = previousSelection;
-                IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
                 OnPropertyChanged(nameof(SelectedComboBoxEntity));
+                IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
                 UndoSelectionCommand.RaiseCanExecuteChanged();
             }
         }

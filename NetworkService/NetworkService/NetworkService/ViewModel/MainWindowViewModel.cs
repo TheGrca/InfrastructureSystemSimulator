@@ -56,7 +56,7 @@ namespace NetworkService.ViewModel
                     Value = 0
                 }
             };
-
+            /*
             EntitiesTreeView = new ObservableCollection<EntityByType>();
             EntityByType IntervalMeterEntities = new EntityByType() { Type = EntityType.IntervalMeter.ToString()};
             EntityByType SmartMeterEntities = new EntityByType() { Type = EntityType.SmartMeter.ToString() };
@@ -74,7 +74,7 @@ namespace NetworkService.ViewModel
             }
             EntitiesTreeView.Add(IntervalMeterEntities);
             EntitiesTreeView.Add(SmartMeterEntities);
-
+            */
         }
         private int count = 4; // Inicijalna vrednost broja objekata u sistemu
                                 // ######### ZAMENITI stvarnim brojem elemenata
@@ -83,12 +83,14 @@ namespace NetworkService.ViewModel
         public MainWindowViewModel()
         {
             LoadData();
+            RefreshEntitiesTreeView();
             createListener(); //Povezivanje sa serverskom aplikacijom   
             NavCommand = new MyICommand<string>(OnNav);
             history = new Stack<object>();
             _navigationHistory = new Stack<BindableBase>();
             BackCommand = new MyICommand(OnBack, CanGoBack);
             CurrentViewModel = networkEntitiesViewModel;
+            
         }
         private void createListener()
         {
@@ -227,6 +229,30 @@ namespace NetworkService.ViewModel
         private bool CanGoBack()
         {
             return _navigationHistory.Count > 0;
+        }
+
+        public static void RefreshEntitiesTreeView()
+        {
+            var intervalMeterEntities = new EntityByType { Type = EntityType.IntervalMeter.ToString() };
+            var smartMeterEntities = new EntityByType { Type = EntityType.SmartMeter.ToString() };
+
+            foreach (var entity in Entities)
+            {
+                if (entity.EntityType == EntityType.IntervalMeter)
+                {
+                    intervalMeterEntities.Entities.Add(entity);
+                }
+                else if (entity.EntityType == EntityType.SmartMeter)
+                {
+                    smartMeterEntities.Entities.Add(entity);
+                }
+            }
+
+            EntitiesTreeView = new ObservableCollection<EntityByType>
+        {
+            intervalMeterEntities,
+            smartMeterEntities
+        };
         }
     }
 }
