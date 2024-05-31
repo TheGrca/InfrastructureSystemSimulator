@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NetworkService.Model;
+using Notification.Wpf;
 
 namespace NetworkService.ViewModel
 {
@@ -90,7 +91,7 @@ namespace NetworkService.ViewModel
             _navigationHistory = new Stack<BindableBase>();
             BackCommand = new MyICommand(OnBack, CanGoBack);
             CurrentViewModel = networkEntitiesViewModel;
-            
+            notificationManager = new NotificationManager();
         }
         private void createListener()
         {
@@ -181,7 +182,7 @@ namespace NetworkService.ViewModel
         private BindableBase currentViewModel;
         private readonly Stack<BindableBase> _navigationHistory;
         private Stack<object> history;
-
+        private static NotificationManager notificationManager;
         public MyICommand<string> NavCommand { get; private set; }
         public MyICommand BackCommand { get; set; }
 
@@ -253,6 +254,11 @@ namespace NetworkService.ViewModel
             intervalMeterEntities,
             smartMeterEntities
         };
+        }
+
+        public static void ShowToastNotification(ToastNotification toastNotification)
+        {
+            notificationManager.Show(toastNotification.Title, toastNotification.Message, toastNotification.Type, "WindowNotificationArea");
         }
     }
 }

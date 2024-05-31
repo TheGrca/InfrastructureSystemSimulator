@@ -90,7 +90,7 @@ namespace NetworkService.ViewModel
                         Entities = new ObservableCollection<Entity> { entity }
                     });
                 }
-
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Entity cleared out of canvas!", Notification.Wpf.NotificationType.Success));
                 OnPropertyChanged(nameof(CanvasEntities));
                 OnPropertyChanged(nameof(EntitiesTreeView));
                 UpdateCanvasBorderColors();

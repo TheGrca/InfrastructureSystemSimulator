@@ -392,6 +392,7 @@ namespace NetworkService.ViewModel
 
             if (errors.Any())
             {
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Error while adding entity!", Notification.Wpf.NotificationType.Warning));
                 return;
             }
 
@@ -421,6 +422,7 @@ namespace NetworkService.ViewModel
             _entityHistory.Push(newEntity); 
             IsUndoButtonEnabled = _entityHistory.Count > 0; 
             UndoCommand.RaiseCanExecuteChanged();
+            MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Entity added successfully!", Notification.Wpf.NotificationType.Success));
         }
 
         private void ResetFormFields()
@@ -443,6 +445,7 @@ namespace NetworkService.ViewModel
             {
                 MainWindowViewModel.Entities.Remove(SelectedEntity);
                 MainWindowViewModel.RefreshEntitiesTreeView();
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Deletion done successfully!", Notification.Wpf.NotificationType.Warning));
             }
         }
 
@@ -535,7 +538,8 @@ namespace NetworkService.ViewModel
                 var entityToUndo = _entityHistory.Pop();
                 MainWindowViewModel.Entities.Remove(entityToUndo);
                 IsUndoButtonEnabled = _entityHistory.Count > 0; 
-                UndoCommand.RaiseCanExecuteChanged(); 
+                UndoCommand.RaiseCanExecuteChanged();
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Undo successful!", Notification.Wpf.NotificationType.Information));
             }
         }
 

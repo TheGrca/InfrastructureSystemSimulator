@@ -6,10 +6,12 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:NetworkService"
         xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
-        xmlns:views="clr-namespace:NetworkService.Views"
+        xmlns:views="clr-namespace:NetworkService.Views" xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
         mc:Ignorable="d"
         Title="POWER WATCH" Height="852" Width="393">
 
+    
+    
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -31,7 +33,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <notifications:NotificationArea
+            x:Name="WindowNotificationArea"
+            Panel.ZIndex="1000"
+            MaxItems="3"
+            Position="TopRight"/>
         <Menu
             Grid.Row="0"
             Height="80"
