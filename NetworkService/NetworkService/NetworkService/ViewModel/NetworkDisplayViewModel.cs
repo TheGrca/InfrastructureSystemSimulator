@@ -52,6 +52,11 @@ namespace NetworkService.ViewModel
             if (EntitiesTreeView == null) throw new InvalidOperationException("EntitiesTreeView is not initialized.");
             if (CanvasEntities == null || !CanvasEntities.ContainsKey(canvasName)) throw new InvalidOperationException($"CanvasEntities does not contain {canvasName}.");
 
+            if (CanvasEntities[canvasName].Any())
+            {
+                return; // Do not proceed with the drop
+            }
+
             foreach (var entityByType in EntitiesTreeView)
             {
                 if (entityByType.Entities == null) continue;
@@ -61,6 +66,16 @@ namespace NetworkService.ViewModel
                     break;
                 }
             }
+
+            foreach (var canvas in CanvasEntities)
+            {
+                if (canvas.Value.Contains(entity))
+                {
+                    canvas.Value.Remove(entity);
+                    break;
+                }
+            }
+
             CanvasEntities[canvasName].Clear();
             CanvasEntities[canvasName].Add(entity);
 

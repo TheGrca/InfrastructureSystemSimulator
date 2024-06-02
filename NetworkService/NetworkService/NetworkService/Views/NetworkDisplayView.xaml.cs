@@ -26,7 +26,7 @@ namespace NetworkService.Views
         {
             InitializeComponent();
         }
-        private void TreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement element && element.DataContext is Entity entity)
             {

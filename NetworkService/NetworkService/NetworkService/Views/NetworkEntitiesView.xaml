@@ -135,13 +135,13 @@
         <Button Grid.Row="3" Style="{StaticResource MyButton}" Height="30" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin=" 10 0 0 10" Cursor="Hand" ToolTip="Undo the most recent change" IsEnabled="{Binding IsUndoButtonEnabled}" Command="{Binding UndoCommand}">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <fa5:SvgAwesome Height="15" Icon="Solid_Undo" />
-                <TextBlock Margin="10,1,0,0" Text="UNDO" FontSize="15"/>
+                <TextBlock Margin="5,1,0,2" Text="UNDO" FontSize="15"/>
             </StackPanel>
         </Button>
         <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand" ToolTip="Remove the selected entity">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                <fa5:SvgAwesome Height="15" Icon="Solid_Times"/>
-                <TextBlock Margin="10,1,0,0" Text="REMOVE" FontSize="15"/>
+                <fa5:SvgAwesome Height="20" Icon="Solid_Times"/>
+                <TextBlock Margin="5,0,0,2" Text="REMOVE" FontSize="15"/>
             </StackPanel>
         </Button>
         <Label Grid.Row="4" FontSize="20" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 -2 0 0" FontFamily="Inter"/>
@@ -166,14 +166,14 @@
             <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0" >
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <fa5:SvgAwesome Height="15" Icon="Regular_Image"/>
-                    <TextBlock Margin="10,1,0,0" Text="Select image" FontSize="10"/>
+                    <TextBlock Margin="10,1,0,2" Text="Select image" FontSize="10"/>
                 </StackPanel>
             </Button>
         </StackPanel>
         <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1" ToolTip="Add a entity">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <fa5:SvgAwesome Height="15" Icon="Solid_Plus"/>
-                <TextBlock Margin="10,1,0,0" Text="ADD" FontSize="15"/>
+                <TextBlock Margin="5,1,0,2" Text="ADD" FontSize="15"/>
             </StackPanel>
         </Button>
 
