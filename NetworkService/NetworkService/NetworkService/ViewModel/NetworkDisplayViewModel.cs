@@ -98,39 +98,6 @@ namespace NetworkService.ViewModel
         }
 
 
-        //Lines between canvas
-
-        public ObservableCollection<LineModel> Lines { get; } = new ObservableCollection<LineModel>();
-
-        // Method to add a line between two canvases
-        public void AddLine(string startCanvas, string endCanvas)
-        {
-            // Create a new line with start and end points
-            var line = new LineModel(startCanvas, endCanvas);
-            Lines.Add(line);
-        }
-
-        // Method to remove lines connected to a canvas
-        public void RemoveLinesByCanvas(string canvasName)
-        {
-            var linesToRemove = new List<LineModel>();
-
-            // Find lines where either start or end canvas matches the specified canvasName
-            foreach (var line in Lines)
-            {
-                if (line.StartCanvas == canvasName || line.EndCanvas == canvasName)
-                {
-                    linesToRemove.Add(line);
-                }
-            }
-
-            // Remove lines from the collection
-            foreach (var lineToRemove in linesToRemove)
-            {
-                Lines.Remove(lineToRemove);
-            }
-        }
-
         // Canvas Value Color
         private Dictionary<string, Brush> _canvasBorderColors = new Dictionary<string, Brush>();
         public Dictionary<string, Brush> CanvasBorderColors

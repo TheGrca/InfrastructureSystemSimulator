@@ -6,6 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:local="clr-namespace:NetworkService.Views"
             xmlns:model="clr-namespace:NetworkService.Model"
+                     xmlns:fa5="http://schemas.fontawesome.com/icons/"
             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
@@ -131,8 +132,18 @@
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button Grid.Row="3" Style="{StaticResource MyButton}" Height="30" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="UNDO" Margin=" 10 0 0 10" Cursor="Hand" ToolTip="Undo the most recent change" IsEnabled="{Binding IsUndoButtonEnabled}" Command="{Binding UndoCommand}"/>
-        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="REMOVE" Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand" ToolTip="Remove the selected entity"/>
+        <Button Grid.Row="3" Style="{StaticResource MyButton}" Height="30" Width="120" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin=" 10 0 0 10" Cursor="Hand" ToolTip="Undo the most recent change" IsEnabled="{Binding IsUndoButtonEnabled}" Command="{Binding UndoCommand}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <fa5:SvgAwesome Height="15" Icon="Solid_Undo" />
+                <TextBlock Margin="10,1,0,0" Text="UNDO" FontSize="15"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{StaticResource MyButton}" Grid.Row="3" Height="30" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="0 0 10 10" Command="{Binding DeleteCommand}" Cursor="Hand" ToolTip="Remove the selected entity">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <fa5:SvgAwesome Height="15" Icon="Solid_Times"/>
+                <TextBlock Margin="10,1,0,0" Text="REMOVE" FontSize="15"/>
+            </StackPanel>
+        </Button>
         <Label Grid.Row="4" FontSize="20" Content="ADD AN ELECTRICAL DEVICE:" FontWeight="SemiBold" Margin="5 -2 0 0" FontFamily="Inter"/>
 
 
@@ -152,9 +163,19 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
             <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 25 10" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsImageVisible}"/>
-            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Content="Select image" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0" />
+            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0" >
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <fa5:SvgAwesome Height="15" Icon="Regular_Image"/>
+                    <TextBlock Margin="10,1,0,0" Text="Select image" FontSize="10"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
-        <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="ADD" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1" ToolTip="Add a entity"/>
+        <Button Style="{StaticResource MyButton}" Grid.Row="4" Height="35" Width="120" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 43" Command="{Binding AddCommand}" Cursor="Hand" Grid.Column="1" ToolTip="Add a entity">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <fa5:SvgAwesome Height="15" Icon="Solid_Plus"/>
+                <TextBlock Margin="10,1,0,0" Text="ADD" FontSize="15"/>
+            </StackPanel>
+        </Button>
 
         
             <!-- Keyboard layout -->

@@ -16,6 +16,42 @@
         <viewModel:NetworkDisplayViewModel/>
     </UserControl.DataContext>
 
+    <UserControl.Resources>
+        <Style x:Key="MyButton" TargetType="Button">
+        <Setter Property="Background" Value="#EADBC8"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10 5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#DCC0B6"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#C3A69D"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    </UserControl.Resources>
+
     <Grid Background="#fffaf0">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -59,7 +95,7 @@
             </Grid.RowDefinitions>
 
             <DockPanel Margin="5">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom" Style="{StaticResource MyButton}"
                         Command="{Binding ClearCanvasCommand}"
                         CommandParameter="Canvas1"
                         Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
@@ -98,7 +134,7 @@
 
 
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom" Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom" Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas2" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -134,8 +170,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas3" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -172,8 +208,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas4" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -209,8 +245,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas5" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -246,8 +282,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="6" Grid.Row="0">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas6" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -283,8 +319,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="0" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas7" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -320,8 +356,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas8" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -357,8 +393,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas9" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -394,8 +430,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas10" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -431,8 +467,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas11" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
@@ -468,8 +504,8 @@
             </DockPanel>
             
             <DockPanel Margin="5" Grid.Column="5" Grid.Row="1">
-                <Button Height="15" Width="40" DockPanel.Dock="Bottom"                        
-                        Command="{Binding ClearCanvasCommand}"
+                <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
+                        Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
                         CommandParameter="Canvas12" Cursor="Hand" ToolTip="Remove the selected entity from the canvas">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                         <fa5:SvgAwesome Height="10" Foreground="Gray" Icon="Solid_Times" />
