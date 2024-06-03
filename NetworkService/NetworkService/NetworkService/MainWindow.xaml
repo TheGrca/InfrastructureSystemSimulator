@@ -10,8 +10,13 @@
         mc:Ignorable="d"
         Title="POWER WATCH" Height="852" Width="393">
 
-    
-    
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding NavCommand}" CommandParameter="Network Entities"/>
+        <KeyBinding Key="D" Modifiers="Control" Command="{Binding NavCommand}" CommandParameter="Network Display"/>
+        <KeyBinding Key="M" Modifiers="Control" Command="{Binding NavCommand}" CommandParameter="Measurment Graph"/>
+        <KeyBinding Key="Z" Modifiers="Control" Command="{Binding BackCommand}"/>
+    </Window.InputBindings>
+
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>

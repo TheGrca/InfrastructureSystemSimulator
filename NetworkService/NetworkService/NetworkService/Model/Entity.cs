@@ -13,7 +13,7 @@ namespace NetworkService.Model
         IntervalMeter,
         SmartMeter
     }
-    public class Entity : INotifyPropertyChanged
+    public class Entity : BindableBase, INotifyPropertyChanged
     {
         private int id;
         private string name;
@@ -142,6 +142,21 @@ namespace NetworkService.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
 
+        }
+
+        private double _x;
+        private double _y;
+
+        public double X
+        {
+            get => _x;
+            set => SetProperty(ref _x, value);
+        }
+
+        public double Y
+        {
+            get => _y;
+            set => SetProperty(ref _y, value);
         }
     }
 }

@@ -52,9 +52,37 @@ namespace NetworkService.Views
             }
         }
 
-        private void Canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void FirstComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           throw new NotImplementedException();
+            var selectedEntity = FirstComboBox.SelectedItem as Entity;
+            if (selectedEntity != null)
+            {
+
+            }
+        }
+
+        private void SecondComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedEntity = SecondComboBox.SelectedItem as Entity;
+            if (selectedEntity != null)
+            {
+
+            }
+        }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var firstEntity = FirstComboBox.SelectedItem as Entity;
+            var secondEntity = SecondComboBox.SelectedItem as Entity;
+
+            if (firstEntity != null && secondEntity != null)
+            {
+                // Logic to create and display the line
+            }
+
+            FirstComboBox.SelectedItem = null;
+            SecondComboBox.SelectedItem = null;
+
         }
 
     }

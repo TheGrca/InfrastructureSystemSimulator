@@ -201,6 +201,7 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.30.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -261,9 +262,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
+    <Compile Include="Model\Connection.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\EntityValue.cs" />
-    <Compile Include="Model\Line.cs" />
     <Compile Include="Model\EntityByType.cs" />
     <Compile Include="Model\LineModel.cs" />
     <Compile Include="Model\ToastNotification.cs" />
