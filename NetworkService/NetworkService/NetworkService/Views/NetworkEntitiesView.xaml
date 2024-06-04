@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-            xmlns:local="clr-namespace:NetworkService.Views"
-            xmlns:model="clr-namespace:NetworkService.Model"
-                     xmlns:fa5="http://schemas.fontawesome.com/icons/"
-            xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:model="clr-namespace:NetworkService.Model"
+             xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="771" d:DesignWidth="393">
 
@@ -17,6 +18,7 @@
 
 
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <DataTemplate DataType="{x:Type model:Entity}">
             <Border BorderBrush="Gray"
                 BorderThickness="1"
@@ -94,7 +96,16 @@
             <RadioButton Margin="20 2 0 0" Background="#EADBC8" Content="NAME" IsChecked="{Binding SearchByName}"/>
             <RadioButton   Background="#EADBC8" Content="TYPE" Margin="15 2 0 0" IsChecked="{Binding SearchByType}"/>
         </StackPanel>
-        <TextBox Background="#EADBC8" x:Name="SearchTextBox" Height="25" Width="190" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,10,0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" IsEnabled="{Binding IsTextBoxAvailable}" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Background="#EADBC8" x:Name="SearchTextBox" Height="25" Width="190" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,35,10,0" IsEnabled="{Binding IsTextBoxAvailable}" Text="{Binding SearchTextBoxText, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="GotFocus">
+                    <i:InvokeCommandAction Command="{Binding TextBoxGotFocusCommand}" CommandParameter="{Binding ElementName=SearchTextBox}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding TextBoxLostFocusCommand}" CommandParameter="{Binding ElementName=SearchTextBox}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
         <ComboBox Background="#EADBC8" x:Name="SearchComboBox" Height="25" Width="150" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,35,10,10" IsEnabled="{Binding IsComboBoxAvailable}" SelectedItem="{Binding SelectedType}">
             <sys:String>SmartMeter</sys:String>
             <sys:String>IntervalMeter</sys:String>
@@ -149,12 +160,30 @@
 
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 30 0 0" Grid.Row="4">
                     <TextBlock Text="ID:"></TextBlock>
-            <TextBox x:Name="IdTextBox" Background="#EADBC8"  Height="25" Width="215" Text="{Binding IdNumber}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
+            <TextBox x:Name="IdTextBox" Background="#EADBC8"  Height="25" Width="215" Text="{Binding IdNumber}"  Margin="0 5 0 0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding TextBoxGotFocusCommand}" CommandParameter="{Binding ElementName=IdTextBox}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding TextBoxLostFocusCommand}" CommandParameter="{Binding ElementName=IdTextBox}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
                     <Label Name="IDErrorLabel" Foreground="Red" Content="{Binding IdError}" Width="215" Height="25" VerticalAlignment="Top"/>
                 </StackPanel>
                  <StackPanel  Orientation="Vertical" HorizontalAlignment="Left" Margin="10 120 0 0" Grid.Row="4">
                     <TextBlock Text="NAME:"></TextBlock>
-            <TextBox x:Name="NameTextBox" Background="#EADBC8" Height="25" Width="215" Text="{Binding NameText}" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Margin="0 5 0 0"/>
+            <TextBox x:Name="NameTextBox" Background="#EADBC8" Height="25" Width="215" Text="{Binding NameText}"  Margin="0 5 0 0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding TextBoxGotFocusCommand}" CommandParameter="{Binding ElementName=NameTextBox}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding TextBoxLostFocusCommand}" CommandParameter="{Binding ElementName=NameTextBox}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
             <Label Name="NameErrorLabel" Foreground="Red" Content="{Binding NameError}"  Width="215" Height="25"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Orientation="Vertical" HorizontalAlignment="Left" Margin="10 210 0 0">
@@ -179,7 +208,7 @@
 
         
             <!-- Keyboard layout -->
-            <Grid x:Name="KeyboardGrid" Grid.Row="5" Visibility="Hidden">
+        <Grid x:Name="KeyboardGrid" Grid.Row="5" Visibility="{Binding IsKeyboardVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -201,55 +230,54 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- First row -->
-            <Button Content="1" Grid.Row="0" Grid.Column="0" Click="KeyboardButton_Click"/>
-            <Button Content="2" Grid.Row="0" Grid.Column="1" Click="KeyboardButton_Click" />
-            <Button Content="3" Grid.Row="0" Grid.Column="2" Click="KeyboardButton_Click" />
-            <Button Content="4" Grid.Row="0" Grid.Column="3" Click="KeyboardButton_Click"/>
-            <Button Content="5" Grid.Row="0" Grid.Column="4" Click="KeyboardButton_Click"/>
-            <Button Content="6" Grid.Row="0" Grid.Column="5" Click="KeyboardButton_Click"/>
-            <Button Content="7" Grid.Row="0" Grid.Column="6" Click="KeyboardButton_Click"/>
-            <Button Content="8" Grid.Row="0" Grid.Column="7" Click="KeyboardButton_Click"/>
-            <Button Content="9" Grid.Row="0" Grid.Column="8" Click="KeyboardButton_Click"/>
-            <Button Content="0" Grid.Row="0" Grid.Column="9" Click="KeyboardButton_Click"/>
+            <Button Content="1" Grid.Row="0" Grid.Column="0" Command="{Binding KeyboardButtonCommand}" CommandParameter="1"/>
+            <Button Content="2" Grid.Row="0" Grid.Column="1" Command="{Binding KeyboardButtonCommand}" CommandParameter="2" />
+            <Button Content="3" Grid.Row="0" Grid.Column="2" Command="{Binding KeyboardButtonCommand}" CommandParameter="3" />
+            <Button Content="4" Grid.Row="0" Grid.Column="3" Command="{Binding KeyboardButtonCommand}" CommandParameter="4"/>
+            <Button Content="5" Grid.Row="0" Grid.Column="4" Command="{Binding KeyboardButtonCommand}" CommandParameter="5"/>
+            <Button Content="6" Grid.Row="0" Grid.Column="5" Command="{Binding KeyboardButtonCommand}" CommandParameter="6"/>
+            <Button Content="7" Grid.Row="0" Grid.Column="6" Command="{Binding KeyboardButtonCommand}" CommandParameter="7"/>
+            <Button Content="8" Grid.Row="0" Grid.Column="7" Command="{Binding KeyboardButtonCommand}" CommandParameter="8"/>
+            <Button Content="9" Grid.Row="0" Grid.Column="8" Command="{Binding KeyboardButtonCommand}" CommandParameter="9"/>
+            <Button Content="0" Grid.Row="0" Grid.Column="9" Command="{Binding KeyboardButtonCommand}" CommandParameter="0"/>
 
                 <!-- Second row -->
-            <Button Content="Q" Grid.Row="1" Grid.Column="0" Click="KeyboardButton_Click"/>
-            <Button Content="W" Grid.Row="1" Grid.Column="1" Click="KeyboardButton_Click"/>
-            <Button Content="E" Grid.Row="1" Grid.Column="2" Click="KeyboardButton_Click"/>
-            <Button Content="R" Grid.Row="1" Grid.Column="3" Click="KeyboardButton_Click"/>
-            <Button Content="T" Grid.Row="1" Grid.Column="4" Click="KeyboardButton_Click"/>
-            <Button Content="Y" Grid.Row="1" Grid.Column="5" Click="KeyboardButton_Click"/>
-            <Button Content="U" Grid.Row="1" Grid.Column="6" Click="KeyboardButton_Click"/>
-            <Button Content="I" Grid.Row="1" Grid.Column="7" Click="KeyboardButton_Click"/>
-            <Button Content="O" Grid.Row="1" Grid.Column="8" Click="KeyboardButton_Click"/>
-            <Button Content="P" Grid.Row="1" Grid.Column="9" Click="KeyboardButton_Click"/>
+            <Button Content="Q" Grid.Row="1" Grid.Column="0" Command="{Binding KeyboardButtonCommand}" CommandParameter="Q"/>
+            <Button Content="W" Grid.Row="1" Grid.Column="1" Command="{Binding KeyboardButtonCommand}" CommandParameter="W"/>
+            <Button Content="E" Grid.Row="1" Grid.Column="2" Command="{Binding KeyboardButtonCommand}" CommandParameter="E"/>
+            <Button Content="R" Grid.Row="1" Grid.Column="3" Command="{Binding KeyboardButtonCommand}" CommandParameter="R"/>
+            <Button Content="T" Grid.Row="1" Grid.Column="4" Command="{Binding KeyboardButtonCommand}" CommandParameter="T"/>
+            <Button Content="Y" Grid.Row="1" Grid.Column="5" Command="{Binding KeyboardButtonCommand}" CommandParameter="Y"/>
+            <Button Content="U" Grid.Row="1" Grid.Column="6" Command="{Binding KeyboardButtonCommand}" CommandParameter="U"/>
+            <Button Content="I" Grid.Row="1" Grid.Column="7" Command="{Binding KeyboardButtonCommand}" CommandParameter="I"/>
+            <Button Content="O" Grid.Row="1" Grid.Column="8" Command="{Binding KeyboardButtonCommand}" CommandParameter="O"/>
+            <Button Content="P" Grid.Row="1" Grid.Column="9" Command="{Binding KeyboardButtonCommand}" CommandParameter="P"/>
 
                 <!-- Third row -->
-            <Button Content="A" Grid.Row="2" Grid.Column="0" Click="KeyboardButton_Click"/>
-            <Button Content="S" Grid.Row="2" Grid.Column="1" Click="KeyboardButton_Click"/>
-            <Button Content="D" Grid.Row="2" Grid.Column="2" Click="KeyboardButton_Click"/>
-            <Button Content="F" Grid.Row="2" Grid.Column="3" Click="KeyboardButton_Click"/>
-            <Button Content="G" Grid.Row="2" Grid.Column="4" Click="KeyboardButton_Click"/>
-            <Button Content="H" Grid.Row="2" Grid.Column="5" Click="KeyboardButton_Click"/>
-            <Button Content="J" Grid.Row="2" Grid.Column="6" Click="KeyboardButton_Click"/>
-            <Button Content="K" Grid.Row="2" Grid.Column="7" Click="KeyboardButton_Click"/>
-            <Button Content="L" Grid.Row="2" Grid.Column="8" Click="KeyboardButton_Click"/>
+            <Button Content="A" Grid.Row="2" Grid.Column="0" Command="{Binding KeyboardButtonCommand}" CommandParameter="A"/>
+            <Button Content="S" Grid.Row="2" Grid.Column="1" Command="{Binding KeyboardButtonCommand}" CommandParameter="S"/>
+            <Button Content="D" Grid.Row="2" Grid.Column="2" Command="{Binding KeyboardButtonCommand}" CommandParameter="D"/>
+            <Button Content="F" Grid.Row="2" Grid.Column="3" Command="{Binding KeyboardButtonCommand}" CommandParameter="F"/>
+            <Button Content="G" Grid.Row="2" Grid.Column="4" Command="{Binding KeyboardButtonCommand}" CommandParameter="G"/>
+            <Button Content="H" Grid.Row="2" Grid.Column="5" Command="{Binding KeyboardButtonCommand}" CommandParameter="H"/>
+            <Button Content="J" Grid.Row="2" Grid.Column="6" Command="{Binding KeyboardButtonCommand}" CommandParameter="J"/>
+            <Button Content="K" Grid.Row="2" Grid.Column="7" Command="{Binding KeyboardButtonCommand}" CommandParameter="K"/>
+            <Button Content="L" Grid.Row="2" Grid.Column="8" Command="{Binding KeyboardButtonCommand}" CommandParameter="L"/>
 
 
                 <!-- Fourth row -->
-            <Button Content="Z" Grid.Row="3" Grid.Column="0" Click="KeyboardButton_Click"/>
-            <Button Content="X" Grid.Row="3" Grid.Column="1" Click="KeyboardButton_Click"/>
-            <Button Content="C" Grid.Row="3" Grid.Column="2" Click="KeyboardButton_Click"/>
-            <Button Content="V" Grid.Row="3" Grid.Column="3" Click="KeyboardButton_Click"/>
-            <Button Content="B" Grid.Row="3" Grid.Column="4" Click="KeyboardButton_Click"/>
-            <Button Content="N" Grid.Row="3" Grid.Column="5" Click="KeyboardButton_Click"/>
-            <Button Content="M" Grid.Row="3" Grid.Column="6" Click="KeyboardButton_Click"/>
-            <Button Content="ENTER" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="3" Click="KeyboardButton_Click"/>
-
-            <Button Content="." Grid.Row="4" Grid.Column="0" Click="KeyboardButton_Click"/>
-            <Button Content="," Grid.Row="4" Grid.Column="1" Click="KeyboardButton_Click"/>
-            <Button Content="SPACE" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="6" Click="KeyboardButton_Click"/>
-            <Button Content="DELETE" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2" Click="KeyboardButton_Click"/>
+            <Button Content="Z" Grid.Row="3" Grid.Column="0" Command="{Binding KeyboardButtonCommand}" CommandParameter="Z"/>
+            <Button Content="X" Grid.Row="3" Grid.Column="1" Command="{Binding KeyboardButtonCommand}" CommandParameter="X"/>
+            <Button Content="C" Grid.Row="3" Grid.Column="2" Command="{Binding KeyboardButtonCommand}" CommandParameter="C"/>
+            <Button Content="V" Grid.Row="3" Grid.Column="3" Command="{Binding KeyboardButtonCommand}" CommandParameter="V"/>
+            <Button Content="B" Grid.Row="3" Grid.Column="4" Command="{Binding KeyboardButtonCommand}" CommandParameter="B"/>
+            <Button Content="N" Grid.Row="3" Grid.Column="5" Command="{Binding KeyboardButtonCommand}" CommandParameter="N"/>
+            <Button Content="M" Grid.Row="3" Grid.Column="6" Command="{Binding KeyboardButtonCommand}" CommandParameter="M"/>
+            <Button Content="ENTER" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="3" Command="{Binding KeyboardButtonCommand}" CommandParameter="ENTER"/>
+            <Button Content="." Grid.Row="4" Grid.Column="0" Command="{Binding KeyboardButtonCommand}" CommandParameter="."/>
+            <Button Content="," Grid.Row="4" Grid.Column="1" Command="{Binding KeyboardButtonCommand}" CommandParameter=","/>
+            <Button Content="SPACE" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="6" Command="{Binding KeyboardButtonCommand}" CommandParameter="SPACE"/>
+            <Button Content="DELETE" Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="2" Command="{Binding KeyboardButtonCommand}" CommandParameter="DELETE"/>
             </Grid>
 
             <!-- Hide Keyboard button -->

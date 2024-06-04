@@ -329,6 +329,9 @@ namespace NetworkService.ViewModel
             EntitiesList = MainWindowViewModel.Entities;
             _entityHistory = new Stack<Model.Entity>();
             UndoCommand = new MyICommand(OnUndo, CanUndo);
+            KeyboardButtonCommand = new MyICommand<string>(HandleKeyboardButtonClick);
+            TextBoxGotFocusCommand = new MyICommand<TextBox>(HandleTextBoxGotFocus);
+            TextBoxLostFocusCommand = new MyICommand<TextBox>(HandleTextBoxLostFocus);
         }
 
 
@@ -554,6 +557,78 @@ namespace NetworkService.ViewModel
         private bool CanUndo()
         {
             return _entityHistory.Count > 0;
+        }
+
+
+
+        //KEYBOARD
+        public ICommand KeyboardButtonCommand { get; set; }
+        public ICommand TextBoxGotFocusCommand { get; set; }
+        public ICommand TextBoxLostFocusCommand { get; set; }
+
+        private bool _isKeyboardVisible;
+        public bool IsKeyboardVisible
+        {
+            get { return _isKeyboardVisible; }
+            set
+            {
+                _isKeyboardVisible = value;
+                OnPropertyChanged(nameof(IsKeyboardVisible));
+            }
+        }
+
+        private TextBox _focusedTextBox;
+        public TextBox FocusedTextBox
+        {
+            get { return _focusedTextBox; }
+            set
+            {
+                _focusedTextBox = value;
+                OnPropertyChanged(nameof(FocusedTextBox));
+            }
+        }
+        private void HandleKeyboardButtonClick(string content)
+        {
+            if (FocusedTextBox != null)
+            {
+                if (content == "SPACE")
+                    content = " ";
+                else if (content == "DELETE")
+                {
+                    if (FocusedTextBox.Text.Length > 0)
+                    {
+                        int caretIdx = FocusedTextBox.CaretIndex;
+                        FocusedTextBox.Text = FocusedTextBox.Text.Remove(caretIdx - 1, 1);
+                        FocusedTextBox.CaretIndex = caretIdx - 1;
+                    }
+                    return;
+                }
+                else if (content == "ENTER")
+                {
+                    IsKeyboardVisible = false;
+                    FocusedTextBox = null;
+                    return;
+                }
+
+                int caretIndex = FocusedTextBox.CaretIndex;
+                FocusedTextBox.Text = FocusedTextBox.Text.Insert(caretIndex, content);
+                FocusedTextBox.CaretIndex = caretIndex + 1;
+                FocusedTextBox.Focus();
+            }
+        }
+
+        private void HandleTextBoxGotFocus(TextBox textBox)
+        {
+            IsKeyboardVisible = true;
+            FocusedTextBox = textBox;
+        }
+
+        private void HandleTextBoxLostFocus(TextBox textBox)
+        {
+            if (FocusedTextBox == null)
+            {
+                IsKeyboardVisible = false;
+            }
         }
     }
 }

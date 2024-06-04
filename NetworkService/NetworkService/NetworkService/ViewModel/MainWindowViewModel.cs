@@ -161,7 +161,6 @@ namespace NetworkService.ViewModel
 
         /////////////////////////////////////////
         private NetworkEntitiesViewModel networkEntitiesViewModel = new NetworkEntitiesViewModel();
- 
         private MeasurementGraphViewModel measurementsGraphViewModel = new MeasurementGraphViewModel();
         private BindableBase currentViewModel;
         private readonly Stack<BindableBase> _navigationHistory;

@@ -536,6 +536,17 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Drop">
+                                <i:InvokeCommandAction Command="{Binding DropEntityOnCanvas}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=Name}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="DragOver">
+                                <i:InvokeCommandAction Command="{Binding DragOverCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=Name}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding PreviewMouseLeftButtonDownCommand}" CommandParameter="{Binding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Canvas>
                 </Border>
             </DockPanel>

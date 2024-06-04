@@ -32,6 +32,9 @@ namespace NetworkService.ViewModel
 
         public NetworkDisplayViewModel()
         {
+            DropEntityOnCanvas = new MyICommand<string>(HandleDrop);
+            DragOverCommand = new MyICommand<string>(HandleDragOver);
+            PreviewMouseLeftButtonDownCommand = new MyICommand<object>(HandlePreviewMouseLeftButtonDown);
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
 
             CanvasEntities = MainWindowViewModel.CanvasEntities;
@@ -328,5 +331,25 @@ namespace NetworkService.ViewModel
         }
 
         public bool IsConnectEnabled => EntitiesInCanvas.Count >= 2;
+
+        //POKUSAJ DRAG AND DROP
+        public ICommand DropEntityOnCanvas { get; set; }
+        public ICommand DragOverCommand { get; set; }
+        public ICommand PreviewMouseLeftButtonDownCommand { get; set; }
+
+        private void HandleDrop(string canvasName)
+        {
+            // Handle drop logic
+        }
+
+        private void HandleDragOver(string canvasName)
+        {
+            // Handle drag over logic
+        }
+
+        private void HandlePreviewMouseLeftButtonDown(object parameter)
+        {
+            // Handle preview mouse left button down logic
+        }
     }
 }
