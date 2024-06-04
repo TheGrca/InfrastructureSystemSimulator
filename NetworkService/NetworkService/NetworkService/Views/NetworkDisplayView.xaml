@@ -541,9 +541,9 @@
             </DockPanel>
         </Grid>
         <Label Grid.Row="3" Content="CONNECT ENTITIES"  HorizontalContentAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-        <ComboBox x:Name="FirstComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name"   Grid.Row="3" Height="30" Width="120" Margin="150 20 0 50" SelectedItem="{Binding SelectedEntity1, Mode=TwoWay}"/>
-        <ComboBox x:Name="SecondComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name"  Grid.Row="3" Height="30" Width="120" Margin="0 20 150 50" SelectedItem="{Binding SelectedEntity2, Mode=TwoWay}"/>
-        <Button x:Name="ConnectButton" Grid.Row="3" Height="30" Width="120" Margin="0 60 0 0" Content="CONNECT" Style="{StaticResource MyButton}" Command="{Binding ConnectCommand}" />
+        <ComboBox x:Name="FirstComboBox" ItemsSource="{Binding EntitiesInCanvas }" DisplayMemberPath="Name"   Grid.Row="3" Height="30" Width="120" Margin="150 20 0 50" SelectedItem="{Binding SelectedEntity1, Mode=TwoWay}"/>
+        <ComboBox x:Name="SecondComboBox" ItemsSource="{Binding EntitiesInCanvas }" DisplayMemberPath="Name"  Grid.Row="3" Height="30" Width="120" Margin="0 20 150 50" SelectedItem="{Binding SelectedEntity2, Mode=TwoWay}"/>
+        <Button x:Name="ConnectButton" Grid.Row="3" Height="30" Width="120" Margin="0 60 0 0" Content="CONNECT" Style="{StaticResource MyButton}" Command="{Binding ConnectCommand}" IsEnabled="{Binding IsConnectEnabled}"/>
         <Canvas x:Name="OverlayCanvas" Background="Transparent" IsHitTestVisible="False" />
     </Grid>
 </UserControl>

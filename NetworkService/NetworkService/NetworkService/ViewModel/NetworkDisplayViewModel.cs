@@ -52,6 +52,7 @@ namespace NetworkService.ViewModel
             _timer.Tick += (sender, args) => UpdateCanvasBorderColors();
             _timer.Start();
             EntitiesInCanvas = new ObservableCollection<Entity>();
+            EntitiesInCanvas.CollectionChanged += EntitiesInCanvas_CollectionChanged;
         }
 
         public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
@@ -101,6 +102,7 @@ namespace NetworkService.ViewModel
             OnPropertyChanged(nameof(EntitiesTreeView));
             OnPropertyChanged(nameof(CanvasEntities));
             OnPropertyChanged(nameof(EntityConnections));
+            OnPropertyChanged(nameof(EntitiesInCanvas));
             UpdateCanvasBorderColors();
         }
 
@@ -112,7 +114,6 @@ namespace NetworkService.ViewModel
                 entities.Clear();
                 EntitiesInCanvas.Remove(entity);
 
-                // Find the appropriate EntityByType to return the entity to
                 var entityType = EntitiesTreeView.FirstOrDefault(e => e.Type == entity.EntityType.ToString());
                 if (entityType != null)
                 {
@@ -138,6 +139,7 @@ namespace NetworkService.ViewModel
                 MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Entity cleared out of canvas!", Notification.Wpf.NotificationType.Success));
                 OnPropertyChanged(nameof(CanvasEntities));
                 OnPropertyChanged(nameof(EntitiesTreeView));
+                OnPropertyChanged(nameof(EntitiesInCanvas));
                 UpdateCanvasBorderColors();
             }
         }
@@ -218,6 +220,27 @@ namespace NetworkService.ViewModel
         {
             if (SelectedEntity1 != null && SelectedEntity2 != null)
             {
+                if (SelectedEntity1 == SelectedEntity2)
+                {
+                    MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Cannot connect the same entity to itself!", Notification.Wpf.NotificationType.Error));
+                    SelectedEntity1 = null;
+                    SelectedEntity2 = null;
+                    return;
+                }
+
+
+                bool connectionExists = EntityConnections.Any(connection =>
+                (connection.Entity1 == SelectedEntity1 && connection.Entity2 == SelectedEntity2) ||
+                (connection.Entity1 == SelectedEntity2 && connection.Entity2 == SelectedEntity1));
+
+                if (connectionExists)
+                {
+                    MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Connection between these entities already exists!", Notification.Wpf.NotificationType.Error));
+                    SelectedEntity1 = null;
+                    SelectedEntity2 = null;
+                    return;
+                }
+
                 if (EntitiesInCanvas.Contains(SelectedEntity1) && EntitiesInCanvas.Contains(SelectedEntity2))
                 {
                     EntityConnections.Add(new Connection(SelectedEntity1, SelectedEntity2));
@@ -230,13 +253,13 @@ namespace NetworkService.ViewModel
                     LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
                     }
                 }
-                else
-                {
-                    MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Entities need to be in the canvas!", Notification.Wpf.NotificationType.Error));
-                }
 
                 SelectedEntity1 = null;
                 SelectedEntity2 = null;
+            }
+            else
+            {
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "You need to select both entities for connection!", Notification.Wpf.NotificationType.Error));
             }
         }
 
@@ -298,6 +321,11 @@ namespace NetworkService.ViewModel
             RemoveAllLinesRequested?.Invoke(this, e);
         }
 
+        private void EntitiesInCanvas_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(IsConnectEnabled));
+        }
 
+        public bool IsConnectEnabled => EntitiesInCanvas.Count >= 2;
     }
 }
