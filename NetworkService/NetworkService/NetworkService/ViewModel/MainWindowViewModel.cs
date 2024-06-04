@@ -19,7 +19,7 @@ namespace NetworkService.ViewModel
     public class MainWindowViewModel : BindableBase
     {
         public static ObservableCollection<Entity> Entities { get; set; }
-        public static ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
+        
         public void LoadData()
         {
             Entities = new ObservableCollection<Entity>
@@ -68,11 +68,14 @@ namespace NetworkService.ViewModel
             RefreshEntitiesTreeView();
             createListener(); //Povezivanje sa serverskom aplikacijom   
             NavCommand = new MyICommand<string>(OnNav);
-            history = new Stack<object>();
             _navigationHistory = new Stack<BindableBase>();
             BackCommand = new MyICommand(OnBack, CanGoBack);
             CurrentViewModel = networkEntitiesViewModel;
             notificationManager = new NotificationManager();
+            for (int i = 1; i <= 12; i++)
+            {
+                CanvasEntities.Add($"Canvas{i}", new ObservableCollection<Entity>());
+            }
         }
         private void createListener()
         {
@@ -158,11 +161,10 @@ namespace NetworkService.ViewModel
 
         /////////////////////////////////////////
         private NetworkEntitiesViewModel networkEntitiesViewModel = new NetworkEntitiesViewModel();
-        private NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
+ 
         private MeasurementGraphViewModel measurementsGraphViewModel = new MeasurementGraphViewModel();
         private BindableBase currentViewModel;
         private readonly Stack<BindableBase> _navigationHistory;
-        private Stack<object> history;
         private static NotificationManager notificationManager;
         public MyICommand<string> NavCommand { get; private set; }
         public MyICommand BackCommand { get; set; }
@@ -192,7 +194,7 @@ namespace NetworkService.ViewModel
                 case "Network Entities":
                     CurrentViewModel = networkEntitiesViewModel;
                     break;
-                case "Network Display":
+                case "Network Display": 
                     CurrentViewModel = networkDisplayViewModel;
                     break;
                 case "Measurment Graph":
@@ -220,13 +222,16 @@ namespace NetworkService.ViewModel
 
             foreach (var entity in Entities)
             {
-                if (entity.EntityType == EntityType.IntervalMeter)
+                if (!EntitiesInCanvas.Contains(entity))
                 {
-                    intervalMeterEntities.Entities.Add(entity);
-                }
-                else if (entity.EntityType == EntityType.SmartMeter)
-                {
-                    smartMeterEntities.Entities.Add(entity);
+                    if (entity.EntityType == EntityType.IntervalMeter)
+                    {
+                        intervalMeterEntities.Entities.Add(entity);
+                    }
+                    else if (entity.EntityType == EntityType.SmartMeter)
+                    {
+                        smartMeterEntities.Entities.Add(entity);
+                    }
                 }
             }
 
@@ -241,5 +246,12 @@ namespace NetworkService.ViewModel
         {
             notificationManager.Show(toastNotification.Title, toastNotification.Message, toastNotification.Type, "WindowNotificationArea");
         }
+
+        //Network Display View Collections
+        public static ObservableCollection<EntityByType> EntitiesTreeView { get; set; } = new ObservableCollection<EntityByType>();
+        public static Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; } = new Dictionary<string, ObservableCollection<Entity>>();
+        public static ObservableCollection<Entity> EntitiesInCanvas { get; set; } = new ObservableCollection<Entity>();
+        public static ObservableCollection<Connection> EntityConnections { get; set; } = new ObservableCollection<Connection>();
+        public static NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
     }
 }

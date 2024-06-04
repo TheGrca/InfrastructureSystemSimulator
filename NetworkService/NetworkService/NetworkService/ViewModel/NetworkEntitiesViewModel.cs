@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Microsoft.TeamFoundation.SourceControl.WebApi.Legacy;
 using NetworkService.Model;
 
 namespace NetworkService.ViewModel
@@ -24,7 +26,7 @@ namespace NetworkService.ViewModel
         private string _imagePath;
         private EntityType _typeText;
         private double _value;
-        private Entity _selectedEntity;
+        private Model.Entity _selectedEntity;
         private string _searchText;
         private ICollectionView _entitiesView;
         private bool _isComboBoxAvailable;
@@ -52,9 +54,9 @@ namespace NetworkService.ViewModel
         }
         public void FilterByName()
         {
-            ObservableCollection<Entity> Entities = MainWindowViewModel.Entities;
+            ObservableCollection<Model.Entity> Entities = MainWindowViewModel.Entities;
             MainWindowViewModel.Entities.Clear();
-            foreach(Entity e in Entities)
+            foreach(Model.Entity e in Entities)
             {
                 MainWindowViewModel.Entities.Add(e);
             }
@@ -250,7 +252,7 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public Entity SelectedEntity
+        public Model.Entity SelectedEntity
         {
             get { return _selectedEntity; }
             set
@@ -291,7 +293,7 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public ObservableCollection<Entity> Entities { get; set; }
+        public ObservableCollection<Model.Entity> Entities { get; set; }
 
         public MyICommand AddCommand { get; set; }
         public MyICommand DeleteCommand { get; set; }
@@ -325,7 +327,7 @@ namespace NetworkService.ViewModel
             SearchByName = true;
             SearchByType = false;
             EntitiesList = MainWindowViewModel.Entities;
-            _entityHistory = new Stack<Entity>();
+            _entityHistory = new Stack<Model.Entity>();
             UndoCommand = new MyICommand(OnUndo, CanUndo);
         }
 
@@ -372,7 +374,7 @@ namespace NetworkService.ViewModel
                 errors.Add("ID must be a number.");
             }else
             {
-                foreach(Entity e in MainWindowViewModel.Entities)
+                foreach(Model.Entity e in MainWindowViewModel.Entities)
                 {
                     if (e.Id.ToString() == IdNumber) {
                         errors.Add("ID has to be unique.");
@@ -407,7 +409,7 @@ namespace NetworkService.ViewModel
                     ImagePath = "\\Resources\\Pictures\\IntervalMeter.png";
                 }
             }
-            var newEntity = new Entity
+            var newEntity = new Model.Entity
             {
                 Id = int.Parse(IdNumber),
                 Name = NameText,
@@ -438,14 +440,20 @@ namespace NetworkService.ViewModel
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this entity?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result == MessageBoxResult.Yes;
         }
-
         private void OnDelete()
         {
             if (DeleteConfirmation())
             {
+                
+                
+                var canvas = MainWindowViewModel.networkDisplayViewModel.GetCanvasNamesContainingEntities(SelectedEntity);
+                if (canvas.Item1 != "")
+                {
+                    MainWindowViewModel.networkDisplayViewModel.ClearCanvas(canvas.Item1);
+                }
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Deletion done successfully!", Notification.Wpf.NotificationType.Warning));
                 MainWindowViewModel.Entities.Remove(SelectedEntity);
                 MainWindowViewModel.RefreshEntitiesTreeView();
-                MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Deletion done successfully!", Notification.Wpf.NotificationType.Warning));
             }
         }
 
@@ -461,8 +469,8 @@ namespace NetworkService.ViewModel
 
 
         //Filter
-        private ObservableCollection<Entity> _entitiesList;
-        public ObservableCollection<Entity> EntitiesList
+        private ObservableCollection<Model.Entity> _entitiesList;
+        public ObservableCollection<Model.Entity> EntitiesList
         {
             get { return _entitiesList; }
             set
@@ -474,7 +482,7 @@ namespace NetworkService.ViewModel
 
         private void Search()
         {
-            List<Entity> entities = new List<Entity>();
+            List<Model.Entity> entities = new List<Model.Entity>();
             if (SearchByName)
             {
                 if (SearchTextBoxText != null)
@@ -510,7 +518,7 @@ namespace NetworkService.ViewModel
             {
                 entities = MainWindowViewModel.Entities.ToList();
             }
-            EntitiesList = new ObservableCollection<Entity>(entities);
+            EntitiesList = new ObservableCollection<Model.Entity>(entities);
         }
 
 
@@ -528,7 +536,7 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-        private Stack<Entity> _entityHistory;
+        private Stack<Model.Entity> _entityHistory;
         public MyICommand UndoCommand { get; private set; }
 
         private void OnUndo()

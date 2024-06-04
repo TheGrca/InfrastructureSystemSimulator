@@ -34,26 +34,24 @@ namespace NetworkService.ViewModel
         {
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
 
-            CanvasEntities = new Dictionary<string, ObservableCollection<Entity>>();
-            EntityConnections = new ObservableCollection<Connection>();
+            CanvasEntities = MainWindowViewModel.CanvasEntities;
+            EntityConnections = MainWindowViewModel.EntityConnections;
 
-            for (int i = 1; i <= 12; i++)
-            {
-                CanvasEntities.Add($"Canvas{i}", new ObservableCollection<Entity>());
-            }
             ClearCanvasCommand = new MyICommand<string>(ClearCanvas);
             ConnectCommand = new MyICommand<object>(ConnectEntities);
         
 
-        _timer = new DispatcherTimer
+            _timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(1)
+                Interval = TimeSpan.FromSeconds(0.001)
             };
             _timer.Tick += (sender, args) => UpdateCanvasBorderColors();
+            _timer.Tick += (sender, args) => UpdateConnectedEntities();
             _timer.Start();
-            EntitiesInCanvas = new ObservableCollection<Entity>();
+            EntitiesInCanvas = MainWindowViewModel.EntitiesInCanvas;
             EntitiesInCanvas.CollectionChanged += EntitiesInCanvas_CollectionChanged;
         }
+        
 
         public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
@@ -106,7 +104,7 @@ namespace NetworkService.ViewModel
             UpdateCanvasBorderColors();
         }
 
-        private void ClearCanvas(string canvasName)
+        public void ClearCanvas(string canvasName)
         {
             if (CanvasEntities.TryGetValue(canvasName, out var entities) && entities.Any())
             {
@@ -114,6 +112,7 @@ namespace NetworkService.ViewModel
                 entities.Clear();
                 EntitiesInCanvas.Remove(entity);
 
+               
                 var entityType = EntitiesTreeView.FirstOrDefault(e => e.Type == entity.EntityType.ToString());
                 if (entityType != null)
                 {
@@ -141,6 +140,10 @@ namespace NetworkService.ViewModel
                 OnPropertyChanged(nameof(EntitiesTreeView));
                 OnPropertyChanged(nameof(EntitiesInCanvas));
                 UpdateCanvasBorderColors();
+            }
+            else
+            {
+                MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Cannot clear empty canvas!", Notification.Wpf.NotificationType.Error));
             }
         }
 
@@ -263,7 +266,7 @@ namespace NetworkService.ViewModel
             }
         }
 
-        private void UpdateConnectedEntities()
+        public void UpdateConnectedEntities()
         {
             foreach(var pair in EntityConnections)
             {
@@ -272,14 +275,12 @@ namespace NetworkService.ViewModel
                 {
                     var position1 = canvasCoordinates[canvasNames.Item1];
                     var position2 = canvasCoordinates[canvasNames.Item2];
-                    Debug.WriteLine($"Position of {canvasNames.Item1}: {position1}");
-                    Debug.WriteLine($"Position of {canvasNames.Item2}: {position2}");
                     LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
                 }
             }
         }
 
-        private Tuple<string, string> GetCanvasNamesContainingEntities(Entity entity1, Entity entity2)
+        public Tuple<string, string> GetCanvasNamesContainingEntities(Entity entity1, Entity entity2 = null)
         {
             string entity1Canvas = "";
             string entity2Canvas = "";
