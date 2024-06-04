@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NetworkService.Model;
 using NetworkService.ViewModel;
+using Notifications.Wpf.ViewModels.Base;
 
 namespace NetworkService.Views
 {
@@ -25,6 +29,11 @@ namespace NetworkService.Views
         public NetworkDisplayView()
         {
             InitializeComponent();
+            DataContext = new NetworkDisplayViewModel();
+
+            var viewModel = (NetworkDisplayViewModel)DataContext;
+            viewModel.LineDrawRequested += ViewModel_LineDrawRequested;
+            viewModel.RemoveAllLinesRequested += ViewModel_RemoveAllLinesRequested;
         }
         private void PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -52,38 +61,28 @@ namespace NetworkService.Views
             }
         }
 
-        private void FirstComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedEntity = FirstComboBox.SelectedItem as Entity;
-            if (selectedEntity != null)
-            {
 
-            }
+        private void ViewModel_LineDrawRequested(object sender, Tuple<Point, Point> e)
+        {
+            // Draw a line between the two points
+            var line = new Line
+            {
+                X1 = e.Item1.X,
+                Y1 = e.Item1.Y,
+                X2 = e.Item2.X,
+                Y2 = e.Item2.Y,
+                Stroke = Brushes.Black,
+                StrokeThickness = 2,
+            };
+
+            OverlayCanvas.Children.Add(line);
         }
 
-        private void SecondComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ViewModel_RemoveAllLinesRequested(object sender, EventArgs e)
         {
-            var selectedEntity = SecondComboBox.SelectedItem as Entity;
-            if (selectedEntity != null)
-            {
-
-            }
+            OverlayCanvas.Children.Clear();
         }
 
-        private void ConnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            var firstEntity = FirstComboBox.SelectedItem as Entity;
-            var secondEntity = SecondComboBox.SelectedItem as Entity;
-
-            if (firstEntity != null && secondEntity != null)
-            {
-                // Logic to create and display the line
-            }
-
-            FirstComboBox.SelectedItem = null;
-            SecondComboBox.SelectedItem = null;
-
-        }
 
     }
 }

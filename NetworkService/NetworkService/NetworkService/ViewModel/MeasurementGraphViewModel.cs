@@ -287,6 +287,7 @@ namespace NetworkService.ViewModel
                 {
                     _isUndoSelectionButtonEnabled = value;
                     OnPropertyChanged(nameof(IsUndoSelectionButtonEnabled));
+                    UndoSelectionCommand.RaiseCanExecuteChanged(); // Ensure command is updated
                 }
             }
         }
@@ -304,8 +305,8 @@ namespace NetworkService.ViewModel
                     }
                     _selectedComboBoxEntity = value;
                     IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0; // Enable the undo button if there's history
-                    UndoSelectionCommand.RaiseCanExecuteChanged();
                     OnPropertyChanged(nameof(SelectedComboBoxEntity));
+                    UndoSelectionCommand.RaiseCanExecuteChanged(); // Ensure command is updated
                 }
             }
         }
@@ -317,8 +318,21 @@ namespace NetworkService.ViewModel
             if (_selectionHistory.Count > 0)
             {
                 var previousSelection = _selectionHistory.Pop();
+                // Temporarily disable the history update
+                var tempHistory = _selectionHistory.ToList();
+                _selectionHistory.Clear();
+                _selectionHistory.Push(previousSelection); // Re-push to ensure we can go back further
+
+                // Change selection without pushing to history
                 _selectedComboBoxEntity = previousSelection;
                 OnPropertyChanged(nameof(SelectedComboBoxEntity));
+
+                // Restore the history stack
+                foreach (var item in tempHistory)
+                {
+                    _selectionHistory.Push(item);
+                }
+
                 IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
                 UndoSelectionCommand.RaiseCanExecuteChanged();
             }

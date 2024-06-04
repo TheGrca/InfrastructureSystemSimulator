@@ -263,10 +263,10 @@
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
     <Compile Include="Model\Connection.cs" />
+    <Compile Include="Model\DragAndDropState.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\EntityValue.cs" />
     <Compile Include="Model\EntityByType.cs" />
-    <Compile Include="Model\LineModel.cs" />
     <Compile Include="Model\ToastNotification.cs" />
     <Compile Include="MyICommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

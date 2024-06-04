@@ -52,7 +52,7 @@
     </Style>
     </UserControl.Resources>
 
-    <Grid Background="#fffaf0">
+    <Grid Background="#fffaf0" x:Name="Grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="200"/>
@@ -153,23 +153,23 @@
                     PreviewMouseLeftButtonDown="PreviewMouseLeftButtonDown"                 
                     DataContext="{Binding}">
                         <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas2]}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
-                                    <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
-                                        <TextBlock Text=", "/>
-                                        <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text=", "/>
+                                            <TextBlock Text="{Binding Value, StringFormat={}{0:F2}}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="0">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -206,7 +206,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="0">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -243,7 +243,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="0">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -280,7 +280,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="6" Grid.Row="0">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -317,7 +317,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="0" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -354,7 +354,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="1" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -391,7 +391,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="2" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -428,7 +428,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="3" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -465,7 +465,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="4" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -476,7 +476,7 @@
                     </StackPanel>
                 </Button>
                 <Border BorderBrush="{Binding CanvasBorderColors[Canvas11]}" BorderThickness="2" Height="65">
-                <Canvas
+                    <Canvas
                     Name="Canvas11"
                     Background="#EADBC8"
                     Height="60"
@@ -485,8 +485,8 @@
                     DragOver="Canvas_DragOver"
                     PreviewMouseLeftButtonDown="PreviewMouseLeftButtonDown"
                     DataContext="{Binding}">
-                    <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas11]}">
-                        <ItemsControl.ItemTemplate>
+                        <ItemsControl ItemsSource="{Binding CanvasEntities[Canvas11]}">
+                            <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
                                         <Image Source="{Binding ImagePath}" Width="53" Height="45"/>
@@ -498,11 +498,11 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                        </ItemsControl>
+                    </Canvas>
                 </Border>
             </DockPanel>
-            
+
             <DockPanel Margin="5" Grid.Column="5" Grid.Row="1">
                 <Button Height="20" Width="50" DockPanel.Dock="Bottom"                        
                         Command="{Binding ClearCanvasCommand}" Style="{StaticResource MyButton}"
@@ -541,9 +541,9 @@
             </DockPanel>
         </Grid>
         <Label Grid.Row="3" Content="CONNECT ENTITIES"  HorizontalContentAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-        <ComboBox x:Name="FirstComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name"  SelectedItem="{Binding SelectedFirstEntity}" Grid.Row="3" Height="30" Width="120" Margin="150 20 0 50" />
-        <ComboBox x:Name="SecondComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSecondEntity}" Grid.Row="3" Height="30" Width="120" Margin="0 20 150 50" />
-        <Button x:Name="ConnectButton" Command="{Binding ConnectCommand}" Grid.Row="3" Height="30" Width="120" Margin="0 60 0 0" Click="ConnectButton_Click" Content="CONNECT" Style="{StaticResource MyButton}" />
+        <ComboBox x:Name="FirstComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name"   Grid.Row="3" Height="30" Width="120" Margin="150 20 0 50" SelectedItem="{Binding SelectedEntity1, Mode=TwoWay}"/>
+        <ComboBox x:Name="SecondComboBox" ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name"  Grid.Row="3" Height="30" Width="120" Margin="0 20 150 50" SelectedItem="{Binding SelectedEntity2, Mode=TwoWay}"/>
+        <Button x:Name="ConnectButton" Grid.Row="3" Height="30" Width="120" Margin="0 60 0 0" Content="CONNECT" Style="{StaticResource MyButton}" Command="{Binding ConnectCommand}" />
+        <Canvas x:Name="OverlayCanvas" Background="Transparent" IsHitTestVisible="False" />
     </Grid>
-   
 </UserControl>

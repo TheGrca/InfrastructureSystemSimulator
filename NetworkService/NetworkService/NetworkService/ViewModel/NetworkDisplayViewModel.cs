@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Linq;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,16 +20,16 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using NetworkService.Model;
 using NetworkService.Views;
+using Notifications.Wpf.ViewModels.Base;
 
 namespace NetworkService.ViewModel
 {
     public class NetworkDisplayViewModel : BindableBase
     {
         private readonly DispatcherTimer _timer;
-        private Entity _selectedFirstEntity;
-        private Entity _selectedSecondEntity;
         public ICommand ClearCanvasCommand { get; }
-        public ICommand ConnectCommand { get; }
+
+
         public NetworkDisplayViewModel()
         {
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
@@ -41,35 +42,22 @@ namespace NetworkService.ViewModel
                 CanvasEntities.Add($"Canvas{i}", new ObservableCollection<Entity>());
             }
             ClearCanvasCommand = new MyICommand<string>(ClearCanvas);
-            ConnectCommand = new MyICommand(ConnectEntities, CanConnectEntities);
+            ConnectCommand = new MyICommand<object>(ConnectEntities);
+        
 
-            _timer = new DispatcherTimer
+        _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
             };
             _timer.Tick += (sender, args) => UpdateCanvasBorderColors();
             _timer.Start();
             EntitiesInCanvas = new ObservableCollection<Entity>();
-            FirstComboBoxItems = new ObservableCollection<Entity>();
-            SecondComboBoxItems = new ObservableCollection<Entity>();
         }
+
         public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
         public ObservableCollection<Entity> EntitiesInCanvas { get; set; }
-        public ObservableCollection<Entity> FirstComboBoxItems { get; set; }
-        public ObservableCollection<Entity> SecondComboBoxItems { get; set; }
         public ObservableCollection<Connection> EntityConnections { get; set; }
-
-        public Entity SelectedFirstEntity
-        {
-            get => _selectedFirstEntity;
-            set => SetProperty(ref _selectedFirstEntity, value);
-        }
-        public Entity SelectedSecondEntity
-        {
-            get => _selectedSecondEntity;
-            set => SetProperty(ref _selectedSecondEntity, value);
-        }
 
         public void HandleDrop(Entity entity, string canvasName)
         {
@@ -106,22 +94,14 @@ namespace NetworkService.ViewModel
             {
                 EntitiesInCanvas.Add(entity);
             }
-            var networkDisplayView = new NetworkDisplayView();
-            if (networkDisplayView != null)
-            {
-                var canvas = networkDisplayView.FindName(canvasName) as Canvas;
-                if (canvas != null)
-                {
-                    entity.X = canvas.Margin.Left + canvas.Width / 2;
-                    entity.Y = canvas.Margin.Top + canvas.Height / 2;
-                }
-            }
 
+            OnRemoveAllLinesRequested(EventArgs.Empty);
+            UpdateConnectedEntities();
 
             OnPropertyChanged(nameof(EntitiesTreeView));
             OnPropertyChanged(nameof(CanvasEntities));
+            OnPropertyChanged(nameof(EntityConnections));
             UpdateCanvasBorderColors();
-
         }
 
         private void ClearCanvas(string canvasName)
@@ -146,33 +126,20 @@ namespace NetworkService.ViewModel
                         Entities = new ObservableCollection<Entity> { entity }
                     });
                 }
+
                 var connectionsToRemove = EntityConnections.Where(c => c.Entity1 == entity || c.Entity2 == entity).ToList();
                 foreach (var connection in connectionsToRemove)
                 {
                     EntityConnections.Remove(connection);
                 }
+
+                OnRemoveAllLinesRequested(EventArgs.Empty);
+                UpdateConnectedEntities();
                 MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Entity cleared out of canvas!", Notification.Wpf.NotificationType.Success));
                 OnPropertyChanged(nameof(CanvasEntities));
                 OnPropertyChanged(nameof(EntitiesTreeView));
                 UpdateCanvasBorderColors();
-                
             }
-        }
-
-        private bool CanConnectEntities()
-        {
-            return SelectedFirstEntity != null && SelectedSecondEntity != null;
-        }
-        private void ConnectEntities()
-        {
-            if (SelectedFirstEntity == null || SelectedSecondEntity == null || SelectedFirstEntity == SelectedSecondEntity)
-            {
-                return;
-            }
-
-            var connection = new Connection(SelectedFirstEntity, SelectedSecondEntity);
-            EntityConnections.Add(connection);
-            
         }
 
 
@@ -218,6 +185,119 @@ namespace NetworkService.ViewModel
 
             OnPropertyChanged(nameof(CanvasBorderColors));
         }
+
+       
+
+        //LINES
+
+        private Entity _selectedEntity1;
+        private Entity _selectedEntity2;
+        public Entity SelectedEntity1
+        {
+            get { return _selectedEntity1; }
+            set
+            {
+                _selectedEntity1 = value;
+                OnPropertyChanged(nameof(SelectedEntity1));
+            }
+        }
+
+        public Entity SelectedEntity2
+        {
+            get { return _selectedEntity2; }
+            set
+            {
+                _selectedEntity2 = value;
+                OnPropertyChanged(nameof(SelectedEntity2));
+            }
+        }
+        public event EventHandler<Tuple<Point, Point>> LineDrawRequested;
+        public event EventHandler RemoveAllLinesRequested;
+        public ICommand ConnectCommand { get; }
+        private void ConnectEntities(object parameter)
+        {
+            if (SelectedEntity1 != null && SelectedEntity2 != null)
+            {
+                if (EntitiesInCanvas.Contains(SelectedEntity1) && EntitiesInCanvas.Contains(SelectedEntity2))
+                {
+                    EntityConnections.Add(new Connection(SelectedEntity1, SelectedEntity2));
+                    var canvasNames = GetCanvasNamesContainingEntities(SelectedEntity1, SelectedEntity2);
+
+                if (canvasCoordinates.ContainsKey(canvasNames.Item1) && canvasCoordinates.ContainsKey(canvasNames.Item2))
+                   {
+                    var position1 = canvasCoordinates[canvasNames.Item1];
+                    var position2 = canvasCoordinates[canvasNames.Item2];
+                    LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
+                    }
+                }
+                else
+                {
+                    MainWindowViewModel.ShowToastNotification(new ToastNotification("Error", "Entities need to be in the canvas!", Notification.Wpf.NotificationType.Error));
+                }
+
+                SelectedEntity1 = null;
+                SelectedEntity2 = null;
+            }
+        }
+
+        private void UpdateConnectedEntities()
+        {
+            foreach(var pair in EntityConnections)
+            {
+                var canvasNames = GetCanvasNamesContainingEntities(pair.Entity1, pair.Entity2);
+                if (canvasCoordinates.ContainsKey(canvasNames.Item1) && canvasCoordinates.ContainsKey(canvasNames.Item2))
+                {
+                    var position1 = canvasCoordinates[canvasNames.Item1];
+                    var position2 = canvasCoordinates[canvasNames.Item2];
+                    Debug.WriteLine($"Position of {canvasNames.Item1}: {position1}");
+                    Debug.WriteLine($"Position of {canvasNames.Item2}: {position2}");
+                    LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
+                }
+            }
+        }
+
+        private Tuple<string, string> GetCanvasNamesContainingEntities(Entity entity1, Entity entity2)
+        {
+            string entity1Canvas = "";
+            string entity2Canvas = "";
+
+            foreach (var kvp in CanvasEntities)
+            {
+                if (kvp.Value.Contains(entity1))
+                {
+                    entity1Canvas = kvp.Key;
+                }
+
+                if (kvp.Value.Contains(entity2))
+                {
+                    entity2Canvas = kvp.Key;
+                }
+            }
+
+            return new Tuple<string, string>(entity1Canvas, entity2Canvas);
+        }
+
+        private readonly Dictionary<string, Point> canvasCoordinates = new Dictionary<string, Point>
+        {
+            { "Canvas1", new Point(30, 370) },
+            { "Canvas2", new Point(95, 370) },
+            { "Canvas3", new Point(160, 370) },
+            { "Canvas4", new Point(225, 370) },
+            { "Canvas5", new Point(290, 370) },
+            { "Canvas6", new Point(355, 370) },
+            { "Canvas7", new Point(30, 500) },
+            { "Canvas8", new Point(95, 500) },
+            { "Canvas9", new Point(160, 500) },
+            { "Canvas10", new Point(225, 500) },
+            { "Canvas11", new Point(290, 500) },
+            { "Canvas12", new Point(355, 500) }
+        };
+
+        protected virtual void OnRemoveAllLinesRequested(EventArgs e)
+        {
+            RemoveAllLinesRequested?.Invoke(this, e);
+        }
+
 
     }
 }

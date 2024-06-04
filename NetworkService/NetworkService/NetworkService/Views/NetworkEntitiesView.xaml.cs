@@ -57,13 +57,12 @@ namespace NetworkService.Views
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (preventFocusLoss && focusedTextBox == null)
+            if (focusedTextBox == null)
             {
                 KeyboardGrid.Visibility = Visibility.Collapsed;
             }
         }
 
-        private bool preventFocusLoss = false;
         private void KeyboardButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
