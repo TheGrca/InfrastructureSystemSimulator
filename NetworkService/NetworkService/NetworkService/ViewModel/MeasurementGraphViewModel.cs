@@ -26,6 +26,8 @@ namespace NetworkService.ViewModel
             StartReadingLogFile();
             _selectionHistory = new Stack<Entity>();
             UndoSelectionCommand = new MyICommand(OnUndoSelection, CanUndoSelection);
+            IsUndoSelectionButtonEnabled = false;
+            SelectedIndex = 1;
         }
 
         private string _logFilePath = "log.txt";
@@ -118,8 +120,7 @@ namespace NetworkService.ViewModel
                         if (double.TryParse(entityParts2[1], out value))
                         {
                             var entityValue = new EntityValue { TimeStamp = DateTime.Parse(timeLog), Index = index, Value = value };
-                            AddLatestValue(entityValue);
-                           
+                            AddLatestValue(entityValue);    
                         }
                     }
                 }
@@ -154,7 +155,7 @@ namespace NetworkService.ViewModel
 
             // Notify UI that the latest values for this entity index have changed
             Application.Current.Dispatcher.Invoke(() => {
-                OnPropertyChanged($"LatestValues_{entityValue.Index}");
+            OnPropertyChanged($"LatestValues_{entityValue.Index}");
             OnPropertyChanged(nameof(LastValues));
             OnPropertyChanged(nameof(SelectedEntityValues));
         });
@@ -185,23 +186,22 @@ namespace NetworkService.ViewModel
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                // Clear existing margins
                 _ellipseMargins.Clear();
                 _ellipseStrokeColors.Clear();
                 _latestValuesTime.Clear();
 
-                // Get the latest values for the selected entity
+
                 var selectedEntityIndex = SelectedIndex;
                 var latestValuesForSelectedEntity = GetLatestValues(selectedEntityIndex);
 
-                // If the number of values is less than 5, fill the remaining ellipses with a value of 0
+                
                 while (latestValuesForSelectedEntity.Count < 5)
                 {
                     latestValuesForSelectedEntity.Insert(0, new EntityValue { Value = 0, TimeStamp = DateTime.MinValue }); // Insert 0 at the beginning
                 }
                 var newPolylinePoints = new PointCollection();
 
-                // Calculate proportional margins for the latest values of the selected entity
+
                 for (int i = 0; i < latestValuesForSelectedEntity.Count; i++)
                 {
                     double latestValue = Math.Round(latestValuesForSelectedEntity[i].Value, 2);
@@ -223,7 +223,6 @@ namespace NetworkService.ViewModel
             });
         }
 
-        // Property to bind ellipse margins to in XAML
         public Dictionary<int, Thickness> EllipseMargins
         {
             get { return _ellipseMargins; }
@@ -256,7 +255,7 @@ namespace NetworkService.ViewModel
             double maxY = 10; 
             double minY = 225; 
 
-            return (int)Math.Round(((entityValue - 0.01) / (5.50 - 0.01)) * (maxY - minY) + minY);
+            return (int)Math.Round((entityValue / 5.50) * (maxY - minY) + minY);
         }
 
         private PointCollection _polylinePoints = new PointCollection();
@@ -277,7 +276,8 @@ namespace NetworkService.ViewModel
         //UNDO
         private bool _isUndoSelectionButtonEnabled;
         private Entity _selectedComboBoxEntity;
-        private Stack<Entity> _selectionHistory;
+        private Stack<Entity> _selectionHistory = new Stack<Entity>();
+        public MyICommand UndoSelectionCommand { get;}
         public bool IsUndoSelectionButtonEnabled
         {
             get { return _isUndoSelectionButtonEnabled; }
@@ -287,7 +287,7 @@ namespace NetworkService.ViewModel
                 {
                     _isUndoSelectionButtonEnabled = value;
                     OnPropertyChanged(nameof(IsUndoSelectionButtonEnabled));
-                    UndoSelectionCommand.RaiseCanExecuteChanged(); // Ensure command is updated
+                    UndoSelectionCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -301,40 +301,26 @@ namespace NetworkService.ViewModel
                 {
                     if (_selectedComboBoxEntity != null)
                     {
-                        _selectionHistory.Push(_selectedComboBoxEntity); // Save current selection before changing
+                        _selectionHistory.Push(_selectedComboBoxEntity);
                     }
                     _selectedComboBoxEntity = value;
-                    IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0; // Enable the undo button if there's history
                     OnPropertyChanged(nameof(SelectedComboBoxEntity));
-                    UndoSelectionCommand.RaiseCanExecuteChanged(); // Ensure command is updated
+                    IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
                 }
             }
         }
 
-        public MyICommand UndoSelectionCommand { get; private set; }
+
 
         private void OnUndoSelection()
         {
             if (_selectionHistory.Count > 0)
             {
                 var previousSelection = _selectionHistory.Pop();
-                // Temporarily disable the history update
-                var tempHistory = _selectionHistory.ToList();
-                _selectionHistory.Clear();
-                _selectionHistory.Push(previousSelection); // Re-push to ensure we can go back further
-
-                // Change selection without pushing to history
                 _selectedComboBoxEntity = previousSelection;
                 OnPropertyChanged(nameof(SelectedComboBoxEntity));
 
-                // Restore the history stack
-                foreach (var item in tempHistory)
-                {
-                    _selectionHistory.Push(item);
-                }
-
                 IsUndoSelectionButtonEnabled = _selectionHistory.Count > 0;
-                UndoSelectionCommand.RaiseCanExecuteChanged();
             }
         }
 

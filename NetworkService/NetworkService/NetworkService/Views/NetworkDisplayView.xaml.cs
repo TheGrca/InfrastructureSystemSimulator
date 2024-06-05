@@ -30,7 +30,6 @@ namespace NetworkService.Views
         {
             InitializeComponent();
             DataContext = new NetworkDisplayViewModel();
-
             var viewModel = (NetworkDisplayViewModel)DataContext;
             viewModel.LineDrawRequested += ViewModel_LineDrawRequested;
             viewModel.RemoveAllLinesRequested += ViewModel_RemoveAllLinesRequested;

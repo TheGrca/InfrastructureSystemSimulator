@@ -15,6 +15,8 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using Microsoft.TeamFoundation.SourceControl.WebApi.Legacy;
 using NetworkService.Model;
+using Microsoft.Win32;
+
 
 namespace NetworkService.ViewModel
 {
@@ -35,6 +37,22 @@ namespace NetworkService.ViewModel
         private bool _nameTextChanged;
         private bool _searchByType;
 
+
+        public NetworkEntitiesViewModel()
+        {
+            AddCommand = new MyICommand(OnAdd);
+            DeleteCommand = new MyICommand(OnDelete, CanDelete);
+            _entitiesView = CollectionViewSource.GetDefaultView(this);
+            SearchByName = true;
+            SearchByType = false;
+            EntitiesList = MainWindowViewModel.Entities;
+            UndoCommand = new MyICommand(OnUndo, CanUndo);
+            KeyboardButtonCommand = new MyICommand<string>(HandleKeyboardButtonClick);
+            TextBoxGotFocusCommand = new MyICommand<TextBox>(HandleTextBoxGotFocus);
+            TextBoxLostFocusCommand = new MyICommand<TextBox>(HandleTextBoxLostFocus);
+            SelectImageCommand = new MyICommand(OnSelectImage);
+            _entityHistory = MainWindowViewModel.NetworkEntityHistory;
+        }
 
         public bool NameTextChanged
         {
@@ -206,7 +224,8 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-        private Visibility _isImageVisible = Visibility.Visible; // Default value to true if the image is initially visible
+
+        private Visibility _isImageVisible = Visibility.Visible; 
         public Visibility IsImageVisible
         {
             get { return _isImageVisible; }
@@ -284,22 +303,8 @@ namespace NetworkService.ViewModel
         }
 
 
-
-        public IEnumerable<EntityType> Types
-        {
-            get
-            {
-                return(IEnumerable<EntityType>)Enum.GetValues(typeof(EntityType));
-            }
-        }
-
-        public ObservableCollection<Model.Entity> Entities { get; set; }
-
         public MyICommand AddCommand { get; set; }
         public MyICommand DeleteCommand { get; set; }
-
-        public MyICommand AddEntityCommand { get; private set; }
-        public MyICommand<string> SearchCommand { get; private set; }
 
         private string selectedType;
         public string SelectedType
@@ -319,21 +324,6 @@ namespace NetworkService.ViewModel
             }
 
         }
-        public NetworkEntitiesViewModel()
-        {
-            AddCommand = new MyICommand(OnAdd);
-            DeleteCommand = new MyICommand(OnDelete, CanDelete);
-            _entitiesView = CollectionViewSource.GetDefaultView(this);
-            SearchByName = true;
-            SearchByType = false;
-            EntitiesList = MainWindowViewModel.Entities;
-            _entityHistory = new Stack<Model.Entity>();
-            UndoCommand = new MyICommand(OnUndo, CanUndo);
-            KeyboardButtonCommand = new MyICommand<string>(HandleKeyboardButtonClick);
-            TextBoxGotFocusCommand = new MyICommand<TextBox>(HandleTextBoxGotFocus);
-            TextBoxLostFocusCommand = new MyICommand<TextBox>(HandleTextBoxLostFocus);
-        }
-
 
 
         private string _idError;
@@ -424,7 +414,7 @@ namespace NetworkService.ViewModel
             MainWindowViewModel.Entities.Add(newEntity);
             MainWindowViewModel.RefreshEntitiesTreeView();
             ResetFormFields();
-            _entityHistory.Push(newEntity); 
+            AddToHistory(newEntity, isAdded: true);
             IsUndoButtonEnabled = _entityHistory.Count > 0; 
             UndoCommand.RaiseCanExecuteChanged();
             MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Entity added successfully!", Notification.Wpf.NotificationType.Success));
@@ -455,8 +445,10 @@ namespace NetworkService.ViewModel
                     MainWindowViewModel.networkDisplayViewModel.ClearCanvas(canvas.Item1);
                 }
                 MainWindowViewModel.ShowToastNotification(new ToastNotification("Success", "Deletion done successfully!", Notification.Wpf.NotificationType.Warning));
+                AddToHistory(SelectedEntity, isAdded: false);
                 MainWindowViewModel.Entities.Remove(SelectedEntity);
                 MainWindowViewModel.RefreshEntitiesTreeView();
+
             }
         }
 
@@ -464,14 +456,10 @@ namespace NetworkService.ViewModel
             return SelectedEntity != null;
         }
 
-        public void SetImage(string imagePath)
-        {
-            IsImageVisible = Visibility.Visible;
-            ImagePath = imagePath;
-        }
+        
 
 
-        //Filter
+
         private ObservableCollection<Model.Entity> _entitiesList;
         public ObservableCollection<Model.Entity> EntitiesList
         {
@@ -524,6 +512,14 @@ namespace NetworkService.ViewModel
             EntitiesList = new ObservableCollection<Model.Entity>(entities);
         }
 
+        public IEnumerable<EntityType> Types
+        {
+            get
+            {
+                return (IEnumerable<EntityType>)Enum.GetValues(typeof(EntityType));
+            }
+        }
+
 
         //UNDO
         private bool _isUndoButtonEnabled;
@@ -539,24 +535,40 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-        private Stack<Model.Entity> _entityHistory;
+
+        public static Stack<(Model.Entity, bool)> _entityHistory { get; set; }
         public MyICommand UndoCommand { get; private set; }
 
         private void OnUndo()
         {
             if (_entityHistory.Count > 0)
             {
-                var entityToUndo = _entityHistory.Pop();
-                MainWindowViewModel.Entities.Remove(entityToUndo);
-                IsUndoButtonEnabled = _entityHistory.Count > 0; 
-                UndoCommand.RaiseCanExecuteChanged();
+                var (entity, isAdded) = _entityHistory.Pop();
+
+                if (isAdded)
+                {
+                    MainWindowViewModel.Entities.Remove(entity); // Remove the added entity
+                }
+                else
+                {
+                    MainWindowViewModel.Entities.Add(entity); // Add the removed entity
+                }
                 MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Undo successful!", Notification.Wpf.NotificationType.Information));
+                IsUndoButtonEnabled = _entityHistory.Count > 0;
+                UndoCommand.RaiseCanExecuteChanged();
             }
         }
 
         private bool CanUndo()
         {
             return _entityHistory.Count > 0;
+        }
+
+        private void AddToHistory(Model.Entity entity, bool isAdded)
+        {
+            _entityHistory.Push((entity, isAdded));
+            IsUndoButtonEnabled = true; // Enable undo button
+            UndoCommand.RaiseCanExecuteChanged();
         }
 
 
@@ -630,5 +642,30 @@ namespace NetworkService.ViewModel
                 IsKeyboardVisible = false;
             }
         }
+
+        //Upload image
+        public ICommand SelectImageCommand { get; }
+        private void OnSelectImage()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Select Profile Image";
+            openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif;*.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            openFileDialog.InitialDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources\Images"));
+
+            bool? response = openFileDialog.ShowDialog();
+
+            if (response == true)
+            {
+                string selectedImageFilePath = openFileDialog.FileName;
+                SetImage(selectedImageFilePath);
+            }
+        }
+        public void SetImage(string imagePath)
+        {
+            IsImageVisible = Visibility.Visible;
+            ImagePath = imagePath;
+        }
+
     }
 }

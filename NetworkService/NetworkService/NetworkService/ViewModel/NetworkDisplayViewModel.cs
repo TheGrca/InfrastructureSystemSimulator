@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -18,12 +19,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.TeamFoundation.SourceControl.WebApi.Legacy;
 using NetworkService.Model;
 using NetworkService.Views;
 using Notifications.Wpf.ViewModels.Base;
 
 namespace NetworkService.ViewModel
 {
+
     public class NetworkDisplayViewModel : BindableBase
     {
         private readonly DispatcherTimer _timer;
@@ -32,17 +35,14 @@ namespace NetworkService.ViewModel
 
         public NetworkDisplayViewModel()
         {
-            DropEntityOnCanvas = new MyICommand<string>(HandleDrop);
-            DragOverCommand = new MyICommand<string>(HandleDragOver);
-            PreviewMouseLeftButtonDownCommand = new MyICommand<object>(HandlePreviewMouseLeftButtonDown);
             EntitiesTreeView = MainWindowViewModel.EntitiesTreeView;
-
             CanvasEntities = MainWindowViewModel.CanvasEntities;
             EntityConnections = MainWindowViewModel.EntityConnections;
 
             ClearCanvasCommand = new MyICommand<string>(ClearCanvas);
             ConnectCommand = new MyICommand<object>(ConnectEntities);
-        
+            UndoCanvasCommand = new MyICommand(OnUndoCanvas);
+            UpdateCanUndoCanvas();
 
             _timer = new DispatcherTimer
             {
@@ -56,45 +56,57 @@ namespace NetworkService.ViewModel
         }
         
 
-        public Dictionary<string, ObservableCollection<Entity>> CanvasEntities { get; set; }
+        public Dictionary<string, ObservableCollection<Model.Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
-        public ObservableCollection<Entity> EntitiesInCanvas { get; set; }
+        public ObservableCollection<Model.Entity> EntitiesInCanvas { get; set; }
         public ObservableCollection<Connection> EntityConnections { get; set; }
 
-        public void HandleDrop(Entity entity, string canvasName)
+        public void HandleDrop(Model.Entity entity, string canvasName)
         {
-            if (EntitiesTreeView == null) throw new InvalidOperationException("EntitiesTreeView is not initialized.");
-            if (CanvasEntities == null || !CanvasEntities.ContainsKey(canvasName)) throw new InvalidOperationException($"CanvasEntities does not contain {canvasName}.");
 
-            if (CanvasEntities[canvasName].Any())
-            {
-                return; // Do not proceed with the drop
-            }
+            string previousCanvasName = null;
 
-            foreach (var entityByType in EntitiesTreeView)
-            {
-                if (entityByType.Entities == null) continue;
-                if (entityByType.Entities.Contains(entity))
-                {
-                    entityByType.Entities.Remove(entity);
-                    break;
-                }
-            }
-
+            // Check if the entity is already in any canvas
             foreach (var canvas in CanvasEntities)
             {
                 if (canvas.Value.Contains(entity))
                 {
-                    canvas.Value.Remove(entity);
+                    previousCanvasName = canvas.Key;
                     break;
                 }
             }
 
-            CanvasEntities[canvasName].Clear();
-            CanvasEntities[canvasName].Add(entity);
-            if (!EntitiesInCanvas.Contains(entity))
+            // If the entity is moving to a different canvas
+            if (previousCanvasName != null && previousCanvasName != canvasName)
             {
-                EntitiesInCanvas.Add(entity);
+                CanvasEntities[previousCanvasName].Remove(entity);
+                CanvasEntities[canvasName].Clear();
+                CanvasEntities[canvasName].Add(entity);
+
+                // Add to undo history
+                AddToCanvasHistory(new Stack<object>(new object[] { entity, previousCanvasName }), 2);
+            }
+            else if (previousCanvasName == null) // Entity is moving from tree view to a canvas
+            {
+                foreach (var entityByType in EntitiesTreeView)
+                {
+                    if (entityByType.Entities == null) continue;
+                    if (entityByType.Entities.Contains(entity))
+                    {
+                        entityByType.Entities.Remove(entity); // Remove from the tree view
+                        break;
+                    }
+                }
+
+                CanvasEntities[canvasName].Clear();
+                CanvasEntities[canvasName].Add(entity);
+                if (!EntitiesInCanvas.Contains(entity))
+                {
+                    EntitiesInCanvas.Add(entity);
+                }
+
+                // Add to undo history
+                AddToCanvasHistory(new Stack<object>(new object[] { entity }), 1);
             }
 
             OnRemoveAllLinesRequested(EventArgs.Empty);
@@ -126,7 +138,7 @@ namespace NetworkService.ViewModel
                     EntitiesTreeView.Add(new EntityByType
                     {
                         Type = entity.EntityType.ToString(),
-                        Entities = new ObservableCollection<Entity> { entity }
+                        Entities = new ObservableCollection<Model.Entity> { entity }
                     });
                 }
 
@@ -135,6 +147,9 @@ namespace NetworkService.ViewModel
                 {
                     EntityConnections.Remove(connection);
                 }
+
+                AddToCanvasHistory(new Stack<object>(new object[] { entity, canvasName }), 3);
+
 
                 OnRemoveAllLinesRequested(EventArgs.Empty);
                 UpdateConnectedEntities();
@@ -154,7 +169,6 @@ namespace NetworkService.ViewModel
 
 
 
-        // Canvas Value Color
         private Dictionary<string, Brush> _canvasBorderColors = new Dictionary<string, Brush>();
         public Dictionary<string, Brush> CanvasBorderColors
         {
@@ -198,9 +212,9 @@ namespace NetworkService.ViewModel
 
         //LINES
 
-        private Entity _selectedEntity1;
-        private Entity _selectedEntity2;
-        public Entity SelectedEntity1
+        private Model.Entity _selectedEntity1;
+        private Model.Entity _selectedEntity2;
+        public Model.Entity SelectedEntity1
         {
             get { return _selectedEntity1; }
             set
@@ -210,7 +224,7 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public Entity SelectedEntity2
+        public Model.Entity SelectedEntity2
         {
             get { return _selectedEntity2; }
             set
@@ -252,12 +266,13 @@ namespace NetworkService.ViewModel
                     EntityConnections.Add(new Connection(SelectedEntity1, SelectedEntity2));
                     var canvasNames = GetCanvasNamesContainingEntities(SelectedEntity1, SelectedEntity2);
 
-                if (canvasCoordinates.ContainsKey(canvasNames.Item1) && canvasCoordinates.ContainsKey(canvasNames.Item2))
-                   {
-                    var position1 = canvasCoordinates[canvasNames.Item1];
-                    var position2 = canvasCoordinates[canvasNames.Item2];
-                    LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
-                    }
+                     if (canvasCoordinates.ContainsKey(canvasNames.Item1) && canvasCoordinates.ContainsKey(canvasNames.Item2))
+                         {
+                            var position1 = canvasCoordinates[canvasNames.Item1];
+                            var position2 = canvasCoordinates[canvasNames.Item2];
+                            LineDrawRequested?.Invoke(this, Tuple.Create(position1, position2));
+                         }
+                    AddToCanvasHistory(new Stack<object>(new object[] { SelectedEntity1, SelectedEntity2 }), 4);
                 }
 
                 SelectedEntity1 = null;
@@ -283,7 +298,7 @@ namespace NetworkService.ViewModel
             }
         }
 
-        public Tuple<string, string> GetCanvasNamesContainingEntities(Entity entity1, Entity entity2 = null)
+        public Tuple<string, string> GetCanvasNamesContainingEntities(Model.Entity entity1, Model.Entity entity2 = null)
         {
             string entity1Canvas = "";
             string entity2Canvas = "";
@@ -332,24 +347,117 @@ namespace NetworkService.ViewModel
 
         public bool IsConnectEnabled => EntitiesInCanvas.Count >= 2;
 
-        //POKUSAJ DRAG AND DROP
-        public ICommand DropEntityOnCanvas { get; set; }
-        public ICommand DragOverCommand { get; set; }
-        public ICommand PreviewMouseLeftButtonDownCommand { get; set; }
 
-        private void HandleDrop(string canvasName)
+        //UNDO
+        /*
+        DropFromTreeViewToCanvas = 1,
+        DropBetweenCanvases = 2,
+        DrawLine = 3,
+        ClearCanvas = 4,
+         */
+        private readonly Stack<Tuple<Stack<object>, int>> _canvasHistory = new Stack<Tuple<Stack<object>, int>>();
+        public MyICommand UndoCanvasCommand { get; }
+        public void AddToCanvasHistory(Stack<object> stack, int actionNumber)
         {
-            // Handle drop logic
+            _canvasHistory.Push(Tuple.Create(stack, actionNumber));
+            UpdateCanUndoCanvas();
         }
 
-        private void HandleDragOver(string canvasName)
+        // Method to undo the last canvas action
+        private void OnUndoCanvas()
         {
-            // Handle drag over logic
+            if (_canvasHistory.Count > 0)
+            {
+                var lastAction = _canvasHistory.Pop();
+                var lastActionNumber = lastAction.Item2;
+                var dataStack = lastAction.Item1;
+
+                if (lastActionNumber == 1)
+                {
+                    var entity = (Model.Entity)dataStack.Pop();
+                    var canvasName = CanvasEntities.FirstOrDefault(c => c.Value.Contains(entity)).Key;
+
+                    if (canvasName != null)
+                    {
+                        CanvasEntities[canvasName].Remove(entity);
+                        EntitiesInCanvas.Remove(entity);
+                        var entityType = EntitiesTreeView.FirstOrDefault(e => e.Type == entity.EntityType.ToString());
+                        if (entityType != null)
+                        {
+                            entityType.Entities.Add(entity);
+                        }
+                    }
+                }
+                else if (lastActionNumber == 2)
+                {
+                    var previousCanvasName = (string)dataStack.Pop();
+                    var entity = (Model.Entity)dataStack.Pop();
+                    var currentCanvasName = CanvasEntities.FirstOrDefault(c => c.Value.Contains(entity)).Key;
+
+                    if (currentCanvasName != null)
+                    {
+                        CanvasEntities[currentCanvasName].Remove(entity);
+                        CanvasEntities[previousCanvasName].Add(entity);
+                    }
+                }
+                else if (lastActionNumber == 3)
+                {
+                    var entity = (Model.Entity)dataStack.Pop();
+                    var canvasName = (string)dataStack.Pop();
+
+                    var entityType = EntitiesTreeView.FirstOrDefault(e => e.Type == entity.EntityType.ToString());
+                    if (entityType != null)
+                    {
+                        entityType.Entities.Remove(entity);
+                        CanvasEntities[canvasName].Add(entity);
+                        if (!EntitiesInCanvas.Contains(entity))
+                        {
+                            EntitiesInCanvas.Add(entity);
+                        }
+                    }
+                }
+                else if (lastActionNumber == 4)
+                {
+                    var entity1 = (Model.Entity)dataStack.Pop();
+                    var entity2 = (Model.Entity)dataStack.Pop();
+                    var connection = EntityConnections.FirstOrDefault(c =>
+                        (c.Entity1 == entity1 && c.Entity2 == entity2) ||
+                        (c.Entity1 == entity2 && c.Entity2 == entity1));
+
+                    if (connection != null)
+                    {
+                        EntityConnections.Remove(connection);
+                    }
+                }
+
+                UpdateConnectedEntities();
+                OnRemoveAllLinesRequested(EventArgs.Empty);
+                OnPropertyChanged(nameof(CanvasEntities));
+                OnPropertyChanged(nameof(EntitiesTreeView));
+                OnPropertyChanged(nameof(EntityConnections));
+                OnPropertyChanged(nameof(EntitiesInCanvas));
+                UpdateCanvasBorderColors();
+                UpdateCanUndoCanvas();
+            }
         }
 
-        private void HandlePreviewMouseLeftButtonDown(object parameter)
+        private bool _canUndoCanvas;
+        public bool CanUndoCanvas
         {
-            // Handle preview mouse left button down logic
+            get { return _canUndoCanvas; }
+            set
+            {
+                if (_canUndoCanvas != value)
+                {
+                    _canUndoCanvas = value;
+                    OnPropertyChanged(nameof(CanUndoCanvas));
+                    UndoCanvasCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+        private void UpdateCanUndoCanvas()
+        {
+            CanUndoCanvas = _canvasHistory.Count > 0;
         }
     }
 }

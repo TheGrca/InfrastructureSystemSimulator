@@ -252,5 +252,9 @@ namespace NetworkService.ViewModel
         public static ObservableCollection<Entity> EntitiesInCanvas { get; set; } = new ObservableCollection<Entity>();
         public static ObservableCollection<Connection> EntityConnections { get; set; } = new ObservableCollection<Connection>();
         public static NetworkDisplayViewModel networkDisplayViewModel = new NetworkDisplayViewModel();
+
+
+        //Network Entity View Undo
+        public static Stack<(Model.Entity, bool)> NetworkEntityHistory = new Stack<(Model.Entity, bool)>();
     }
 }

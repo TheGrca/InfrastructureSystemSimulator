@@ -192,7 +192,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" Margin="0 70 -2 0">
             <Image Height="80" Stretch="Uniform" Width="80" Margin="0 0 25 10" x:Name="PictureDisplay" Source="{Binding ImagePath, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsImageVisible}"/>
-            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Cursor="Hand" ToolTip="Upload picture for a device" Click="SelectImageButton_Click" Margin="0 0 22 0" >
+            <Button Style="{StaticResource MyButton}" x:Name="SelectImageButton" Width="100" Height="35" Cursor="Hand" ToolTip="Upload picture for a device" Command="{Binding SelectImageCommand}" Margin="0 0 22 0" >
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <fa5:SvgAwesome Height="15" Icon="Regular_Image"/>
                     <TextBlock Margin="10,1,0,2" Text="Select image" FontSize="10"/>
