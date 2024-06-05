@@ -194,9 +194,19 @@ namespace NetworkService.ViewModel
                     CurrentViewModel = networkEntitiesViewModel;
                     break;
                 case "Network Display": 
+                    if(Entities.Count == 0)
+                    {
+                        ShowToastNotification(new ToastNotification("Error", "At least one entity should be in the list for displaying in the network!", Notification.Wpf.NotificationType.Warning));
+                        return;
+                    }
                     CurrentViewModel = networkDisplayViewModel;
                     break;
                 case "Measurment Graph":
+                    if (Entities.Count == 0)
+                    {
+                        ShowToastNotification(new ToastNotification("Error", "At least one entity should be in the list for displaying in the graph!", Notification.Wpf.NotificationType.Warning));
+                        return;
+                    }
                     CurrentViewModel = measurementsGraphViewModel;
                     break;
             }
