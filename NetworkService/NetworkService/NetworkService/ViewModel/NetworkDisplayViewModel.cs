@@ -29,8 +29,7 @@ namespace NetworkService.ViewModel
 
     public class NetworkDisplayViewModel : BindableBase
     {
-        private readonly DispatcherTimer _timer;
-        public ICommand ClearCanvasCommand { get; }
+
 
 
         public NetworkDisplayViewModel()
@@ -54,8 +53,9 @@ namespace NetworkService.ViewModel
             EntitiesInCanvas = MainWindowViewModel.EntitiesInCanvas;
             EntitiesInCanvas.CollectionChanged += EntitiesInCanvas_CollectionChanged;
         }
-        
 
+        private readonly DispatcherTimer _timer;
+        public ICommand ClearCanvasCommand { get; }
         public Dictionary<string, ObservableCollection<Model.Entity>> CanvasEntities { get; set; }
         public ObservableCollection<EntityByType> EntitiesTreeView { get; set; }
         public ObservableCollection<Model.Entity> EntitiesInCanvas { get; set; }
@@ -385,6 +385,7 @@ namespace NetworkService.ViewModel
                         if (entityType != null)
                         {
                             entityType.Entities.Add(entity);
+                            MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Entity back in the TreeView!", Notification.Wpf.NotificationType.Information));
                         }
                     }
                 }
@@ -398,12 +399,14 @@ namespace NetworkService.ViewModel
                     {
                         CanvasEntities[currentCanvasName].Remove(entity);
                         CanvasEntities[previousCanvasName].Add(entity);
+                        MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Entity back in the previous canvas!", Notification.Wpf.NotificationType.Information));
                     }
                 }
                 else if (lastActionNumber == 3)
                 {
-                    var entity = (Model.Entity)dataStack.Pop();
                     var canvasName = (string)dataStack.Pop();
+                    var entity = (Model.Entity)dataStack.Pop();
+                    
 
                     var entityType = EntitiesTreeView.FirstOrDefault(e => e.Type == entity.EntityType.ToString());
                     if (entityType != null)
@@ -413,6 +416,8 @@ namespace NetworkService.ViewModel
                         if (!EntitiesInCanvas.Contains(entity))
                         {
                             EntitiesInCanvas.Add(entity);
+                            MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Entity back in the canvas!", Notification.Wpf.NotificationType.Information));
+                            
                         }
                     }
                 }
@@ -427,6 +432,7 @@ namespace NetworkService.ViewModel
                     if (connection != null)
                     {
                         EntityConnections.Remove(connection);
+                        MainWindowViewModel.ShowToastNotification(new ToastNotification("Undo", "Connection undo successful!", Notification.Wpf.NotificationType.Information));
                     }
                 }
 

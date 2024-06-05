@@ -11,7 +11,41 @@
     <UserControl.DataContext>
         <viewModel:MeasurementGraphViewModel/>
     </UserControl.DataContext>
-
+    <UserControl.Resources>
+    <Style x:Key="MyButton" TargetType="Button">
+        <Setter Property="Background" Value="#EADBC8"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10 5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#DCC0B6"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#C3A69D"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    </UserControl.Resources>
 
     <Grid Background="#fffaf0">
         <Grid.RowDefinitions>
@@ -24,10 +58,15 @@
             <Label Content="ENTITY:" HorizontalAlignment="Center" FontSize="15"/>
             <ComboBox ItemsSource="{x:Static viewModel:MainWindowViewModel.Entities }" DisplayMemberPath="Name" Height="40" Width="200" SelectedIndex="{Binding SelectedIndex}" SelectedItem="{Binding SelectedComboBoxEntity}"/>
         </StackPanel>
-        <Button Grid.Row="1" Height="25" Width="80" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 20" Content="UNDO" Cursor="Hand"
+        <Button Grid.Row="1" Height="30" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 20" Cursor="Hand" Style="{StaticResource MyButton}" 
             ToolTip="Undo the last selection change"
             IsEnabled="{Binding IsUndoSelectionButtonEnabled}"
-            Command="{Binding UndoSelectionCommand}"/>
+            Command="{Binding UndoSelectionCommand}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <fa5:SvgAwesome Height="15" Icon="Solid_Undo" />
+                <TextBlock Margin="5,1,0,2" Text="UNDO" FontSize="15"/>
+            </StackPanel>
+        </Button>
         <Grid Background="#EADBC8" Grid.Row="2" Height="300" Width="350">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

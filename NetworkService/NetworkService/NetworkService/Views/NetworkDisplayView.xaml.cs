@@ -63,7 +63,6 @@ namespace NetworkService.Views
 
         private void ViewModel_LineDrawRequested(object sender, Tuple<Point, Point> e)
         {
-            // Draw a line between the two points
             var line = new Line
             {
                 X1 = e.Item1.X,

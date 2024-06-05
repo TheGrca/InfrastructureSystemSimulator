@@ -27,7 +27,6 @@ namespace NetworkService.ViewModel
             _selectionHistory = new Stack<Entity>();
             UndoSelectionCommand = new MyICommand(OnUndoSelection, CanUndoSelection);
             IsUndoSelectionButtonEnabled = false;
-            SelectedIndex = 1;
         }
 
         private string _logFilePath = "log.txt";
@@ -54,7 +53,6 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-
         public Dictionary<int, Brush> EllipseStrokeColors
         {
             get { return _ellipseStrokeColors; }
@@ -67,15 +65,16 @@ namespace NetworkService.ViewModel
         {
             get { return _ellipseConnectionPoints; }
         }
-
-
-
         public Dictionary<int, double> LastValues
         {
             get
             {
                 return _latestValues.ToDictionary(kv => kv.Key, kv => kv.Value.LastOrDefault()?.Value ?? 0.0);
             }
+        }
+        public Dictionary<int, Thickness> EllipseMargins
+        {
+            get { return _ellipseMargins; }
         }
 
 
@@ -153,7 +152,6 @@ namespace NetworkService.ViewModel
                 Application.Current.Dispatcher.Invoke(() => UpdateEllipsePropertiesForSelectedEntity());
             }
 
-            // Notify UI that the latest values for this entity index have changed
             Application.Current.Dispatcher.Invoke(() => {
             OnPropertyChanged($"LatestValues_{entityValue.Index}");
             OnPropertyChanged(nameof(LastValues));
@@ -186,15 +184,15 @@ namespace NetworkService.ViewModel
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
+
                 _ellipseMargins.Clear();
                 _ellipseStrokeColors.Clear();
                 _latestValuesTime.Clear();
 
-
                 var selectedEntityIndex = SelectedIndex;
                 var latestValuesForSelectedEntity = GetLatestValues(selectedEntityIndex);
 
-                
+
                 while (latestValuesForSelectedEntity.Count < 5)
                 {
                     latestValuesForSelectedEntity.Insert(0, new EntityValue { Value = 0, TimeStamp = DateTime.MinValue }); // Insert 0 at the beginning
@@ -221,11 +219,6 @@ namespace NetworkService.ViewModel
                 OnPropertyChanged(nameof(LatestValuesTime));
 
             });
-        }
-
-        public Dictionary<int, Thickness> EllipseMargins
-        {
-            get { return _ellipseMargins; }
         }
 
 
@@ -309,8 +302,6 @@ namespace NetworkService.ViewModel
                 }
             }
         }
-
-
 
         private void OnUndoSelection()
         {

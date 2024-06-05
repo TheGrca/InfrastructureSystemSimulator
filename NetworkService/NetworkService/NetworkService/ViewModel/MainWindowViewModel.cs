@@ -26,32 +26,32 @@ namespace NetworkService.ViewModel
             {
                 new Entity
                 {
-                    Id = 4,
-                    Name = "Naziv",
+                    Id = 1,
+                    Name = "Entitet1",
                     ImagePath = @"\Resources\Pictures\1.jpg",
                     EntityType = EntityType.IntervalMeter,
                     Value = 0
                 },
                 new Entity
                 {
-                    Id = 156,
-                    Name = "Naziv2",
+                    Id = 2,
+                    Name = "Entitet2",
                     ImagePath = @"\Resources\Pictures\2.jpg",
                     EntityType = EntityType.IntervalMeter,
                     Value = 0
                 },
                 new Entity
                 {
-                    Id = 8,
-                    Name = "Naziv3",
+                    Id = 3,
+                    Name = "Entitet3",
                     ImagePath = @"\Resources\Pictures\3.jpg",
                     EntityType = EntityType.IntervalMeter,
                     Value = 0
                 },
                 new Entity
                 {
-                    Id = 3,
-                    Name = "Nazi4",
+                    Id = 4,
+                    Name = "Entitet4",
                     ImagePath = @"\Resources\Pictures\4.png",
                     EntityType = EntityType.SmartMeter,
                     Value = 0
